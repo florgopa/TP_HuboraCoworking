@@ -1,0 +1,100 @@
+
+
+/* Estilos generales para la barra de navegación */
+.navbar {
+  background-color: #191A2E;
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ 
+}
+
+/* Contenedor principal de la barra de navegación */
+.navbarContainer {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Tamaño del logo como imagen */
+.logoImage {
+  height: 180px;
+  width: auto;
+  display: block;
+}
+
+/* Lista de elementos del menú principal */
+.navMenuLeft {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  margin-right: auto; 
+}
+
+/* Contenedor del enlace Iniciar Sesión */
+.navAuthRight {
+  display: flex;
+  margin-left: auto; 
+}
+
+/* Elemento individual del menú */
+.navItem {
+  margin-right: 2px; 
+
+}
+.navItem:last-child {
+    margin-right: 0; 
+}
+
+/* ... (Estilos de .navLinks y .navLinks:hover) ... */
+.navLinks {
+  color: white;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+.navLinks:hover {
+  color: #8FF14C;
+  text-shadow: 0 0 15px rgba(143, 241, 76, 0.9);
+  background-color: transparent;
+  box-shadow: none;
+  transform: none;
+  text-decoration: none;
+}
+
+
+/* Responsive: móviles */
+@media (max-width: 768px) {
+  .navbarContainer {
+    flex-direction: column;
+    text-align: center;
+    padding: 15px 20px;
+  }
+
+  .navMenuLeft, .navAuthRight {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .navItem {
+    margin: 10px 0;
+  }
+
+  .navLinks {
+    display: block;
+  }
+
+  .navbarLogo {
+    margin: 15px auto;
+    order: -1;
+  }
+}
