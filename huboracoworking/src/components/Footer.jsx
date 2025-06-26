@@ -26,14 +26,6 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Sección de contacto */}
-        <div className={styles.footerSection}>
-          <h3>Contacto</h3>
-          <p>Dirección: Calle Falsa 123, Godoy Cruz, Mendoza</p>
-          <p>Email: info@hubora.com</p>
-          <p>Teléfono: +54 9 261 123 4567</p>
-        </div>
-
         {/* Sección de redes sociales */}
         <div className={`${styles.footerSection} ${styles.socialLinks}`}>
           <h3>Síguenos</h3>
@@ -45,9 +37,9 @@ function Footer() {
         </div>
       </div>
 
-      {/* Sección inferior del footer con copyright */}
       <div className={styles.footerBottom}>
-        <p>&copy; {currentYear} Hubora Coworking. Todos los derechos reservados.</p>
+        <p>&copy; {currentYear} Hubora Coworking.</p>
+        <p> Plataformas de Desarrollo - Franco Chiquilito & Flor Gomez Pacheco</p>
       </div>
     </footer>
   );

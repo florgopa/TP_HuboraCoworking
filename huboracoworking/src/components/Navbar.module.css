@@ -1,55 +1,41 @@
-
-
-/* Estilos generales para la barra de navegación */
 .navbar {
   background-color: #191A2E;
-  padding: 1rem 0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- 
+  padding: 0.5rem 0;
 }
 
-/* Contenedor principal de la barra de navegación */
 .navbarContainer {
   display: flex;
-  justify-content: space-between; 
   align-items: center;
-  margin: 0 auto;
+  justify-content: space-between;
   padding: 0 20px;
 }
 
-/* Tamaño del logo como imagen */
-.logoImage {
-  height: 180px;
-  width: auto;
-  display: block;
+/* LOGO */
+.logoWrapper {
+  display: flex;
+  align-items: center;
 }
 
-/* Lista de elementos del menú principal */
-.navMenuLeft {
+.logoImage {
+  height: 60px;
+  width: auto;
+}
+
+/* MENÚ + MIHUB a la derecha */
+.navRightGroup {
+  display: flex;
+  align-items: center;
+}
+
+.navMenu {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  
-  margin-right: auto; 
 }
 
-/* Contenedor del enlace Iniciar Sesión */
-.navAuthRight {
-  display: flex;
-  margin-left: auto; 
-}
 
-/* Elemento individual del menú */
-.navItem {
-  margin-right: 2px; 
 
-}
-.navItem:last-child {
-    margin-right: 0; 
-}
-
-/* ... (Estilos de .navLinks y .navLinks:hover) ... */
 .navLinks {
   color: white;
   text-decoration: none;
@@ -58,43 +44,52 @@
 }
 
 .navLinks:hover {
-  color: #8FF14C;
+  color: #8EF14C;
   text-shadow: 0 0 15px rgba(143, 241, 76, 0.9);
-  background-color: transparent;
-  box-shadow: none;
-  transform: none;
   text-decoration: none;
 }
 
+.loginButton {
+  background: linear-gradient(to right, #8EF14C, #3DDAD7);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  color: #191A2E;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-position 0.4s ease-in-out;
+  background-size: 200% auto;
+  background-position: left center;
+}
 
-/* Responsive: móviles */
+.loginButton:hover {
+  background-position: right center;
+  color: white;
+   background: linear-gradient(to left, #8EF14C, #3DDAD7);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .navbarContainer {
     flex-direction: column;
-    text-align: center;
-    padding: 15px 20px;
+    align-items: center;
   }
 
-  .navMenuLeft, .navAuthRight {
+  .navRightGroup {
     flex-direction: column;
-    width: 100%;
-    margin-top: 15px;
-    justify-content: center;
     align-items: center;
-    margin-left: 0;
-    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .navMenu {
+    flex-direction: column;
+    align-items: center;
   }
 
   .navItem {
-    margin: 10px 0;
+    margin: 8px 0;
   }
 
-  .navLinks {
-    display: block;
-  }
-
-  .navbarLogo {
-    margin: 15px auto;
-    order: -1;
+  .loginButton {
+    margin: 10px 0 0 0;
   }
 }

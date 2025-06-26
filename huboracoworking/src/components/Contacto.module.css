@@ -1,0 +1,181 @@
+/* src/components/Contacto.module.css */
+
+.sectionDescription {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #555;
+}
+
+.contactContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  justify-content: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 20px;
+}
+
+.contactFormContainer,
+.contactInfoContainer {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.contactFormContainer h3,
+.contactInfoContainer h3 {
+  font-size: 1.8rem;
+  color: #0F3460; 
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.contactFormContainer h3::after,
+.contactInfoContainer h3::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 4px;
+  background-color: #8EF14C; 
+  border-radius: 2px;
+}
+
+.contactForm .formGroup {
+  margin-bottom: 15px;
+}
+
+.contactForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.contactForm input[type="text"],
+.contactForm input[type="email"],
+.contactForm textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.contactForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submitButton {
+  background-color: #8EF14C;
+  color: #0F3460;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.submitButton:hover {
+  background-color: #6DC23B;
+}
+
+.contactInfoContainer p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.contactInfoContainer strong {
+  color: #0F3460;
+}
+
+.contactInfoContainer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.contactInfoContainer ul li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.contactInfoContainer ul li svg {
+    margin-right: 10px;
+    color: #0F3460;
+    font-size: 1.2rem;
+}
+
+.mapContainer {
+  margin-top: 25px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  height: 300px;
+}
+
+.mapContainer iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Responsive para móviles y tablets */
+@media (max-width: 768px) {
+  .contactContent {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 15px;
+  }
+  .contactFormContainer,
+  .contactInfoContainer {
+      padding: 20px;
+      min-width: unset;
+  }
+  .contactFormContainer h3,
+  .contactInfoContainer h3 {
+      font-size: 1.5rem;
+      text-align: left;
+  }
+  .contactFormContainer h3::after,
+  .contactInfoContainer h3::after {
+      left: 0;
+      transform: translateX(0);
+      width: 50%;
+  }
+  .mapContainer {
+    height: 250px;
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,152 @@
+/* src/components/Planes.module.css */
+
+.sectionDescription {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.planesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.planCard {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #333;
+}
+
+.planCard.highlighted {
+  background-color: #8EF14C; /* Verde llamativo para el plan destacado */
+  color: #0F3460; /* Texto oscuro para el fondo verde */
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(142, 241, 76, 0.3);
+  border: 2px solid #0F3460;
+}
+
+.planCard:hover:not(.highlighted) {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.planCard h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: inherit; /* Hereda el color del padre (para el plan destacado) */
+}
+
+.planCard.highlighted h3 {
+  color: #0F3460; /* Asegura el color oscuro para el título del plan destacado */
+}
+
+.planPrice {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #0F3460;
+  margin-bottom: 10px;
+}
+
+.planCard.highlighted .planPrice {
+  color: #0F3460; /* Asegura el color oscuro del precio en el plan destacado */
+}
+
+.planDescription {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  flex-grow: 1; /* Para que el contenido crezca y los botones se alineen */
+}
+
+.planFeatures {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  text-align: left;
+  width: 100%;
+}
+
+.planFeatures li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 25px;
+  color: #555;
+}
+
+.planCard.highlighted .planFeatures li {
+  color: #0F3460; /* Color de texto para las características del plan destacado */
+}
+
+.planFeatures li::before {
+  content: '✓';
+  color: #8EF14C;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.planCard.highlighted .planFeatures li::before {
+  color: #0F3460; /* Color del check en el plan destacado */
+}
+
+.planButton {
+  background-color: #0F3460;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 80%;
+  max-width: 200px;
+  margin-top: auto; /* Empuja el botón hacia abajo */
+}
+
+.planButton:hover {
+  background-color: #1a4f8a;
+}
+
+.planCard.highlighted .planButton {
+  background-color: #0F3460;
+  color: #8EF14C; /* Texto verde para el botón del plan destacado */
+  font-weight: bold;
+}
+
+.planCard.highlighted .planButton:hover {
+  background-color: #0a2747;
+  color: white;
+}
+
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .planesGrid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .planCard.highlighted {
+    transform: scale(1.02); /* Menos escala en móvil */
+  }
+
+  .planCard h3 {
+    font-size: 1.8rem;
+  }
+
+  .planPrice {
+    font-size: 2.2rem;
+  }
+}
