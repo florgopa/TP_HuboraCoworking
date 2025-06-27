@@ -1,22 +1,27 @@
+// src/pages/Login.jsx
 import React from 'react';
-// import styles from './Login.module.css';
+// La ruta del CSS de módulo cambia porque Login.jsx está ahora en 'pages'
+import styles from '../components/Login.module.css'; // Asumiendo que Login.module.css sigue en 'src/components/'
+import bgLogin from '../assets/bg_login.jpg'; // La ruta de la imagen sigue siendo relativa a 'src/assets/'
 
 function Login() {
   return (
-    <div className="content-section">
-      <h2>Iniciar Sesión</h2>
-      <p>Por favor, ingresa tus credenciales para acceder.</p>
-      <form>
-        <div>
-          <label htmlFor="loginEmail">Email:</label>
-          <input type="email" id="loginEmail" name="email" required />
-        </div>
-        <div>
-          <label htmlFor="loginPassword">Contraseña:</label>
-          <input type="password" id="loginPassword" name="password" required />
-        </div>
-        <button type="submit">Entrar</button>
-      </form>
+    <div className={styles.loginContainer} style={{ backgroundImage: `url(${bgLogin})` }}>
+      <div className={styles.loginBox}>
+        <h2>Iniciar Sesión</h2>
+        <form className={styles.loginForm}>
+          <div className={styles.formGroup}>
+            <label htmlFor="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="password">Contraseña:</label>
+            <input type="password" id="password" name="password" placeholder="********" required />
+          </div>
+          <button type="submit" className={styles.loginButton}>Entrar</button>
+        </form>
+        <p className={styles.forgotPassword}>¿Olvidaste tu contraseña? <a href="#">Recuperar</a></p>
+      </div>
     </div>
   );
 }

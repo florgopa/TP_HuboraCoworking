@@ -1,0 +1,164 @@
+/* src/components/AdminPanel.module.css */
+
+.adminPanelContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px));
+  width: 100vw; /* Asegura que ocupe todo el ancho de la ventana */
+  position: relative; /* Necesario para posicionar el ::before */
+  overflow: hidden; /* Para que el ::before no se desborde */
+}
+
+.adminPanelContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/bg_login.jpg'); /* Usa la misma imagen de login */
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px); /* Aplicamos el blur al fondo */
+  z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+}
+
+.panelBox {
+  z-index: 1; /* Asegura que este panel esté por encima del fondo borroso */
+  position: relative; /* Necesario para que z-index funcione correctamente */
+  
+  background-color: rgba(255, 255, 255, 0.15); /* Fondo blanco semitransparente para el efecto glassmorphism */
+  backdrop-filter: blur(10px); /* El efecto de blur en el fondo del cuadro */
+  -webkit-backdrop-filter: blur(10px); /* Compatibilidad con Safari */
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil para el efecto glass */
+  padding: 40px;
+  width: 90%; /* Ajusta el ancho para que no sea tan estrecho como el login */
+  max-width: 1000px; /* Un panel más amplio */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+  color: #fff; /* Color de texto blanco para contrastar con el fondo blur */
+  text-align: center; /* Centra el contenido principal si es necesario */
+}
+
+.panelHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.panelTitle {
+  font-size: 3rem;
+  color: #fff; /* Título blanco */
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.panelContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid para los ítems dentro del panel */
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.contentItem { /* Renombrado de contentCard a contentItem para diferenciarlo de las "tarjetas" antiguas */
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo ligeramente transparente para cada ítem dentro del panel */
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 180px; /* Altura mínima para uniformidad */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contentItem:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.contentItem h3 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.contentItem p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.actionButton {
+  background-color: #8EF14C; /* Tu color verde */
+  color: #0F3460; /* Texto azul oscuro */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #6DC23B; /* Verde más oscuro */
+  transform: translateY(-2px);
+}
+
+.panelFooter {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive para AdminPanel */
+@media (max-width: 992px) {
+  .panelBox {
+    width: 95%;
+    padding: 30px;
+  }
+  .panelTitle {
+    font-size: 2.5rem;
+  }
+  .panelContent {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+  .contentItem {
+    min-height: 160px;
+    padding: 20px;
+  }
+  .contentItem h3 {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .adminPanelContainer {
+    padding: 20px 10px;
+  }
+  .panelBox {
+    padding: 25px;
+  }
+  .panelTitle {
+    font-size: 2rem;
+  }
+  .panelContent {
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    gap: 20px;
+  }
+  .contentItem {
+    min-height: auto;
+  }
+}

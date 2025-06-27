@@ -14,9 +14,13 @@ import Contacto from './components/Contacto';
 import Login from './pages/Login';
 import UserPanel from './pages/UserPanel';
 import AdminPanel from './pages/AdminPanel';
-
+import NotFound from './pages/404'; // Importa el componente 404 desde pages/404.jsx (una sola vez)
 
 function App() {
+  // Aquí podrías tener lógica para verificar permisos o estado de autenticación
+  // Por ejemplo, para un acceso denegado si el usuario no tiene permisos de admin
+  const userIsAdmin = true; // Esto debería ser dinámico basado en tu lógica de autenticación
+
   return (
     <Router>
       <div className="app-container">
@@ -38,7 +42,22 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/usuario" element={<UserPanel />} />
-            <Route path="/admin" element={<AdminPanel />} />
+            
+            {/* Ruta protegida para el AdminPanel */}
+            {userIsAdmin ? (
+              <Route path="/admin" element={<AdminPanel />} />
+            ) : (
+              // Si el usuario no es admin, redirige a 404 o 
+              <Route path="/admin" element={<NotFound />} /> 
+            )}
+            {/* UserPanel */}
+             <Route path="/usuario" element={<UserPanel />} /> 
+             
+            {/* Ruta explícita para el 404. */}
+            <Route path="/404" element={<NotFound />} />
+
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

@@ -5,18 +5,18 @@
   box-sizing: border-box;
 }
 
+
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-x: hidden;
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
-  color: #333; /* Color de texto oscuro por defecto para la mayoría del contenido */
   background-color: #F6F6F6; 
 }
 
 /* CONTENEDOR PRINCIPAL */
-.app-container { /* Clase que envuelve tu app en App.jsx */
+.app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -71,8 +71,6 @@ body {
 
 /* ESTILOS GLOBALES PARA LOS TÍTULOS H2 */
 
-
-/* Estilos para los párrafos de las secciones generales */
 .content-section p { 
     font-size: 1.1rem;
     line-height: 1.6;
@@ -82,7 +80,7 @@ body {
 
 /* ENLACES GENERALES */
 a {
-  color: #8EF14C; /* Tu color verde para enlaces */
+  color: #8EF14C; 
   text-decoration: none;
 }
 

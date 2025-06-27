@@ -1,0 +1,212 @@
+.userPanelContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px));
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pseudo-elemento para la imagen de fondo borrosa (copiado de AdminPanel) */
+.userPanelContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/bg_login.jpg'); /* Usa la misma imagen de login */
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px); /* Aplicamos el blur al fondo */
+  z-index: -1; 
+}
+
+
+.panelBox {
+  z-index: 1;
+  position: relative;
+  
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 90%;
+  max-width: 1000px; /* Un panel amplio */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.panelHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.panelTitle {
+  font-size: 3rem;
+  color: #fff; /* Título blanco */
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.panelContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid para los ítems dentro del panel */
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.contentItem {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contentItem:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.contentItem h3 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.contentItem p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.actionButton {
+  background-color: #8EF14C; /* Tu color verde */
+  color: #0F3460; /* Texto azul oscuro */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #6DC23B;
+  transform: translateY(-2px);
+}
+
+/* Estilos específicos para el input de fecha y otros formularios dentro de contentItem */
+.formGroup {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: left; /* Alinea etiquetas y campos a la izquierda */
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dateInput {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box; /* Incluye padding en el ancho */
+  cursor: pointer;
+}
+
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* Hace el ícono del calendario blanco */
+  cursor: pointer;
+}
+
+.dateInput:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.actionButton[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #5C7738; /* Un verde más apagado cuando está deshabilitado */
+}
+
+
+.panelFooter {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive para UserPanel */
+@media (max-width: 992px) {
+  .panelBox {
+    width: 95%;
+    padding: 30px;
+  }
+  .panelTitle {
+    font-size: 2.5rem;
+  }
+  .panelContent {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+  .contentItem {
+    min-height: 160px;
+    padding: 20px;
+  }
+  .contentItem h3 {
+    font-size: 1.4rem;
+  }
+  .dateInput {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .userPanelContainer {
+    padding: 20px 10px;
+  }
+  .panelBox {
+    padding: 25px;
+  }
+  .panelTitle {
+    font-size: 2rem;
+  }
+  .panelContent {
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    gap: 20px;
+  }
+  .contentItem {
+    min-height: auto;
+  }
+}

@@ -1,0 +1,78 @@
+/* src/components/404.module.css */
+
+.notFoundContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px)); /* Altura total menos navbar/footer si los tienes */
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #0F3460; /* Un fondo ligeramente diferente al principal */
+  
+}
+
+.statusCode {
+  font-size: 8rem; /* Gran tamaño para el 404 */
+  color: #5bdbdb; /* Tu color naranja */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.message {
+  font-size: 2.5rem;
+  color: #F6F6F6; /* Tu color azul oscuro */
+  margin-bottom: 15px;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #F6F6F6;
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.homeButton {
+  display: inline-block;
+  background-color: #8EF14C; /* Tu color verde para el botón */
+  color: #191A2E; /* Texto azul oscuro en el botón */
+  padding: 15px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.homeButton:hover {
+  background: linear-gradient(to left, #8EF14C, #3DDAD7);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .statusCode {
+    font-size: 6rem;
+  }
+  .message {
+    font-size: 2rem;
+  }
+  .description {
+    font-size: 1rem;
+  }
+  .homeButton {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .statusCode {
+    font-size: 4rem;
+  }
+  .message {
+    font-size: 1.5rem;
+  }
+}

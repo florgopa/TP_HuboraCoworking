@@ -39,12 +39,12 @@ function Servicios() {
     },
     { 
       name: 'Alquiler de lockers', 
-      description: 'Un espacio seguro donde puedes dejar tus pertenencias personales.', 
+      description: 'Un espacio seguro donde podes dejar tus pertenencias personales.', 
       icon: IconoLockers 
     },
     { 
       name: 'Impresoras', 
-      description: 'Podés usar tus créditos para imprimir lo que necesites de forma rápida y sencilla.', 
+      description: 'Para imprimir lo que necesites de forma rápida y sencilla.', 
       icon: IconoImpresoras 
     },
     { 

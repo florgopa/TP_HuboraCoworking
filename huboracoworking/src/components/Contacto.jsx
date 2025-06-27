@@ -1,12 +1,11 @@
-// src/components/Contacto.jsx
 import React from 'react';
-import styles from './Contacto.module.css'; // Mantenemos el import para estilos específicos de Contacto
+import styles from './Contacto.module.css'; 
 
 function Contacto() {
   return (
     <section id="contacto" className="content-section">
-     <div className="mainTitleContainer"> {/* SIN styles. */}
-  <h2 className="mainTitle">Contactate</h2> {/* SIN styles. */}
+     <div className="mainTitleContainer"> 
+  <h2 className="mainTitle">Contactate</h2> 
 </div>
 
       <p className={styles.sectionDescription}>Estamos aquí para responder todas tus preguntas. Envíanos un mensaje o visítanos.</p>

@@ -1,8 +1,8 @@
 /* src/components/Servicios.module.css */
 
 .serviciosSection { 
-  background-color: #F6F6F6; /* Fondo gris claro específico para Servicios si content-section es blanco */
-  padding: 60px 0; /* Padding si el main-content no lo tiene */
+  background-color: #F6F6F6; 
+  padding: 60px 0; 
 }
 
 .serviciosGrid {

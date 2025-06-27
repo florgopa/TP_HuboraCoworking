@@ -17,11 +17,11 @@ function Navbar() {
         {/* Menú + MiHUB a la derecha */}
         <div className={styles.navRightGroup}>
           <ul className={styles.navMenu}>
-            <li className={styles.navItem}><a href="/nosotros" className={styles.navLinks}>Nosotros</a></li>
-            <li className={styles.navItem}><a href="/espacios" className={styles.navLinks}>Espacios</a></li>
-            <li className={styles.navItem}><a href="/servicios" className={styles.navLinks}>Servicios</a></li>
-            <li className={styles.navItem}><a href="/planes" className={styles.navLinks}>Planes</a></li>
-            <li className={styles.navItem}><a href="/contacto" className={styles.navLinks}>Contacto</a></li>
+            <li className={styles.navItem}><a href="#nosotros" className={styles.navLinks}>Nosotros</a></li>
+            <li className={styles.navItem}><a href="#espacios" className={styles.navLinks}>Espacios</a></li>
+            <li className={styles.navItem}><a href="#servicios" className={styles.navLinks}>Servicios</a></li>
+            <li className={styles.navItem}><a href="#planes" className={styles.navLinks}>Planes</a></li>
+            <li className={styles.navItem}><a href="#contacto" className={styles.navLinks}>Contacto</a></li>
           </ul>
           <Link to="/login" className={styles.loginButton}>MiHUB</Link> 
         </div>
