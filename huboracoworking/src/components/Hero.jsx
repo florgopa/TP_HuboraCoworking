@@ -1,16 +1,11 @@
-// src/components/Hero.jsx
 import React, { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
-
-// Importa todas tus 5 imágenes para el carrusel.
-// ¡Asegúrate de que los nombres de archivo coincidan exactamente con los de tu carpeta src/assets/!
 import EspacioImg from '../assets/espacio.jpg';
 import ReunionesImg from '../assets/reuniones.jpg';
 import CocinaImg from '../assets/cocina.jpg';
 import ConferenciaImg from '../assets/conferencia.jpg';
 import NetworkingImg from '../assets/networking.jpg';
 
-// Array con objetos para cada "slide" del carrusel, incluyendo imagen, título y descripción
 const heroSlides = [
   {
     src: EspacioImg,
@@ -47,7 +42,7 @@ function Hero() {
       setCurrentSlideIndex((prevIndex) => 
         (prevIndex + 1) % heroSlides.length
       );
-    }, 5000); // Cambia la imagen cada 5 segundos
+    }, 5000); 
 
     return () => clearInterval(interval); 
   }, []);
@@ -56,16 +51,14 @@ function Hero() {
     <section 
       id="hero" 
       className={styles.heroSection}
-      // Aplica la imagen de fondo actual del carrusel desde el objeto
       style={{ backgroundImage: `url(${heroSlides[currentSlideIndex].src})` }}
     >
-      {/* Contenido del Hero (título, texto y botón) */}
+   
       <div className={styles.heroContent}>
-        <h1>{heroSlides[currentSlideIndex].title}</h1> {/* Título dinámico */}
-        <p>{heroSlides[currentSlideIndex].description}</p> {/* Descripción dinámica */}
+        <h1>{heroSlides[currentSlideIndex].title}</h1> 
+        <p>{heroSlides[currentSlideIndex].description}</p> 
       </div>
 
-      {/* Indicadores del carrusel */}
       <div className={styles.carouselIndicators}>
         {heroSlides.map((_, index) => (
           <span 

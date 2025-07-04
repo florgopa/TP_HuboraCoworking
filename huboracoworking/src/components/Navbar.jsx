@@ -1,14 +1,12 @@
-// src/components/Navbar.jsx
-import React, { useState } from 'react'; // Importamos useState
+import React, { useState } from 'react'; 
 import styles from './Navbar.module.css';
 import Logo from '../assets/Logo.svg';
-import MenuIcon from '../assets/menu-icon.svg'; // Importamos el ícono del menú
+import MenuIcon from '../assets/menu-icon.svg';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Estado para controlar la visibilidad del menú móvil
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Función para alternar el estado del menú
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -16,21 +14,16 @@ function Navbar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.navbarContainer}>
-        {/* Logo a la izquierda */}
         <div className={styles.logoWrapper}>
           <a href="/">
             <img src={Logo} alt="Hubora Logo" className={styles.logoImage} />
           </a>
         </div>
 
-        {/* Botón de Menú Hamburguesa (visible solo en pantallas pequeñas) */}
         <div className={styles.hamburger} onClick={toggleMenu} aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}>
-          {/* Puedes usar un SVG diferente para el ícono de cerrar si lo tienes */}
           <img src={MenuIcon} alt="Menú" className={styles.hamburgerIcon} />
         </div>
 
-        {/* Menú de Navegación + MiHUB a la derecha */}
-        {/* La clase 'navRightGroupOpen' se aplica cuando el menú está abierto en móvil */}
         <div className={`${styles.navRightGroup} ${isMenuOpen ? styles.navRightGroupOpen : ''}`}>
           <ul className={styles.navMenu}>
             <li className={styles.navItem}><a href="#nosotros" className={styles.navLinks} onClick={toggleMenu}>Nosotros</a></li>

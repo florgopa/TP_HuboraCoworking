@@ -1,12 +1,10 @@
-/* src/components/Contacto.module.css */
-
 .contactoSection {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
-  height: 1100px; /* MANTENIDO: Altura fija de la sección para el fondo */
+  height: 1100px; 
   color: #F6F6F6;
   font-family: 'Inter', sans-serif;
 }
@@ -16,7 +14,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* En desktop, cubre la altura total del .contactoSection (1100px) */
+  height: 100%; 
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1;
   display: flex;
@@ -54,9 +52,9 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
-  width: 190px; /* Ancho del subrayado */
+  width: 190px; 
   height: 4px;
-  background-color: #8EF14C; /* Color verde vibrante */
+  background-color: #8EF14C; 
   border-radius: 2px;
 }
 
@@ -72,7 +70,7 @@
 
 .contactContent {
   display: flex;
-  flex-wrap: wrap; /* Por defecto, envuelve en desktop */
+  flex-wrap: wrap; 
   gap: 30px;
   margin-top: 20px;
   margin-bottom: 30px;
@@ -86,7 +84,7 @@
 .contactFormContainer {
   flex: 1;
   min-width: 300px;
-  background-color: rgba(33, 45, 78, 0.479); /* Mantenido el color que te gusta */
+  background-color: rgba(33, 45, 78, 0.479); 
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 30px;
@@ -97,7 +95,7 @@
 .contactInfoContainer {
   flex: 1;
   min-width: 300px;
-  background-color: rgba(33, 45, 78, 0.479); /* Mantenido el color que te gusta */
+  background-color: rgba(33, 45, 78, 0.479);
   border-radius: 10px;
   padding: 30px;
   color: #F6F6F6;
@@ -108,7 +106,7 @@
 .contactFormContainer h3,
 .contactInfoContainer h3 {
   font-size: 1.8rem;
-  color: #F6F6F6; /* Mantenido el color que te gusta */
+  color: #F6F6F6;
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
@@ -178,12 +176,12 @@
   appearance: none;
 }
 
-/* Placeholder color para inputs con fondo transparente */
+
 .contactForm input::placeholder,
 .contactForm textarea::placeholder {
   color: rgba(246, 246, 246, 0.7);
 }
-/* Color del texto del input cuando está lleno */
+
 .contactForm input,
 .contactForm textarea,
 .contactForm select {
@@ -191,9 +189,8 @@
 }
 
 
-/* Estilo específico para el icono del calendario en input type="date" */
 .contactForm input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* AJUSTADO: para que sea blanco y visible en fondos oscuros */
+    filter: invert(1); 
     cursor: pointer;
 }
 
@@ -308,7 +305,6 @@
 }
 
 /* Media Queries*/
-
 @media (max-width: 768px) {
   .contactoSection {
     height: auto;

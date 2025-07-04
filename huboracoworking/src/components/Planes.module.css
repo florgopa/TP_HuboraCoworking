@@ -1,21 +1,18 @@
-/* src/components/Planes.module.css */
-
 .planesSection {
-  padding: 20px 20px; /* Padding general de la sección */
-  background-color: #16213E; /* Fondo de la sección */
+  padding: 20px 20px; 
+  background-color: #16213E;
   font-family: 'Inter', sans-serif;
-  color: #333; /* Color de texto general para la sección */
+  color: #333; 
 }
 
-/* Estilos para el título principal (consistente con Contacto y Nosotros) */
 .mainTitleContainer {
-  margin-bottom: 20px; /* Margen debajo del título */
+  margin-bottom: 20px; 
   text-align: center;
 }
 
 .mainTitle {
   font-size: 2.8rem;
-  color: #F6F6F6; /* Título principal azul oscuro */
+  color: #F6F6F6;
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
@@ -27,9 +24,9 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
-  width: 190px; /* Ancho del subrayado */
+  width: 190px;
   height: 4px;
-  background-color: #8EF14C; /* Color verde vibrante */
+  background-color: #8EF14C; 
   border-radius: 2px;
 }
 
@@ -45,32 +42,31 @@
 
 .planesGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajustado minmax para un poco más de ancho */
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   margin-top: 20px;
-  max-width: 1200px; /* Limita el ancho de la cuadrícula */
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .planCard {
-  background-color: #FFFFFF; /* Fondo blanco para las tarjetas */
+  background-color: #FFFFFF;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra inicial sutil */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   padding: 30px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición para el hover */
-  color: #333; /* Color de texto por defecto para la tarjeta */
-  position: relative; /* Necesario para posicionar la etiqueta 'MÁS POPULAR' */
-  overflow: hidden; /* Para que la sombra no se corte en los bordes */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #333;
+  position: relative;
+  overflow: hidden;
 }
 
 .planCard.highlighted {
   background-color: #0fff37c2; 
-  color: #FFFFFF; /* Texto blanco para el fondo naranja */
+  color: #FFFFFF; 
   border: 2px solid #080f70; 
 }
 
@@ -79,18 +75,17 @@
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2); 
 }
 
-/* El plan destacado también tiene efecto de hover */
 .planCard.highlighted:hover {
-  transform: translateY(-8px) scale(1.02); /* Combina el lift con un ligero scale si quieres */
-  box-shadow: 0 15px 30px rgba(0, 247, 0, 0.651); /* Sombra aún más pronunciada para el destacado */
+  transform: translateY(-8px) scale(1.02); 
+  box-shadow: 0 15px 30px rgba(0, 247, 0, 0.651); 
 }
 
 .highlightLabel {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%); /* Centra y sube la etiqueta */
-  background-color: #F6F6F6; /* Naranja para la etiqueta */
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #F6F6F6; 
   color: #FFFFFF;
   padding: 5px 15px;
   border-radius: 20px;
@@ -99,18 +94,18 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 10; /* Asegura que esté por encima de la tarjeta */
+  z-index: 10;
 }
 
 .planCard h3 {
   font-size: 2rem;
-  margin-top: 20px; /* Espacio para la etiqueta */
+  margin-top: 20px; 
   margin-bottom: 10px;
-  color: #0F3460; /* Color azul oscuro por defecto */
+  color: #0F3460; 
 }
 
 .planCard.highlighted h3 {
-  color: #FFFFFF; /* Título blanco para el plan destacado */
+  color: #FFFFFF;
 }
 
 .planPrice {
@@ -163,14 +158,14 @@
 }
 
 .checkIcon {
-  color: #8EF14C; /* Color verde para el checkmark */
+  color: #8EF14C; 
   position: absolute;
   left: 0;
   font-weight: bold;
 }
 
 .planCard.highlighted .checkIcon {
-  color: #FFFFFF; /* Checkmark blanco para el plan destacado */
+  color: #FFFFFF; 
 }
 
 .planButton {
@@ -181,12 +176,12 @@
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Transición para color en hover */
+  transition: background-color 0.3s ease, color 0.3s ease; 
   width: 80%;
   max-width: 200px;
-  margin-top: auto; /* Empuja el botón hacia abajo */
-  font-weight: bold; /* Negrita para los botones */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para los botones */
+  margin-top: auto;
+  font-weight: bold; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 .planButton:hover {
@@ -195,12 +190,12 @@
 }
 
 .planCard.highlighted .planButton {
-  background-color: #FFFFFF; /* Botón blanco para el plan destacado */
-  color: #0F3460; /* Texto azul oscuro en botón destacado */
+  background-color: #FFFFFF; 
+  color: #0F3460;
 }
 
 .planCard.highlighted .planButton:hover {
-  background-color: #E0E0E0; /* Gris claro en hover para botón destacado */
+  background-color: #E0E0E0; 
   color: #0F3460;
 }
 

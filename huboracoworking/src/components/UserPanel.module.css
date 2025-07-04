@@ -8,7 +8,6 @@
   overflow: hidden;
 }
 
-/* Pseudo-elemento para la imagen de fondo borrosa */
 .userPanelContainer::before {
   content: '';
   position: absolute;
@@ -16,7 +15,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../assets/bg_login.jpg'); /* Usa la misma imagen de login */
+  background-image: url('../assets/bg_login.jpg');
   background-size: cover;
   background-position: center;
   filter: blur(5px); 
@@ -49,7 +48,7 @@
 
 .panelTitle {
   font-size: 3rem;
-  color: #fff; /* Título blanco */
+  color: #fff;
   margin-bottom: 15px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
@@ -101,8 +100,8 @@
 }
 
 .actionButton {
-  background-color: #8EF14C; /* Tu color verde */
-  color: #0F3460; /* Texto azul oscuro */
+  background-color: #8EF14C; 
+  color: #0F3460; 
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -141,12 +140,12 @@
   color: #fff;
   font-size: 1rem;
   outline: none;
-  box-sizing: border-box; /* Incluye padding en el ancho */
+  box-sizing: border-box; 
   cursor: pointer;
 }
 
 .dateInput::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* Hace el ícono del calendario blanco */
+  filter: invert(1); 
   cursor: pointer;
 }
 
@@ -158,7 +157,7 @@
 .actionButton[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: #5C7738; /* Un verde más apagado cuando está deshabilitado */
+    background-color: #5C7738; 
 }
 
 
@@ -201,7 +200,7 @@
     font-size: 2rem;
   }
   .panelContent {
-    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    grid-template-columns: 1fr; 
     gap: 20px;
   }
   .contentItem {

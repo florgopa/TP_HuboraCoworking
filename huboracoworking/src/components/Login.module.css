@@ -1,5 +1,3 @@
-/* src/components/Login.module.css */
-
 .loginContainer {
   display: flex;
   justify-content: center;
@@ -29,10 +27,10 @@
   z-index: 1; 
   position: relative;
   background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px); /* Ajustado a 10px para consistencia con User/Admin Panel */
-  -webkit-backdrop-filter: blur(10px); /* Ajustado a 10px para consistencia con User/Admin Panel */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px); 
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3); /* ¡CORREGIDO! Eliminado el '/' extra aquí */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 40px;
   width: 100%;
   max-width: 400px;

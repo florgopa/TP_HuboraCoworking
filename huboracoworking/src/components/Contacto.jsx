@@ -1,19 +1,18 @@
-// src/components/Contacto.jsx
-import React, { useState } from 'react'; // Importamos useState
+import React, { useState } from 'react';
 import styles from './Contacto.module.css';
-import ContactoBg from '../assets/contactobg.jpg'; // Importamos la imagen de fondo
+import ContactoBg from '../assets/contactobg.jpg'; 
 
 function Contacto() {
   // Estados para los campos del formulario
-  const [fullName, setFullName] = useState(''); // Nombre y Apellido
+  const [fullName, setFullName] = useState(''); 
   const [email, setEmail] = useState('');
-  const [countryCode, setCountryCode] = useState('+54'); // Código de país, default Argentina
-  const [phoneNumber, setPhoneNumber] = useState(''); // Número de teléfono
-  const [solutionType, setSolutionType] = useState(''); // Solución Ideal
-  const [numPeople, setNumPeople] = useState(''); // Cantidad de Personas
-  const [estimatedDate, setEstimatedDate] = useState(''); // Fecha de Ingreso Estimada
+  const [countryCode, setCountryCode] = useState('+54'); 
+  const [phoneNumber, setPhoneNumber] = useState(''); 
+  const [solutionType, setSolutionType] = useState(''); 
+  const [numPeople, setNumPeople] = useState(''); 
+  const [estimatedDate, setEstimatedDate] = useState(''); 
   const [message, setMessage] = useState('');
-  const [promoCode, setPromoCode] = useState(''); // Promocode
+  const [promoCode, setPromoCode] = useState(''); 
 
   // Estados para el feedback al usuario
   const [loading, setLoading] = useState(false);
@@ -21,16 +20,16 @@ function Contacto() {
   const [errorMessage, setErrorMessage] = '';
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Previene el comportamiento por defecto del formulario (recargar la página)
+    e.preventDefault(); 
 
-    setLoading(true); // Activa el estado de carga
-    setSuccessMessage(''); // Limpia mensajes anteriores
-    setErrorMessage(''); // Limpia mensajes anteriores
+    setLoading(true); 
+    setSuccessMessage(''); 
+    setErrorMessage(''); 
 
     const formData = {
       fullName,
       email,
-      phoneNumber: `${countryCode} ${phoneNumber}`, // Combina el código de país y el número
+      phoneNumber: `${countryCode} ${phoneNumber}`, 
       solutionType,
       numPeople,
       estimatedDate,
@@ -39,8 +38,7 @@ function Contacto() {
     };
 
     try {
-      // Simula el envío a una API. En un proyecto real, esta URL sería tu función serverless o backend.
-      const response = await fetch('/api/send-contact-form', { // URL de ejemplo
+      const response = await fetch('/api/send-contact-form', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +82,7 @@ function Contacto() {
         <div className={styles.contactContent}>
           <div className={styles.contactFormContainer}>
             <h3>Envíanos un Mensaje</h3>
-            {/* Añadimos el onSubmit al formulario */}
+    
             <form className={styles.contactForm} onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label htmlFor="fullName">Nombre y Apellido:</label>
@@ -95,10 +93,10 @@ function Contacto() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  disabled={loading} // Deshabilita los campos durante la carga
+                  disabled={loading} 
                 />
               </div>
-              {/* Contenedor para los campos de Correo y Teléfono en dos columnas */}
+      
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="email">Correo:</label>
@@ -114,7 +112,7 @@ function Contacto() {
                 </div>
                 <div className={styles.formGroup}>
                   <label htmlFor="phoneNumber">Número de teléfono:</label>
-                  <div className={styles.phoneInputGroup}> {/* Nuevo div para agrupar selector y input */}
+                  <div className={styles.phoneInputGroup}> 
                     <select
                       id="countryCode"
                       name="countryCode"
@@ -129,10 +127,10 @@ function Contacto() {
                       <option value="+57">Col. +57</option>
                       <option value="+34">Esp. +34</option>
                       <option value="+1">USA/Can. +1</option>
-                      {/* Puedes añadir más países según necesites */}
+                    
                     </select>
                     <input
-                      type="tel" // Usamos type="tel" para números de teléfono
+                      type="tel" 
                       id="phoneNumber"
                       name="phoneNumber"
                       value={phoneNumber}
@@ -143,7 +141,7 @@ function Contacto() {
                   </div>
                 </div>
               </div>
-              {/* Contenedor para Solución Ideal, Cantidad de Personas en dos columnas */}
+              
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
                   <label htmlFor="solutionType">Quiero info sobre:</label>
@@ -180,7 +178,7 @@ function Contacto() {
                   </select>
                 </div>
               </div>
-              <div className={styles.formGroup}> {/* Fecha de Ingreso Estimada ahora es un solo campo */}
+              <div className={styles.formGroup}> 
                 <label htmlFor="estimatedDate">Fecha de Ingreso Estimada:</label>
                 <input
                   type="date"
@@ -217,7 +215,7 @@ function Contacto() {
                 {loading ? 'Enviando...' : 'Enviar Mensaje'}
               </button>
 
-              {/* Mensajes de feedback */}
+             
               {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
               {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
             </form>
@@ -225,8 +223,8 @@ function Contacto() {
 
           <div className={styles.contactInfoContainer}>
             <h3>Nuestra Información</h3>
-            <p><strong>Dirección:</strong> Calle Falsa 123, Puerto Madero, Buenos Aires</p> {/* Dirección actualizada */}
-            <p><strong>Teléfono:</strong> +54 9 11 9876 5432</p> {/* Teléfono de ejemplo */}
+            <p><strong>Dirección:</strong> Calle Falsa 123, Puerto Madero, Buenos Aires</p> 
+            <p><strong>Teléfono:</strong> +54 9 11 9876 5432</p>
             <p><strong>Email:</strong> info@hubora.com</p>
             <p><strong>Horarios:</strong> Lunes a Viernes: 9:00 - 18:00 hs</p>
 

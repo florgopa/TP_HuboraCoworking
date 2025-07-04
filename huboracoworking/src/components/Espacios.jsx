@@ -1,8 +1,6 @@
-// src/components/Espacios.jsx
 import React from 'react';
 import styles from './Espacios.module.css';
 
-// Importa tus assets de imagen
 import OficinaPrivada from '../assets/oficina_privada.jpg'; 
 import AreaExterior from '../assets/area_exterior.jpg'; 
 import ZonaSocial from '../assets/zona_social.jpg'; 
