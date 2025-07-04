@@ -1,8 +1,7 @@
-// src/pages/Login.jsx
 import React from 'react';
-// La ruta del CSS de módulo cambia porque Login.jsx está ahora en 'pages'
-import styles from '../components/Login.module.css'; // Asumiendo que Login.module.css sigue en 'src/components/'
-import bgLogin from '../assets/bg_login.jpg'; // La ruta de la imagen sigue siendo relativa a 'src/assets/'
+
+import styles from '../components/Login.module.css'; 
+import bgLogin from '../assets/bg_login.jpg';
 
 function Login() {
   return (

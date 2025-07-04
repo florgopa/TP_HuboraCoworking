@@ -1,6 +1,6 @@
 // src/components/Servicios.jsx
 import React from 'react';
-import styles from './Servicios.module.css';
+import styles from './Servicios.module.css'; // ¡CORREGIDO: Ahora importa el CSS correcto!
 
 // Importa tus 9 íconos PNG aquí.
 // ¡Asegúrate de que los nombres de archivo coincidan con los que tienes en src/assets/!
@@ -54,20 +54,21 @@ function Servicios() {
     },
     { 
       name: '¡Somos Pet Friendly!', 
-      description: 'Contamos con un protocolo para que puedas traer a tu mascota y trabajar con ella.', 
+      description: 'Contamos con un protocolo para que puedas traer a tu mascota.', 
       icon: IconoPetFriendly 
     },
     { 
       name: 'Lugares de Descanso y Relax', 
-      description: 'Espacios cómodos y tranquilos para desconectar, leer o simplemente relajarte entre tus tareas.', 
+      description: 'Espacios cómodos y tranquilos para relajarte entre tus tareas.', 
       icon: IconoDescanso 
     },
   ];
 
   return (
-    <section id="servicios" className={`${styles.serviciosSection} content-section`}>
-      <div className="mainTitleContainer">
-        <h2 className="mainTitle">Servicios incluidos</h2>
+    <section id="servicios" className={styles.serviciosSection}>
+      {/* Usamos las clases importadas de estilos para el título */}
+      <div className={styles.mainTitleContainer}> 
+        <h2 className={styles.mainTitle}>Servicios incluidos</h2> 
       </div>
       
       <div className={styles.serviciosGrid}>

@@ -1,6 +1,13 @@
+/* src/components/Navbar.module.css */
+
 .navbar {
-  background-color: #191A2E;
+  background-color: #191A2E; /* Tu color de fondo */
   padding: 0.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif; /* Asumo esta fuente */
+  position: sticky; /* Navbar pegajoso en la parte superior */
+  top: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
 
 .navbarContainer {
@@ -8,6 +15,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
+  margin: 0 auto; /* Centra el contenedor */
 }
 
 /* LOGO */
@@ -17,14 +25,15 @@
 }
 
 .logoImage {
-  height: 60px;
+  height: 60px; /* Tu tamaño de logo */
   width: auto;
 }
 
-/* MENÚ + MIHUB a la derecha */
+/* MENÚ + MIHUB a la derecha (Desktop) */
 .navRightGroup {
   display: flex;
   align-items: center;
+  gap: 30px; /* Espacio entre el menú y el botón MiHUB */
 }
 
 .navMenu {
@@ -32,15 +41,20 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 5px; /* Espacio entre los ítems del menú */
 }
 
+.navItem {
 
+}
 
 .navLinks {
   color: white;
   text-decoration: none;
   padding: 0.7rem 1.2rem;
   transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  font-size: 1.2rem; 
+  font-weight: 500;
 }
 
 .navLinks:hover {
@@ -50,46 +64,116 @@
 }
 
 .loginButton {
-  background: linear-gradient(to right, #8EF14C, #3DDAD7);
+  background: linear-gradient(to right, #8EF14C, #3DDAD7); 
   padding: 0.5rem 1rem;
   border-radius: 10px;
-  color: #191A2E;
+  color: #191A2E; 
   font-weight: 600;
   text-decoration: none;
   transition: background-position 0.4s ease-in-out;
   background-size: 200% auto;
   background-position: left center;
+  white-space: nowrap; 
 }
 
 .loginButton:hover {
   background-position: right center;
-  color: white;
-   background: linear-gradient(to left, #8EF14C, #3DDAD7);
+  color: white; 
+  background: linear-gradient(to left, #8EF14C, #3DDAD7); 
 }
 
-/* Responsive */
+/* botón hamburguesa */
+.hamburger {
+  display: none; 
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+
+.hamburgerIcon {
+  width: 25px; 
+  height: 28px;
+  fill: #F6F6F6; 
+}
+
+
+/* Responsive para el Navbar*/
 @media (max-width: 768px) {
   .navbarContainer {
-    flex-direction: column;
+    flex-direction: row; 
+    justify-content: space-between; 
     align-items: center;
+    padding: 0 15px; 
+  }
+
+  .hamburger {
+    display: block; 
   }
 
   .navRightGroup {
-    flex-direction: column;
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    height: 0; 
+    background-color: #191A2E; 
+    flex-direction: column; 
+    justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out, padding 0.3s ease-in-out; 
+    z-index: 999; 
+  }
+
+  .navRightGroupOpen {
+    height: calc(100vh - 70px); 
+    padding: 20px 0; 
   }
 
   .navMenu {
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; 
+    width: 100%;
+    text-align: center;
+    gap: 20px; /* Espacio entre los ítems del menú en móvil */
   }
 
   .navItem {
+    width: 100%; /* Cada ítem ocupa todo el ancho */
     margin: 8px 0;
   }
 
+  .navLinks {
+    font-size: 1.2rem; 
+    display: block;
+    padding: 10px 0;
+  }
+
   .loginButton {
-    margin: 10px 0 0 0;
+    margin-top: 20px; 
+    width: 80%; 
+    max-width: 200px; 
+    text-align: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 15px; 
+  }
+
+  .logoImage {
+    height: 35px; 
+  }
+
+  .hamburgerIcon {
+    width: 24px; 
+    height: 24px;
+  }
+
+  .navRightGroupOpen {
+    height: calc(100vh - 55px);
   }
 }

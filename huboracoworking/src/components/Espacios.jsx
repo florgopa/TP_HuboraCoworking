@@ -1,50 +1,38 @@
 // src/components/Espacios.jsx
 import React from 'react';
-import styles from './Espacios.module.css'; // Importamos su módulo CSSimport oficinaPrivadaImg from '../assets/oficina-privada.jpg'; // Cambia 'oficina-privada.jpg' por el nombre real de tu imagen
+import styles from './Espacios.module.css';
+
+// Importa tus assets de imagen
+import OficinaPrivada from '../assets/oficina_privada.jpg'; 
+import AreaExterior from '../assets/area_exterior.jpg'; 
+import ZonaSocial from '../assets/zona_social.jpg'; 
+
 
 function Espacios() {
   return (
-    <section id="espacios" className="content-section">
-      <div className="mainTitleContainer"> {/* SIN styles. */}
-          <h2 className="mainTitle">Nuestros Espacios</h2> {/* SIN styles. */}
+    <section id="espacios" className={styles.espaciosSection}> 
+      <div className={styles.mainTitleContainer}> 
+        <h2 className={styles.mainTitle}>Nuestros Espacios</h2> 
       </div>
       <p className={styles.sectionDescription}>Descubre el ambiente perfecto para tu productividad y creatividad en Hubora Coworking.</p>
       
       <div className={styles.espaciosGrid}>
         <div className={styles.espacioCard}>
-       
+          <img src={OficinaPrivada} alt="Oficinas Privadas" className={styles.espacioImage} /> 
           <h3>Oficinas Privadas</h3>
-          <p>Ideales para equipos pequeños o profesionales que buscan privacidad y un ambiente exclusivo. Equipadas con mobiliario ergonómico y acceso 24/7.</p>
-          <ul>
-            <li>Privacidad total</li>
-            <li>Mobiliario ergonómico</li>
-            <li>Acceso 24/7</li>
-            <li>Internet de alta velocidad</li>
-          </ul>
+          <p>Ideales para profesionales que buscan privacidad y un ambiente exclusivo.</p>
         </div>
 
         <div className={styles.espacioCard}>
-  
-          <h3>Escritorios Flexibles</h3>
-          <p>Un espacio dinámico y colaborativo para freelancers y emprendedores. Reserva por horas, días o semanas según tus necesidades.</p>
-          <ul>
-            <li>Ambiente colaborativo</li>
-            <li>Flexibilidad horaria</li>
-            <li>Conexiones rápidas</li>
-            <li>Zonas comunes</li>
-          </ul>
+          <img src={ZonaSocial} alt="Área de Descanso" className={styles.espacioImage} /> 
+          <h3>Áreas de Descanso</h3>
+          <p>Espacios cómodos y tranquilos para relajarte y desconectar entre tus tareas, recargando energías.</p>
         </div>
 
         <div className={styles.espacioCard}>
- 
-          <h3>Salas de Reuniones</h3>
-          <p>Espacios modernos y totalmente equipados para tus presentaciones, talleres o reuniones con clientes. Con pantalla, proyector y pizarra.</p>
-          <ul>
-            <li>Equipamiento multimedia</li>
-            <li>Pizarra interactiva</li>
-            <li>Cafetería cercana</li>
-            <li>Ideal para equipos</li>
-          </ul>
+          <img src={AreaExterior} alt="Zona Exterior" className={styles.espacioImage} /> 
+          <h3>Exteriores</h3>
+          <p>Disfruta de un ambiente fresco y natural para trabajar, hacer networking o simplemente tomar un respiro al aire libre.</p>
         </div>
       </div>
     </section>

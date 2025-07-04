@@ -1,86 +1,230 @@
 .footer {
-  background-color: #191A2E;
+  background-color: #191A2E; 
   color: white;
-  padding: 1rem 1rem;
+  padding: 20px 0;
   margin-top: auto;
-}
-
-.footerContainer {
+  font-family: 'Poppins', sans-serif; 
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.footerTopContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-wrap: wrap;
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 0.5rem;
+  padding: 20px 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .footerLeft,
 .footerCenter,
 .footerRight {
   flex: 1;
-  min-width: 200px;
-  margin: 1px;
+  padding: 10px; 
+  min-width: 180px;
+  box-sizing: border-box;
+}
+
+.footerLeft h3,
+.footerRight h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px; 
+  color: #8EF14C; 
+}
+
+.footerLeft p {
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.footerCenter {
   text-align: center;
 }
 
-.footerLeft ul {
+.nodoLogo {
+  width: 80px; 
+  height: auto;
+  opacity: 0.95;
+  margin-bottom: 5px; 
+}
+
+.footerCenter p {
+  font-size: 0.9rem; 
+  color: #ccc;
+}
+
+.footerRight {
+  text-align: right; 
+}
+
+.footerRight ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .footerLink {
   color: white;
   text-decoration: none;
   display: block;
-  margin-bottom: 0.2rem;
-  transition: color 0.3s;
+  margin-bottom: 0.3rem; 
+  transition: color 0.3s ease-in-out;
+  font-size: 0.85rem; 
 }
+
 .footerLink:hover {
   color: #8FF14C;
 }
 
-.nodoLogo {
-  width: 90px;
-  height: auto;
-}
-
-.socialIcon {
-  width: 50px;
-  height: 50px;
-  margin: 0 0.5rem;
-  transition: transform 0.3s;
-}
-
-.socialIcon:hover {
-  filter: drop-shadow(0 0 5px #8FF14C);
-
-}
-
-
+/* Sección de Copyright, Flecha y Redes Sociales */
 .footerBottom {
-  text-align: center;
-  font-size: 0.9rem;
-  color: #ccc;
-  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1rem;
+  color: #ccc;
+  font-size: 0.9rem;
+  margin: 0 auto;
+  padding: 10px 15px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Responsive */
+.footerBottomLeft {
+  text-align: left;
+  margin-right: 575px;
+}
+
+.footerBottomRight {
+  display: flex;
+  gap: 0.8rem;
+  justify-content: flex-end;
+  text-align: right;
+  margin-left: auto; 
+}
+
+.scrollToTopButton {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; 
+  width: 30px;
+  height: 30px;
+}
+
+.scrollToTopButton:hover {
+  transform: translateY(-3px);
+}
+
+.arrowUpSvg {
+  width: 16px;
+  height: 16px;
+  fill: white;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.arrowUpSvg:hover {
+  opacity: 1;
+}
+
+.socialIconSmall {
+  width: 24px;
+  height: 24px;
+  filter: grayscale(1);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.socialIconSmall:hover {
+  filter: none;
+  transform: scale(1.1);
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-  .footerContainer {
+  .footer {
+    padding: 15px 0;
+  }
+  .footerTopContainer {
     flex-direction: column;
+    align-items: center;
     text-align: center;
+    padding: 15px 15px;
   }
 
   .footerLeft,
   .footerCenter,
   .footerRight {
-    margin: 1rem 0;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 15px;
   }
 
-  .socialIcon {
-    margin: 0 0.3rem;
+  .footerRight {
+    text-align: center;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px 15px;
+  }
+
+  .footerBottomLeft {
+    order: 2;
+    margin-top: 10px;
+    text-align: center;
+    margin-right: 0;
+ 
+  }
+
+  .scrollToTopButton {
+    order: 1;
+    margin-bottom: 10px;
+    margin: 0 auto 10px auto;
+  }
+
+  .footerBottomRight {
+    order: 3; 
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerTopContainer {
+    padding: 10px 10px;
+  }
+  .footerLeft h3,
+  .footerRight h3 {
+    font-size: 1rem;
+  }
+  .footerLeft p,
+  .footerCenter p,
+  .footerLink {
+    font-size: 0.8rem;
+  }
+  .nodoLogo {
+    width: 70px;
+  }
+  .socialIconSmall {
+    width: 20px;
+    height: 20px;
+  }
+  .arrowUpSvg {
+    width: 14px;
+    height: 14px;
+  }
+  .footerBottom {
+    font-size: 0.8rem;
+    padding: 8px 10px;
   }
 }

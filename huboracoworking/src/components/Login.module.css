@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 75vh;
+  min-height: 75vh; 
   width: 100vw;
   position: relative; 
   overflow: hidden; 
@@ -17,10 +17,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../assets/bg_login.jpg');
-   filter: blur(5px); /* Aplicamos el blur al fondo */
+  background-image: url('../assets/bg_login.jpg'); 
   background-size: cover;
   background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02); 
   z-index: -1; 
 }
 
@@ -28,10 +29,10 @@
   z-index: 1; 
   position: relative;
   background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(10px); /* Ajustado a 10px para consistencia con User/Admin Panel */
+  -webkit-backdrop-filter: blur(10px); /* Ajustado a 10px para consistencia con User/Admin Panel */
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.3); /* ¡CORREGIDO! Eliminado el '/' extra aquí */
   padding: 40px;
   width: 100%;
   max-width: 400px;
@@ -52,8 +53,6 @@
   flex-direction: column;
   gap: 20px;
 }
-
-
 
 .formGroup label {
   display: block;
@@ -96,8 +95,8 @@
 }
 
 .loginButton:hover {
-   background: linear-gradient(to right, #8EF14C, #3DDAD7);
-
+  color: white;
+  background: linear-gradient(to left, #8EF14C, #3DDAD7)
 }
 
 .forgotPassword {

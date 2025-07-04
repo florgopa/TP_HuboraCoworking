@@ -1,72 +1,78 @@
-// src/components/Planes.jsx
 import React from 'react';
 import styles from './Planes.module.css';
 
 function Planes() {
   const planesList = [
     {
-      name: 'Plan Flex',
-      price: '$5.000/mes',
-      description: 'Ideal para freelancers y nómadas digitales que buscan flexibilidad.',
+      name: 'Plan Flex Individuos', 
+      price: '$2.000',
+      period: '/hora', 
       features: [
-        'Acceso de 9 a 18 hs',
-        'Escritorio compartido',
-        'Internet de alta velocidad',
-        'Café y té ilimitados',
-        '2 hs de sala de reuniones/mes',
-        'Eventos de networking'
+        'Packs de horas', 
+        'Escritorio flexible',
+        'Café incluido',
+        'Descuentos',
+        'Wifi de alta velocidad'
       ],
-      highlight: false
+      highlight: false,
+      buttonText: 'Comprar ahora' 
     },
     {
-      name: 'Plan Dedicado',
-      price: '$12.000/mes',
-      description: 'Tu propio espacio fijo, siempre listo para trabajar.',
+      name: 'Plan Mensual', 
+      price: '$150.000',
+      period: '/mes', 
       features: [
-        'Acceso 24/7',
-        'Escritorio fijo',
-        'Cajonera personal',
-        'Internet de alta velocidad',
-        '4 hs de sala de reuniones/mes',
-        'Eventos de networking',
-        'Descuentos en talleres'
+        'Acceso ilimitado', 
+        'Escritorio',
+        'Café incluido',
+        'Descuentos',
+        'Wifi de alta velocidad'
       ],
-      highlight: true // Este plan será destacado
+      highlight: true, 
+      buttonText: 'Contratar ahora' 
     },
     {
-      name: 'Oficina Privada',
-      price: '$25.000/mes',
-      description: 'Solución completa para equipos pequeños o empresas que buscan privacidad.',
+      name: 'Plan Empresas', 
+      price: '$1.800',
+      period: '/hora', 
       features: [
-        'Acceso 24/7',
-        'Oficina privada amoblada',
-        'Internet de alta velocidad',
-        'Café y té ilimitados',
-        '10 hs de sala de reuniones/mes',
-        'Eventos de networking',
-        'Servicio de recepción'
+        'Pack de horas para toda la nómina', 
+        'Escritorio flexible',
+        'Café incluido',
+        'Descuentos',
+        'Wifi de alta velocidad'
       ],
-      highlight: false
+      highlight: false,
+      buttonText: 'Cotizar' 
     },
   ];
 
   return (
-    <section id="planes" className="content-section">
-      <h2>Planes Disponibles</h2>
-      <p className={styles.sectionDescription}>Encuentra la membresía perfecta para tu estilo de trabajo y tus objetivos.</p>
+    <section id="planes" className={styles.planesSection}>
+      <div className={styles.mainTitleContainer}>
+        <h2 className={styles.mainTitle}>Planes y Precios</h2>
+      </div>
+      <p className={styles.sectionDescription}>Elige el plan que mejor se adapte a tus necesidades, desde acceso por horas hasta membresías mensuales.</p>
       
       <div className={styles.planesGrid}>
         {planesList.map((plan, index) => (
           <div key={index} className={`${styles.planCard} ${plan.highlight ? styles.highlighted : ''}`}>
+            {plan.highlight && <div className={styles.highlightLabel}>MÁS POPULAR</div>} 
+            
             <h3>{plan.name}</h3>
-            <p className={styles.planPrice}>{plan.price}</p>
-            <p className={styles.planDescription}>{plan.description}</p>
+            <p className={styles.planPrice}>
+              {plan.price} <span className={styles.planPeriod}>{plan.period}</span>
+            </p>
+            
             <ul className={styles.planFeatures}>
               {plan.features.map((feature, i) => (
-                <li key={i}>{feature}</li>
+                <li key={i}>
+                  <span className={styles.checkIcon}>&#10003;</span>
+                  {feature}
+                </li>
               ))}
             </ul>
-            <button className={styles.planButton}>Seleccionar Plan</button>
+            <button className={styles.planButton}>{plan.buttonText}</button>
           </div>
         ))}
       </div>

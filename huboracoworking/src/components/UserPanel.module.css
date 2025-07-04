@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-/* Pseudo-elemento para la imagen de fondo borrosa (copiado de AdminPanel) */
+/* Pseudo-elemento para la imagen de fondo borrosa */
 .userPanelContainer::before {
   content: '';
   position: absolute;
@@ -19,14 +19,15 @@
   background-image: url('../assets/bg_login.jpg'); /* Usa la misma imagen de login */
   background-size: cover;
   background-position: center;
-  filter: blur(5px); /* Aplicamos el blur al fondo */
+  filter: blur(5px); 
+  transform: scale(1.02); 
   z-index: -1; 
 }
 
 
 .panelBox {
   z-index: 1;
-  position: relative;
+  position: relative; 
   
   background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -61,7 +62,7 @@
 
 .panelContent {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Grid para los ítems dentro del panel */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   margin-bottom: 40px;
 }
@@ -116,11 +117,11 @@
   transform: translateY(-2px);
 }
 
-/* Estilos específicos para el input de fecha y otros formularios dentro de contentItem */
+
 .formGroup {
   width: 100%;
   margin-bottom: 15px;
-  text-align: left; /* Alinea etiquetas y campos a la izquierda */
+  text-align: left; 
 }
 
 .formGroup label {
@@ -186,9 +187,6 @@
   }
   .contentItem h3 {
     font-size: 1.4rem;
-  }
-  .dateInput {
-    padding: 8px;
   }
 }
 

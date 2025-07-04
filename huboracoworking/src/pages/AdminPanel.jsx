@@ -1,4 +1,3 @@
-// src/pages/AdminPanel.jsx
 import React from 'react';
 import styles from '../components/AdminPanel.module.css'; // Importa los estilos del módulo
 

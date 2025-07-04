@@ -1,7 +1,86 @@
+/* src/components/Nosotros.module.css */
 
 .nosotrosSection {
-
-  text-align: left;
+  background-color: #16213E; /* Fondo claro para la sección */
+  color: #F6F6F6; /* Color de texto azul oscuro para contraste */
+  padding: 80px 10px; /* Espacio alrededor del contenido */
+  text-align: center; /* Centra el contenido */
+  margin: 0 auto; /* Centra la sección en la página */
 }
 
+.mainTitleContainer {
+  margin-bottom: 20px; /* Espacio debajo del título principal */
+}
 
+.mainTitle {
+  font-size: 2.5rem; /* Tamaño del título principal */
+  color: #F6F6F6; /* Color azul oscuro para el título */
+  position: relative;
+  display: inline-block; /* Para que el subrayado funcione */
+  padding-bottom: 5px; /* Espacio para el subrayado */
+}
+
+.mainTitle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 190px; /* Ancho del subrayado */
+  height: 4px;
+  background-color: #8EF14C; /* Color verde vibrante */
+  border-radius: 2px;
+}
+
+.nosotrosParagraph {
+  font-size: 1.3rem; /* Tamaño de fuente para los párrafos */
+  line-height: 1.3; /* Espaciado entre líneas para mejor legibilidad */
+  max-width: 1600px; /* Ancho máximo de los párrafos para que no sean demasiado largos */
+  margin: 10px auto; /* Centra los párrafos y les da espacio */
+  color: #F6F6F6; /* Un gris oscuro para el texto del párrafo */
+}
+
+.ctaButton {
+  background-color: #8EF14C; /* Color verde vibrante para el botón */
+  color: #0F3460; /* Texto azul oscuro en el botón */
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px; /* Bordes redondeados */
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  margin-top: 30px; /* Espacio superior para separar del texto */
+}
+
+.ctaButton:hover {
+  background-position: right center;
+  color: white;
+  background: linear-gradient(to right, #8EF14C, #3DDAD7);
+}
+
+/* Responsive para la sección Nosotros */
+@media (max-width: 768px) {
+  .nosotrosSection {
+    padding: 60px 15px; /* Ajusta el padding en pantallas más pequeñas */
+  }
+
+  .mainTitle {
+    font-size: 2.2rem; /* Reduce el tamaño del título en móvil */
+  }
+
+  .nosotrosParagraph {
+    font-size: 1rem; /* Reduce el tamaño del texto del párrafo en móvil */
+    margin: 15px auto;
+  }
+
+  .ctaButton {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainTitle {
+    font-size: 1.8rem;
+  }
+}

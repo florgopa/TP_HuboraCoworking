@@ -1,8 +1,6 @@
-// src/pages/UserPanel.jsx
 import React, { useState } from 'react';
-// CORRECTED IMPORT PATH: Now points to the components directory
 import styles from '../components/UserPanel.module.css';
-import bgLogin from '../assets/bg_login.jpg'; // This path is correct
+import bgLogin from '../assets/bg_login.jpg'; 
 
 function UserPanel() {
   const [selectedDate, setSelectedDate] = useState('');

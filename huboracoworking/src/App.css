@@ -43,41 +43,6 @@ body {
   box-sizing: border-box; 
 }
 
-/* ESTILOS GLOBALES PARA LOS TÍTULOS */
-.mainTitleContainer {
-  text-align: center;
-  margin-bottom: 40px; /* Espacio debajo del título principal */
-  margin-top: 20px; /* Espacio arriba del título principal */
-}
-
-.mainTitle {
-  font-size: 2.8rem;
-  color: #FFA500; 
-  position: relative;
-  display: inline-block;
-  padding-bottom: 10px;
-}
-
-.mainTitle::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 70%;
-  height: 4px;
-  background-color: #FFA500;
-}
-
-/* ESTILOS GLOBALES PARA LOS TÍTULOS H2 */
-
-.content-section p { 
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    text-align: justify;
-}
-
 /* ENLACES GENERALES */
 a {
   color: #8EF14C; 

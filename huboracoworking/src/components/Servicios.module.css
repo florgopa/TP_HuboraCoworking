@@ -2,8 +2,37 @@
 
 .serviciosSection { 
   background-color: #F6F6F6; 
-  padding: 60px 0; 
+  padding: 20px; 
+  font-family: 'Inter', sans-serif; /* Asegura la fuente Inter */
+  color: #333; /* Color de texto general para la sección */
 }
+
+/* Estilos para el título principal (Consistente con Contacto y Planes) */
+.mainTitleContainer {
+  margin-bottom: 40px; /* Margen debajo del título */
+  text-align: center;
+}
+
+.mainTitle {
+  font-size: 2.8rem;
+  color: #0F3460; /* Título principal azul oscuro */
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.mainTitle::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
+  width: 190px; /* Ancho del subrayado */
+  height: 4px;
+  background-color: #8EF14C; /* Color verde vibrante */
+  border-radius: 2px;
+}
+
 
 .serviciosGrid {
   display: grid;
@@ -42,7 +71,7 @@
 }
 
 .servicioCard h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: #0F3460;
   margin-bottom: 5px;
   font-weight: 600;

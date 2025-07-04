@@ -1,56 +1,56 @@
 import React from 'react';
 import styles from './Footer.module.css';
 import Nodo from '../assets/nodo.svg';
-import Facebook from '../assets/facebook.png';
-import Instagram from '../assets/instagram.png';
-import LinkedIn from '../assets/linkedin.png';
+import FacebookIcon from '../assets/facebook.png';
+import InstagramIcon from '../assets/instagram.png';
+import LinkedInIcon from '../assets/linkedin.png';
+import ScrollTopBottomIcon from '../assets/ScrollTopBottom.svg';
 
 function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <footer className={styles.footer}>
-      <div className={styles.footerContainer}>
-        {/* Izquierda: enlaces legales */}
-        <nav aria-label="Enlaces legales" className={styles.footerLeft}>
-          <h3>Enlaces</h3>
-          <ul>
-            <li><a href="/terminos" className={styles.footerLink}>Términos de Servicio</a></li>
-            <li><a href="/privacidad" className={styles.footerLink}>Política de Privacidad</a></li>
-            <li><a href="/trabaja" className={styles.footerLink}>Trabajá con nosotros</a></li>
-          </ul>
-        </nav>
-
-        {/* Centro: logo de Nodo */}
+      
+       <div className={styles.footerTopContainer}>
+        
         <div className={styles.footerCenter}>
           <img src={Nodo} alt="Logo Nodo" className={styles.nodoLogo} />
-          <p>Tu Espacio de Trabajo</p>
-        </div>
-
-        {/* Derecha: redes sociales */}
-        <div className={styles.footerRight}>
-          <h3>Redes</h3>
-          <div className={styles.iconGroup}>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-              <img src={Facebook} alt="Facebook" className={styles.socialIcon} />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-              <img src={Instagram} alt="Instagram" className={styles.socialIcon} />
-            </a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <img src={LinkedIn} alt="LinkedIn" className={styles.socialIcon} />
-            </a>
-          </div>
         </div>
       </div>
 
-      {/* Pie inferior */}
       <div className={styles.footerBottom}>
-        <p>&copy; {currentYear} Hubora Coworking.</p>
-        <p>Plataformas de Desarrollo - Franco Chiquilito & Flor Gomez Pacheco</p>
+        <div className={styles.footerBottomLeft}>
+          <p>&copy; {currentYear} Hubora Coworking.</p>
+          <p>Plataformas de Desarrollo - Franco Chiquilito & Flor Gomez Pacheco</p>
+        </div>
+
+        <div className={styles.scrollToTopButton} onClick={scrollToTop} aria-label="Volver arriba">
+          <img src={ScrollTopBottomIcon} alt="Ir arriba" className={styles.arrowUpSvg} />
+        </div>
+
+        <div className={styles.footerBottomRight}>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <img src={FacebookIcon} alt="Facebook" className={styles.socialIconSmall} />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <img src={InstagramIcon} alt="Instagram" className={styles.socialIconSmall} />
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <img src={LinkedInIcon} alt="LinkedIn" className={styles.socialIconSmall} />
+          </a>
+        </div>
       </div>
     </footer>
   );
 }
 
 export default Footer;
+
