@@ -1,9 +1,16 @@
+// src/pages/UserPanel.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import styles from '../components/UserPanel.module.css';
 import bgLogin from '../assets/bg_login.jpg'; 
 
 function UserPanel() {
   const [selectedDate, setSelectedDate] = useState('');
+  const navigate = useNavigate(); 
+
+  const handleLogout = () => {
+    navigate('/login'); 
+  };
 
   return (
     <div className={styles.userPanelContainer}>
@@ -48,6 +55,13 @@ function UserPanel() {
 
         <div className={styles.panelFooter}>
           <p>© 2025 Hubora Coworking - Área de Usuarios</p>
+          {/* Botón de cerrar sesión */}
+          <button 
+            className={styles.logoutButton}
+            onClick={handleLogout}
+          >
+            Cerrar Sesión
+          </button>
         </div>
       </div>
     </div>

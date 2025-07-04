@@ -1,11 +1,16 @@
 import React from 'react';
-import styles from '../components/AdminPanel.module.css'; // Importa los estilos del módulo
+import { useNavigate } from 'react-router-dom';
+import styles from '../components/AdminPanel.module.css';
 
 function AdminPanel() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
   return (
-    // adminPanelContainer contendrá el fondo borroso
     <div className={styles.adminPanelContainer}>
-      {/* panelBox será el panel central con efecto glassmorphism */}
       <div className={styles.panelBox}>
         <div className={styles.panelHeader}>
           <h1 className={styles.panelTitle}>Panel de Administrador</h1>
@@ -13,7 +18,6 @@ function AdminPanel() {
         </div>
 
         <div className={styles.panelContent}>
-          {/* Los elementos individuales ahora son parte de este único panel */}
           <div className={styles.contentItem}>
             <h3>Gestión de Usuarios</h3>
             <p>Visualiza, edita y gestiona las cuentas de los usuarios. Crea nuevos administradores o bloquea accesos.</p>
@@ -31,11 +35,13 @@ function AdminPanel() {
             <p>Accede a informes sobre el uso de las instalaciones, reservas y actividad financiera.</p>
             <button className={styles.actionButton}>Ver Reportes</button>
           </div>
-          {/* Puedes añadir más elementos o secciones aquí */}
         </div>
 
         <div className={styles.panelFooter}>
           <p>© 2025 Hubora Coworking - Administración</p>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            Cerrar Sesión
+          </button>
         </div>
       </div>
     </div>
@@ -43,4 +49,3 @@ function AdminPanel() {
 }
 
 export default AdminPanel;
-
