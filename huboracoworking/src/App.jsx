@@ -42,19 +42,17 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/usuario" element={<UserPanel />} />
             
-            {/* Ruta protegida para el AdminPanel */}
+            
             {userIsAdmin ? (
               <Route path="/admin" element={<AdminPanel />} />
             ) : (
-              // Si el usuario no es admin, redirige a 404 o 
+             
               <Route path="/admin" element={<NotFound />} /> 
             )}
             {/* UserPanel */}
              <Route path="/usuario" element={<UserPanel />} /> 
-
-            {/* Ruta explícita para el 404. */}
+            
             <Route path="/404" element={<NotFound />} />
-
 
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -223,7 +223,7 @@ function Contacto() {
 
           <div className={styles.contactInfoContainer}>
             <h3>Nuestra Información</h3>
-            <p><strong>Dirección:</strong> Calle Falsa 123, Puerto Madero, Buenos Aires</p> 
+            <p><strong>Dirección:</strong> Av. Siempreviva 742, Puerto Madero, Buenos Aires</p> 
             <p><strong>Teléfono:</strong> +54 9 11 9876 5432</p>
             <p><strong>Email:</strong> info@hubora.com</p>
             <p><strong>Horarios:</strong> Lunes a Viernes: 9:00 - 18:00 hs</p>
