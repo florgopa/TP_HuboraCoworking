@@ -8,15 +8,48 @@ function Login() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (email === 'admin@hubora.com' && password === 'admin123') {
-      navigate('/admin');
-    } else if (email === 'usuario@hubora.com' && password === 'user123') {
-      navigate('/usuario');
-    } else {
-      alert('Credenciales incorrectas');
+  // const handleLogin = () => {
+  //   if (email === 'admin@hubora.com' && password === 'admin123') {
+  //     navigate('/admin');
+  //   } else if (email === 'usuario@hubora.com' && password === 'user123') {
+  //     navigate('/usuario');
+  //   } else {
+  //     alert('Credenciales incorrectas');
+  //   }
+  // };
+
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      });
+  
+      const data = await response.json();
+  
+      if (!data.ok) {
+        alert(data.message);
+        return;
+      }
+  
+      if (data.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/usuario");
+      }
+  
+    } catch (error) {
+      console.error(error);
+      alert("Error al conectar con el servidor");
     }
   };
+  
+
+
 
   return (
     <div className={styles.loginContainer}>
@@ -44,6 +77,14 @@ function Login() {
           <button type="submit" className={styles.loginButton} onClick={handleLogin}>
             Ingresar
           </button>
+          <button
+            type="button"
+            className={styles.registerButton}
+            onClick={() => navigate('/register')}
+            >
+            Registrarse
+            </button>
+
         </form>
         <div className={styles.forgotPassword}>
           <span>¿Olvidaste tu contraseña? <a href="#">Recuperar</a></span>

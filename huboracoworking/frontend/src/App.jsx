@@ -42,6 +42,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/usuario" element={<UserPanel />} />
             
+            <Route path="/register" element={<Register />} />
+
             
             {userIsAdmin ? (
               <Route path="/admin" element={<AdminPanel />} />

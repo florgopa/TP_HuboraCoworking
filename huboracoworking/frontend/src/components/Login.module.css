@@ -115,6 +115,20 @@
   text-decoration: underline;
 }
 
+.registerButton {
+  margin-top: 10px;
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #6DC23B;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.registerButton:hover {
+  background-color: #555;
+}
+
 @media (max-width: 768px) {
   .loginBox {
     width: 90%;
