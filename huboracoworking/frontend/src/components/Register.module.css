@@ -1,0 +1,104 @@
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.registerContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/bg_login.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: -1;
+}
+
+.registerBox {
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: #fff;
+}
+
+.registerBox h2 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.formGroup input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.formGroup input:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+.registerButton {
+  background-color: #8EF14C;
+  color: #0F3460;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.registerButton:hover {
+  color: white;
+  background: linear-gradient(to left, #8EF14C, #3DDAD7);
+}
+
+.backToLogin {
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.backToLogin span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.backToLogin a {
+  color: #8EF14C;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.backToLogin a:hover {
+  text-decoration: underline;
+}

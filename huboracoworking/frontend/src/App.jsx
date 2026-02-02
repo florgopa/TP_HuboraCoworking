@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import UserPanel from './pages/UserPanel';
 import AdminPanel from './pages/AdminPanel';
 import NotFound from './pages/404'; 
+import Register from './pages/Register';
 
 function App() {
 

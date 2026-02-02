@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import styles from '../components/Register.module.css';
+
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -33,27 +35,39 @@ function Register() {
   };
 
   return (
-    <div>
+<div className={styles.registerContainer}>
+    <div className={styles.registerBox}>
       <h2>Registro</h2>
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
+      <div className={styles.registerForm}>
+        <div className={styles.formGroup}>
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
 
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
+        <div className={styles.formGroup}>
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
 
-      <button onClick={handleRegister}>
-        Registrarse
-      </button>
+        <button className={styles.registerButton} onClick={handleRegister}>
+          Registrarse
+        </button>
+      </div>
+
+      <div className={styles.backToLogin}>
+        <span>¿Ya tenés cuenta? <a href="/login">Iniciar sesión</a></span>
+      </div>
     </div>
+  </div>
   );
 }
 
