@@ -1,19 +1,25 @@
-//se definen los metodos
-
+// se definen los métodos
 import pool from "../config/db.js";
 
-
-// login usuario
+// =====================
+// LOGIN
+// =====================
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({
+      ok: false,
+      message: "Faltan datos requeridos"
+    });
+  }
+
   try {
     const [rows] = await pool.query(
-      "SELECT id, email, password, role FROM usuarios WHERE email = ?",
+      "SELECT id, email, password, role FROM usuario WHERE email = ?",
       [email]
     );
 
-    // Usuario no existe
     if (rows.length === 0) {
       return res.status(401).json({
         ok: false,
@@ -23,7 +29,6 @@ export const login = async (req, res) => {
 
     const user = rows[0];
 
-    // Contraseña incorrecta
     if (user.password !== password) {
       return res.status(401).json({
         ok: false,
@@ -31,27 +36,27 @@ export const login = async (req, res) => {
       });
     }
 
-    // Login correcto
-    res.json({
+    return res.json({
       ok: true,
       role: user.role
     });
 
   } catch (error) {
     console.error(error);
-    res.status(500).json({
+    return res.status(500).json({
       ok: false,
       message: "Error del servidor"
     });
   }
 };
 
-
-// registrar usuario
+// =====================
+// REGISTER
+// =====================
 export const register = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password } = req.body;
 
-  if (!email || !password || !role) {
+  if (!email || !password) {
     return res.status(400).json({
       ok: false,
       message: "Faltan datos requeridos"
@@ -61,7 +66,7 @@ export const register = async (req, res) => {
   try {
     // Verificar si existe
     const [rows] = await pool.query(
-      "SELECT id FROM users WHERE email = ?",
+      "SELECT id FROM usuario WHERE email = ?",
       [email]
     );
 
@@ -72,9 +77,9 @@ export const register = async (req, res) => {
       });
     }
 
-     //  Insertar usuario
+    // Insertar usuario (role por defecto)
     await pool.query(
-      "INSERT INTO users (email, password, role) VALUES (?, ?, ?)",
+      "INSERT INTO usuario (email, password, role) VALUES (?, ?, ?)",
       [email, password, "user"]
     );
 
@@ -90,5 +95,4 @@ export const register = async (req, res) => {
       message: "Error del servidor"
     });
   }
-
 };

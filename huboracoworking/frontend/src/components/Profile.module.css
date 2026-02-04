@@ -1,0 +1,256 @@
+.profileContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px));
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.profileContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/bg_login.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: -1;
+}
+
+.panelBox {
+  z-index: 1;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 90%;
+  max-width: 1000px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.panelHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.panelTitle {
+  font-size: 3rem;
+  color: #fff;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.panelContentSingle {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.contentItem {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 25px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contentItem:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+.contentItem h3 {
+  font-size: 1.6rem;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.infoGrid {
+  margin-top: 10px;
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.infoGrid p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.infoGrid p span {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.actionButton {
+  background-color: #8EF14C;
+  color: #0F3460;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  align-self: center;
+}
+
+.actionButton:hover {
+  background-color: #6DC23B;
+  transform: translateY(-2px);
+}
+
+.logoutButton {
+  position: static;
+  margin: 10px auto 0 auto;
+  display: block;
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+.panelFooter {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+/* ===== FORM STACK ===== */
+.formStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.textInput,
+.selectInput {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.textInput::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.textInput:focus,
+.selectInput:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+.textInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== CHECKBOX ===== */
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.checkboxRow input {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.profileActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+  .panelBox {
+    width: 95%;
+    padding: 30px;
+  }
+  .panelTitle {
+    font-size: 2.5rem;
+  }
+  .panelContent {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profileContainer {
+    padding: 20px 10px;
+  }
+  .panelBox {
+    padding: 25px;
+  }
+  .panelTitle {
+    font-size: 2rem;
+  }
+  .panelContent {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

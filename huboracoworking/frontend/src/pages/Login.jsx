@@ -20,35 +20,39 @@ function Login() {
 
 
   const handleLogin = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      });
-  
-      const data = await response.json();
-  
-      if (!data.ok) {
-        alert(data.message);
-        return;
-      }
-  
-      if (data.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/usuario");
-      }
-  
-    } catch (error) {
-      console.error(error);
-      alert("Error al conectar con el servidor");
-    }
-  };
-  
+  try {
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
+    const data = await response.json();
+    console.log("LOGIN RESPONSE:", data); // 👈 clave
+
+    if (!data.ok) {
+      alert(data.message);
+      return;
+    }
+
+    // ✅ guardar sesión
+    localStorage.setItem("user", JSON.stringify({
+      email,
+      role: data.role
+    }));
+
+    // ✅ redirigir por rol
+    if (data.role === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/usuario");
+    }
+
+  } catch (error) {
+    console.error(error);
+    alert("Error al conectar con el servidor");
+  }
+};
 
 
   return (

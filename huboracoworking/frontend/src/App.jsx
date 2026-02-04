@@ -16,6 +16,7 @@ import UserPanel from './pages/UserPanel';
 import AdminPanel from './pages/AdminPanel';
 import NotFound from './pages/404'; 
 import Register from './pages/Register';
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -54,6 +55,8 @@ function App() {
             )}
             {/* UserPanel */}
              <Route path="/usuario" element={<UserPanel />} /> 
+             <Route path="/perfil" element={<Profile />} />
+
             
             <Route path="/404" element={<NotFound />} />
 
