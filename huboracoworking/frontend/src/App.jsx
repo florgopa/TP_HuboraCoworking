@@ -1,26 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-import Hero from './components/Hero';
-import Nosotros from './components/Nosotros';
-import Espacios from './components/Espacios';
-import Servicios from './components/Servicios';
-import Planes from './components/Planes';
-import Contacto from './components/Contacto';
+import Hero from "./components/Hero";
+import Nosotros from "./components/Nosotros";
+import Espacios from "./components/Espacios";
+import Servicios from "./components/Servicios";
+import Planes from "./components/Planes";
+import Contacto from "./components/Contacto";
 
-import Login from './pages/Login';
-import UserPanel from './pages/UserPanel';
-import AdminPanel from './pages/AdminPanel';
-import NotFound from './pages/404'; 
-import Register from './pages/Register';
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import UserPanel from "./pages/UserPanel";
+import AdminPanel from "./pages/AdminPanel";
 import Profile from "./pages/Profile";
+import NotFound from "./pages/404";
+
+import MyReservations from "./pages/MyReservations";
+import NewReservation from "./pages/NewReservation";
 
 function App() {
-
-  const userIsAdmin = true; // true para ver la vista de admin, false para ver la vista de usuario normal
+  const userIsAdmin = true;
 
   return (
     <Router>
@@ -41,24 +43,22 @@ function App() {
                 </>
               }
             />
+
             <Route path="/login" element={<Login />} />
-            <Route path="/usuario" element={<UserPanel />} />
-            
             <Route path="/register" element={<Register />} />
 
-            
+            {/* Usuario */}
+            <Route path="/usuario" element={<UserPanel />} />
+            <Route path="/usuario/perfil" element={<Profile />} />
+            <Route path="/usuario/reservar" element={<NewReservation />} />
+            <Route path="/usuario/reservas" element={<MyReservations />} />
+
+            {/* Admin */}
             {userIsAdmin ? (
               <Route path="/admin" element={<AdminPanel />} />
             ) : (
-             
-              <Route path="/admin" element={<NotFound />} /> 
+              <Route path="/admin" element={<NotFound />} />
             )}
-            {/* UserPanel */}
-             <Route path="/usuario" element={<UserPanel />} /> 
-             <Route path="/perfil" element={<Profile />} />
-
-            
-            <Route path="/404" element={<NotFound />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

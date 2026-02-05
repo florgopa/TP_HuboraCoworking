@@ -1,0 +1,265 @@
+.newResContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px));
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.newResContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/bg_login.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: -1;
+}
+
+.panelBox {
+  z-index: 1;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 90%;
+  max-width: 1100px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.panelHeader {
+  margin-bottom: 30px;
+}
+
+.panelTitle {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.panelContentSingle {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.contentItem {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 22px;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.contentItem h3 {
+  text-align: center;
+  margin: 0 0 16px 0;
+  font-size: 1.6rem;
+}
+
+.formStack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formGroup label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.textInput {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.spaceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.spaceCard {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.spaceTitle {
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.slotWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.slotChip {
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 8px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.slotChip:hover {
+  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+.slotChip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.activeChip {
+  background-color: #8ef14c;
+  border-color: #8ef14c;
+  color: #0f3460;
+  font-weight: 800;
+}
+
+.smallHint {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.summaryBar {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.summaryText {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.actionButton {
+  background-color: #8ef14c;
+  color: #0f3460;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.actionButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.logoutButton {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profileActions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px;
+  z-index: 999;
+}
+
+.modalBox {
+  width: 100%;
+  max-width: 520px;
+  background-color: rgba(20, 35, 60, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 22px;
+  color: #fff;
+  text-align: center;
+}
+
+.modalTitle {
+  margin: 0 0 10px 0;
+  font-size: 1.6rem;
+}
+
+.modalText {
+  margin: 0 0 18px 0;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.55;
+}
+
+.modalActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .panelBox {
+    padding: 24px;
+  }
+  .panelTitle {
+    font-size: 2.2rem;
+  }
+  .summaryBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

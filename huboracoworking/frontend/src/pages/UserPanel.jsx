@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../components/UserPanel.module.css";
 
 function UserPanel() {
-  const [selectedDate, setSelectedDate] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Protección básica: si no hay sesión, afuera
+  // Protección básica
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) navigate("/login");
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("user"); // ✅ cerrar sesión de verdad
+    localStorage.removeItem("user");
     navigate("/login");
-  };
-
-  const goToReservations = () => {
-    navigate("/mis-reservas");
-  };
-
-  const goToProfile = () => {
-    navigate("/perfil");
-  };
-
-  const goToNewReservation = () => {
-    // pasa la fecha elegida a la siguiente página
-    navigate(`/nueva-reserva?date=${selectedDate}`);
   };
 
   return (
@@ -44,40 +30,35 @@ function UserPanel() {
           <div className={styles.contentItem}>
             <h3>Mis Reservas</h3>
             <p>Consulta el estado de tus reservas actuales y revisa tu historial.</p>
-            <button className={styles.actionButton} onClick={goToReservations}>
+            <button
+              className={styles.actionButton}
+              onClick={() => navigate("/usuario/reservas")}
+            >
               Ver Reservas
             </button>
           </div>
 
           <div className={styles.contentItem}>
             <h3>Hacer una Nueva Reserva</h3>
-            <p>Selecciona la fecha y el tipo de espacio que deseas reservar.</p>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="reservaDate">Fecha de Reserva:</label>
-              <input
-                type="date"
-                id="reservaDate"
-                name="reservaDate"
-                className={styles.dateInput}
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-              />
-            </div>
-
+            <p>Buscá disponibilidad y reservá un espacio.</p>
             <button
-              className={styles.actionButton}
-              disabled={!selectedDate}
-              onClick={goToNewReservation}
+            className={styles.actionButton}
+            onClick={() => {
+              console.log("CLICK Buscar Disponibilidad");
+              navigate("/usuario/reservar");
+            }}
             >
-              Buscar Disponibilidad
+            Buscar Disponibilidad
             </button>
           </div>
 
           <div className={styles.contentItem}>
             <h3>Mi Perfil</h3>
-            <p>Actualiza tu información personal, contraseña y preferencias.</p>
-            <button className={styles.actionButton} onClick={goToProfile}>
+            <p>Actualiza tu información personal y preferencias.</p>
+            <button
+              className={styles.actionButton}
+              onClick={() => navigate("/usuario/perfil")}
+            >
               Editar Perfil
             </button>
           </div>
