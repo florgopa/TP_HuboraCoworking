@@ -20,6 +20,8 @@ function Profile() {
   const [baseUser, setBaseUser] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [editing, setEditing] = useState(false);
+
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
@@ -31,11 +33,40 @@ function Profile() {
     const u = JSON.parse(stored);
     setBaseUser(u);
 
+    // setForm({
+    //   ...emptyForm,
+    //   nombre: "",
+    //   apellido: ""
+    // });
+
+
+    // Cargar datos del perfil desde el backend
+    const fetchProfile = async () => {
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/profile/${u.email}`
+    );
+    const data = await res.json();
+
+    if (!data.ok) {
+      alert("No se pudo cargar el perfil");
+      return;
+    }
+
     setForm({
       ...emptyForm,
-      nombre: "",
-      apellido: ""
+      ...data.profile
     });
+  } catch (err) {
+    console.error(err);
+    alert("Error al cargar perfil");
+  }
+};
+
+fetchProfile();
+////////////////////////////////////
+
+
   }, [navigate]);
 
   const setField = (name, value) => {
@@ -51,28 +82,40 @@ function Profile() {
     }));
   };
 
-  const handleSave = async () => {
-    if (!form.nombre.trim() || !form.apellido.trim()) {
-      alert("Nombre y apellido son obligatorios.");
+const handleSave = async () => {
+  if (!form.nombre.trim() || !form.apellido.trim()) {
+    alert("Nombre y apellido son obligatorios.");
+    return;
+  }
+
+  setSaving(true);
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/profile/${baseUser.email}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form)
+      }
+    );
+
+    const data = await res.json();
+
+    if (!data.ok) {
+      alert("No se pudo guardar el perfil");
       return;
     }
 
-    if (form.tieneMascota && !form.mascotaNombre.trim()) {
-      alert("Ingresá el nombre de tu mascota.");
-      return;
-    }
+    alert("Perfil actualizado correctamente");
+    setEditing(false);
+  } catch (error) {
+    console.error(error);
+    alert("Error al guardar perfil");
+  } finally {
+    setSaving(false);
+  }
+};
 
-    setSaving(true);
-    try {
-      console.log("GUARDAR PERFIL:", { user: baseUser, form });
-      alert("Perfil guardado (por ahora mock).");
-    } catch (error) {
-      console.error(error);
-      alert("No se pudo guardar el perfil.");
-    } finally {
-      setSaving(false);
-    }
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -102,6 +145,7 @@ function Profile() {
                   className={styles.textInput}
                   value={form.nombre}
                   onChange={(e) => setField("nombre", e.target.value)}
+                  disabled={!editing}
                 />
               </div>
 
@@ -111,6 +155,7 @@ function Profile() {
                   className={styles.textInput}
                   value={form.apellido}
                   onChange={(e) => setField("apellido", e.target.value)}
+                  disabled={!editing}
                 />
               </div>
 
@@ -129,6 +174,7 @@ function Profile() {
                   className={styles.textInput}
                   value={form.direccion}
                   onChange={(e) => setField("direccion", e.target.value)}
+                  disabled={!editing}
                 />
               </div>
 
@@ -138,6 +184,7 @@ function Profile() {
                   className={styles.textInput}
                   value={form.telefono}
                   onChange={(e) => setField("telefono", e.target.value)}
+                  disabled={!editing}
                 />
               </div>
             </div>
@@ -155,6 +202,7 @@ function Profile() {
                   onChange={(e) =>
                     setField("contactoEmergenciaNombre", e.target.value)
                   }
+                  disabled={!editing}
                 />
               </div>
 
@@ -166,6 +214,7 @@ function Profile() {
                   onChange={(e) =>
                     setField("contactoEmergenciaTelefono", e.target.value)
                   }
+                  disabled={!editing}
                 />
               </div>
             </div>
@@ -182,6 +231,7 @@ function Profile() {
                     type="checkbox"
                     checked={form.tieneMascota}
                     onChange={(e) => handleToggleMascota(e.target.checked)}
+                    disabled={!editing}
                 />
                 <label htmlFor="tieneMascota">
                     Voy con mi mascota a trabajar
@@ -199,6 +249,7 @@ function Profile() {
                         setField("mascotaNombre", e.target.value)
                         }
                         placeholder="Ej: Mishi"
+                        disabled={!editing}
                     />
                     </div>
 
@@ -210,6 +261,7 @@ function Profile() {
                         onChange={(e) =>
                         setField("mascotaTipo", e.target.value)
                         }
+                        disabled={!editing}
                     >
                         <option value="perro">Perro</option>
                         <option value="gato">Gato</option>
@@ -256,6 +308,15 @@ function Profile() {
           >
             Volver al panel
           </button>
+                
+          {!editing && (
+              <button
+                className={styles.actionButton}
+                onClick={() => setEditing(true)}
+              >
+                Editar perfil
+              </button>
+          )}
 
           <button
             className={styles.actionButton}

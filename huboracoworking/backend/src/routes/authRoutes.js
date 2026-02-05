@@ -10,4 +10,7 @@ router.post("/register", register);
 //post /api/login
 router.post("/login", login);
 
+router.put("/:email", updateProfile);
+
+
 export default router;
