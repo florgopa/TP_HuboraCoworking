@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 19, 2026 at 01:20 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 18-02-2026 a las 18:48:57
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hubora`
+-- Base de datos: `hubora`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perfil_usuario`
+-- Estructura de tabla para la tabla `perfil_usuario`
 --
 
 CREATE TABLE `perfil_usuario` (
@@ -44,43 +44,16 @@ CREATE TABLE `perfil_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `perfil_usuario`
+-- Volcado de datos para la tabla `perfil_usuario`
 --
 
 INSERT INTO `perfil_usuario` (`id`, `usuario_id`, `nombre`, `apellido`, `direccion`, `telefono`, `contacto_emergencia_nombre`, `contacto_emergencia_telefono`, `tiene_mascota`, `mascota_nombre`, `mascota_tipo`, `locker_numero`, `updated_at`) VALUES
-(2, 1, 'cliente', 'hubora', 'calle falsa 123', '0115533778', 'Mirta', '011235689', 1, 'Princesa', 'perro', 123456, '2026-02-18 23:01:26');
+(2, 1, 'cliente', 'hubora', 'calle falsa 123', '011553377', 'Mirta', '011235689', 1, 'Princesa', 'perro', 123456, '2026-02-18 17:22:36');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reserva`
---
-
-CREATE TABLE `reserva` (
-  `id` varchar(36) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `fecha` date NOT NULL,
-  `espacio_id` varchar(50) NOT NULL,
-  `espacio_nombre` varchar(100) NOT NULL,
-  `hora_inicio` time NOT NULL,
-  `hora_fin` time NOT NULL,
-  `estado` enum('pendiente_pago','confirmada','cancelada') DEFAULT 'pendiente_pago',
-  `created_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `reserva`
---
-
-INSERT INTO `reserva` (`id`, `usuario_id`, `fecha`, `espacio_id`, `espacio_nombre`, `hora_inicio`, `hora_fin`, `estado`, `created_at`) VALUES
-('31567f1c-f873-461a-bde5-efd890edbfab', 1, '2026-02-18', 'auditorio_1', 'Auditorio', '07:00:00', '20:00:00', 'pendiente_pago', '2026-02-18 20:57:46'),
-('8a84b733-e084-4829-a5fa-68914c19b045', 1, '2026-02-18', 'conf_2', 'Sala de Conferencia 2', '08:00:00', '09:00:00', 'pendiente_pago', '2026-02-18 20:57:51'),
-('d090979c-4d3d-4bd1-8060-0f2597bb61fb', 1, '2026-02-26', 'box_1', 'Box Privado 1', '08:00:00', '09:00:00', 'pendiente_pago', '2026-02-18 20:53:01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -92,7 +65,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `email`, `password`, `role`, `created_at`) VALUES
@@ -100,61 +73,48 @@ INSERT INTO `usuario` (`id`, `email`, `password`, `role`, `created_at`) VALUES
 (2, 'admin@hubora.com', '1234', 'admin', '2026-02-04 07:13:31');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `perfil_usuario`
+-- Indices de la tabla `perfil_usuario`
 --
 ALTER TABLE `perfil_usuario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`);
 
 --
--- Indexes for table `reserva`
---
-ALTER TABLE `reserva`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_reserva_usuario` (`usuario_id`);
-
---
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `perfil_usuario`
+-- AUTO_INCREMENT de la tabla `perfil_usuario`
 --
 ALTER TABLE `perfil_usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `perfil_usuario`
+-- Filtros para la tabla `perfil_usuario`
 --
 ALTER TABLE `perfil_usuario`
   ADD CONSTRAINT `perfil_usuario_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`);
-
---
--- Constraints for table `reserva`
---
-ALTER TABLE `reserva`
-  ADD CONSTRAINT `fk_reserva_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
