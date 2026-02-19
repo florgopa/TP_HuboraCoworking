@@ -103,9 +103,29 @@ export default function NewReservation() {
   const [saving, setSaving] = useState(false);
 
   const user = useMemo(() => getStoredUser(), []);
-  const [reservasVersion, setReservasVersion] = useState(0);
-  const reservas = useMemo(() => readLocalReservations(), [reservasVersion]);
 
+  const [reservas, setReservas] = useState([]);
+
+useEffect(() => {
+  if (!selectedDate) return;
+
+  const fetchReservas = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/reservations/by-date/${selectedDate}`
+      );
+
+      const data = await res.json();
+      setReservas(data);
+    } catch (error) {
+      console.error("Error cargando reservas:", error);
+    }
+  };
+
+  fetchReservas();
+}, [selectedDate]);
+
+  
   const hourlySlots = useMemo(() => buildHourlySlots(), []);
   const grouped = useMemo(() => groupByTipo(SPACES), []);
 
@@ -126,47 +146,57 @@ export default function NewReservation() {
     });
   };
 
-  const handleConfirm = async () => {
-    if (!selectedDate) {
-      alert("Elegí una fecha primero.");
-      return;
+const handleConfirm = async () => {
+  if (!selectedDate) {
+    alert("Elegí una fecha primero.");
+    return;
+  }
+  if (!selected) {
+    alert("Elegí un espacio y un horario.");
+    return;
+  }
+
+  setSaving(true);
+
+  try {
+    const id =
+      globalThis.crypto?.randomUUID?.() ??
+      `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
+    const nueva = {
+      id,
+      usuarioEmail: user?.email || "",
+      fecha: selectedDate,
+      espacioId: selected.espacioId,
+      espacioNombre: selected.espacioNombre,
+      horaInicio: selected.start,
+      horaFin: selected.end
+    };
+
+    const response = await fetch(
+      "http://localhost:5000/api/reservations",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(nueva)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Error al guardar en la base de datos");
     }
-    if (!selected) {
-      alert("Elegí un espacio y un horario.");
-      return;
-    }
 
-    setSaving(true);
-    try {
-      const id =
-        globalThis.crypto?.randomUUID?.() ??
-        `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    setShowConfirm(true);
 
-      const nueva = {
-        id,
-        usuarioEmail: user?.email || "",
-        fecha: selectedDate,
-        espacioId: selected.espacioId,
-        espacioNombre: selected.espacioNombre,
-        horaInicio: selected.start,
-        horaFin: selected.end,
-        estado: "pendiente_pago",
-        createdAt: new Date().toISOString()
-      };
-
-      const all = readLocalReservations();
-      all.push(nueva);
-      writeLocalReservations(all);
-
-      setReservasVersion((v) => v + 1);
-      setShowConfirm(true);
-    } catch (e) {
-      console.error(e);
-      alert("No se pudo confirmar la reserva.");
-    } finally {
-      setSaving(false);
-    }
-  };
+  } catch (e) {
+    console.error(e);
+    alert("No se pudo confirmar la reserva.");
+  } finally {
+    setSaving(false);
+  }
+};
 
   const titleDate = selectedDate ? formatDateForTitle(selectedDate) : "—";
 

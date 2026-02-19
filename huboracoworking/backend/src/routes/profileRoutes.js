@@ -8,7 +8,7 @@ const router = Router();
 
 router.get("/profile/:email", getProfile);
 router.put("/profile/:email", updateProfile);
-router.put("/:email", profileController.updateProfile);
+router.put("/:email", updateProfile);
 
 
 export default router;

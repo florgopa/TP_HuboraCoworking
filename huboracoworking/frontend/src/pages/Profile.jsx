@@ -41,17 +41,51 @@ function Profile() {
 
 
     // Cargar datos del perfil desde el backend
-    const fetchProfile = async () => {
+  const fetchProfile = async () => {
   try {
     const res = await fetch(
-      `http://localhost:3000/api/profile/${u.email}`
+      `http://localhost:5000/api/profile/${u.email}`
     );
     const data = await res.json();
 
     if (!data.ok) {
-      alert("No se pudo cargar el perfil");
+      alert("No se pudo cargar el perfil" + (data.message || "Error desconocido"));
       return;
     }
+
+      try {
+    console.log("1. Fetching para email:", u.email);
+    
+    const res = await fetch(`http://localhost:5000/api/profile/${u.email}`);
+    
+    console.log("2. Status de respuesta:", res.status);
+    
+    const data = await res.json();
+    console.log("3. Datos completos recibidos:", data);
+    
+    if (!data.ok) {
+      alert("No se pudo cargar el perfil: " + (data.message || "Error desconocido"));
+      return;
+    }
+
+    console.log("4. Profile recibido:", data.profile);
+    
+    setForm({
+      ...emptyForm,
+      ...data.profile
+    });
+    
+    console.log("5. Form actualizado:", {
+      ...emptyForm,
+      ...data.profile
+    });
+    
+  } catch (err) {
+    console.error("Error completo:", err);
+    alert("Error al conectar con el servidor: " + err.message);
+  }
+
+    console.log("Datos recibidos:", data.profile); // Para debugear
 
     setForm({
       ...emptyForm,
@@ -91,7 +125,7 @@ const handleSave = async () => {
   setSaving(true);
   try {
     const res = await fetch(
-      `http://localhost:3000/api/profile/${baseUser.email}`,
+      `http://localhost:5000/api/profile/${baseUser.email}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -102,12 +136,16 @@ const handleSave = async () => {
     const data = await res.json();
 
     if (!data.ok) {
-      alert("No se pudo guardar el perfil");
+      alert("No se pudo guardar el perfil" + (data.message || "Error desconocido"));
       return;
     }
 
     alert("Perfil actualizado correctamente");
     setEditing(false);
+
+    // Opcional: recargar los datos después de guardar
+    window.location.reload(); // o volver a llamar a fetchProfile
+
   } catch (error) {
     console.error(error);
     alert("Error al guardar perfil");

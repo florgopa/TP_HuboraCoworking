@@ -1,14 +1,29 @@
 // src/controllers/profileController.js
 import db from "../config/db.js";
-import { updateProfile } from "../controllers/profileController.js";
 
 
 export const getProfile = async (req, res) => {
   try {
     const { email } = req.params;
 
+// Hacer JOIN entre usuario y perfil_usuario
     const [rows] = await db.query(
-      "SELECT * FROM users WHERE email = ?",
+      `SELECT 
+         u.email,
+         u.role,
+         p.nombre,
+         p.apellido,
+         p.direccion,
+         p.telefono,
+         p.contacto_emergencia_nombre,
+         p.contacto_emergencia_telefono,
+         p.tiene_mascota,
+         p.mascota_nombre,
+         p.mascota_tipo,
+         p.locker_numero
+       FROM usuario u
+       LEFT JOIN perfil_usuario p ON u.id = p.usuario_id
+       WHERE u.email = ?`,
       [email]
     );
 
@@ -19,9 +34,23 @@ export const getProfile = async (req, res) => {
       });
     }
 
+    // Mapear los campos de la base de datos al formato del frontend
+    const profile = {
+      nombre: rows[0].nombre,
+      apellido: rows[0].apellido,
+      direccion: rows[0].direccion || "",
+      telefono: rows[0].telefono || "",
+      contactoEmergenciaNombre: rows[0].contacto_emergencia_nombre || "",
+      contactoEmergenciaTelefono: rows[0].contacto_emergencia_telefono || "",
+      tieneMascota: rows[0].tiene_mascota === 1 || rows[0].tiene_mascota === true,
+      mascotaNombre: rows[0].mascota_nombre || "",
+      mascotaTipo: rows[0].mascota_tipo || "otro",
+      lockerNumero: rows[0].locker_numero || ""
+    };
+
     res.json({
       ok: true,
-      profile: rows[0]
+      profile
     });
   } catch (error) {
     console.error(error);
@@ -29,23 +58,89 @@ export const getProfile = async (req, res) => {
   }
 };
 
+// export const updateProfile = async (req, res) => {
+//   try {
+//     const { email } = req.params;
+//     const data = req.body;
+
+//     // Primero obtener el id del usuario
+//     const [userRows] = await db.query(
+//       "SELECT id FROM usuario WHERE email = ?",
+//       [email]
+//     );
+
+//     if (userRows.length === 0) {
+//       return res.status(404).json({ ok: false, message: "Usuario no encontrado" });
+//     }
+
+//     const userId = userRows[0].id;
+
+//     await db.query(
+//       `UPDATE perfil_usuario SET
+//         nombre = ?,
+//         apellido = ?,
+//         direccion = ?,
+//         telefono = ?,
+//         contacto_emergencia_nombre = ?,
+//         contacto_emergencia_telefono = ?,
+//         tiene_mascota = ?,
+//         mascota_Nombre = ?,
+//         mascota_Tipo = ?
+//       WHERE email = ?`,
+//       [
+//         data.nombre,
+//         data.apellido,
+//         data.direccion,
+//         data.telefono,
+//         data.contactoEmergenciaNombre,
+//         data.contactoEmergenciaTelefono,
+//         data.tieneMascota ? 1 : 0,
+//         data.mascotaNombre,
+//         data.mascotaTipo,
+//         email
+//       ]
+//     );
+
+//     res.json({ ok: true });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ ok: false });
+//   }
+// };
+
 export const updateProfile = async (req, res) => {
   try {
     const { email } = req.params;
     const data = req.body;
 
+    // Obtener ID del usuario
+    const [userRows] = await db.query(
+      "SELECT id FROM usuario WHERE email = ?",
+      [email]
+    );
+
+    if (userRows.length === 0) {
+      return res.status(404).json({
+        ok: false,
+        message: "Usuario no encontrado"
+      });
+    }
+
+    const userId = userRows[0].id;
+
+    // Actualizar perfil_usuario usando usuario_id
     await db.query(
-      `UPDATE users SET
+      `UPDATE perfil_usuario SET
         nombre = ?,
         apellido = ?,
         direccion = ?,
         telefono = ?,
-        contactoEmergenciaNombre = ?,
-        contactoEmergenciaTelefono = ?,
-        tieneMascota = ?,
-        mascotaNombre = ?,
-        mascotaTipo = ?
-      WHERE email = ?`,
+        contacto_emergencia_nombre = ?,
+        contacto_emergencia_telefono = ?,
+        tiene_mascota = ?,
+        mascota_nombre = ?,
+        mascota_tipo = ?
+      WHERE usuario_id = ?`,
       [
         data.nombre,
         data.apellido,
@@ -53,16 +148,17 @@ export const updateProfile = async (req, res) => {
         data.telefono,
         data.contactoEmergenciaNombre,
         data.contactoEmergenciaTelefono,
-        data.tieneMascota,
+        data.tieneMascota ? 1 : 0,
         data.mascotaNombre,
         data.mascotaTipo,
-        email
+        userId
       ]
     );
 
     res.json({ ok: true });
+
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ ok: false });
+    console.error("ERROR UPDATE PROFILE:", error);
+    res.status(500).json({ ok: false, message: error.message });
   }
 };

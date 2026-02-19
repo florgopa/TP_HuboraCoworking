@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-02-2026 a las 18:48:57
+-- Tiempo de generación: 04-02-2026 a las 23:55:49
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,13 +42,6 @@ CREATE TABLE `perfil_usuario` (
   `locker_numero` int(11) DEFAULT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `perfil_usuario`
---
-
-INSERT INTO `perfil_usuario` (`id`, `usuario_id`, `nombre`, `apellido`, `direccion`, `telefono`, `contacto_emergencia_nombre`, `contacto_emergencia_telefono`, `tiene_mascota`, `mascota_nombre`, `mascota_tipo`, `locker_numero`, `updated_at`) VALUES
-(2, 1, 'cliente', 'hubora', 'calle falsa 123', '011553377', 'Mirta', '011235689', 1, 'Princesa', 'perro', 123456, '2026-02-18 17:22:36');
 
 -- --------------------------------------------------------
 
@@ -98,7 +91,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `perfil_usuario`
 --
 ALTER TABLE `perfil_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
