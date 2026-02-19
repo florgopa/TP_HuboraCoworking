@@ -58,11 +58,11 @@ export default function MyReservations() {
             }}
           >
             <h3>{reserva.espacio_nombre}</h3>
-            <p>📅 Fecha: {reserva.fecha}</p>
+            <p>Fecha: {reserva.fecha}</p>
             <p>
-              ⏰ Horario: {reserva.hora_inicio} - {reserva.hora_fin}
+              Horario: {reserva.hora_inicio} - {reserva.hora_fin}
             </p>
-            <p>📌 Estado: {reserva.estado}</p>
+            <p>Estado: {reserva.estado}</p>
           </div>
         ))
       )}
