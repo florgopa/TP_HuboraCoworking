@@ -21,6 +21,8 @@ import NotFound from "./pages/404";
 import MyReservations from "./pages/MyReservations";
 import NewReservation from "./pages/NewReservation";
 
+import AdminUsers from "./pages/AdminUsers";
+
 function App() {
   const userIsAdmin = true;
 
@@ -53,12 +55,9 @@ function App() {
             <Route path="/usuario/reservar" element={<NewReservation />} />
             <Route path="/usuario/reservas" element={<MyReservations />} />
 
-            {/* Admin */}
-            {userIsAdmin ? (
-              <Route path="/admin" element={<AdminPanel />} />
-            ) : (
-              <Route path="/admin" element={<NotFound />} />
-            )}
+              {/* Admin */}
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/admin/usuarios" element={<AdminUsers />} />
 
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -1,18 +1,21 @@
-import express from "express";
+// src/routes/reservationRoutes.js
+import { Router } from "express";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 import {
   createReservation,
   getReservationsByDate,
-  getReservationsByEmail
+  getReservationsByUserEmail
 } from "../controllers/reservationController.js";
 
-const router = express.Router();
+const router = Router();
 
-// Crear reserva
-router.post("/", createReservation);
-// Buscar reservas por fecha
-router.get("/by-date/:fecha", getReservationsByDate);
-// Buscar reservas por email 
-router.get("/user/:email", getReservationsByEmail);
+// POST /api/reservations
+router.post("/", authMiddleware, createReservation);
 
+// GET /api/reservations/by-date/:date
+router.get("/by-date/:date", authMiddleware, getReservationsByDate);
+
+// GET /api/reservations/user/:email
+router.get("/user/:email", authMiddleware, getReservationsByUserEmail);
 
 export default router;

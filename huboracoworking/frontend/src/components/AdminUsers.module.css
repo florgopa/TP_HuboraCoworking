@@ -1,0 +1,257 @@
+/* ====== CONTENEDOR GENERAL ====== */
+
+.adminPanelContainer {
+  position: relative;
+  min-height: 150vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 4rem 2rem;
+  overflow: hidden;
+}
+
+/* Fondo blur */
+.adminPanelContainer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/bg_login.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: -1;
+}
+
+/* Caja principal */
+.panelBox {
+  width: 100%;
+  max-width: 1280px;            /* panel ancho */
+  margin: 0 auto;
+  background: rgba(5, 13, 30, 0.9);
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* ====== HEADER ====== */
+
+.panelHeader {
+  margin-bottom: 1.5rem;
+}
+
+.panelTitle {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+}
+
+.welcomeMessage {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* ====== TABLA DE USUARIOS ====== */
+
+.tableWrapper {
+  margin-top: 1.5rem;
+  overflow: auto;
+  max-height: calc(100vh - 260px); /* scroll si hay muchos usuarios */
+}
+
+/* Tabla ancha */
+.usersTable {
+  width: 100%;
+  min-width: 1100px;             /* obliga a ser ancha */
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.usersTable thead {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.usersTable th,
+.usersTable td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.usersTable th {
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.usersTable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Inputs de la tabla */
+
+.tableInput,
+.tableSelect {
+  width: 100%;
+  padding: 0.3rem 0.45rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(7, 21, 45, 0.85);
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+.tableInput:disabled,
+.tableSelect:disabled {
+  opacity: 0.6;
+}
+
+.tableCellStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.checkInline {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+}
+
+/* ====== BOTONES EN CADA FILA (ACCIONES) ====== */
+
+.smallActionButton {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #7df163;           /* verde tipo Hubora */
+  color: #12202f;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+}
+
+.smallActionButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(125, 241, 99, 0.4);
+}
+
+.smallActionButton:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* para futuros “Editar / Cancelar” si los usás */
+.smallSecondaryButton {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(15, 27, 55, 0.9);
+  color: #f5f7fa;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 0.4rem;
+}
+
+.smallSecondaryButton:hover {
+  background: rgba(30, 48, 90, 0.95);
+}
+
+/* botón “Eliminar” (borrado lógico si lo implementás) */
+.smallDangerButton {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: none;
+  background: #d9534f;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-left: 0.4rem;
+}
+
+.smallDangerButton:hover {
+  background: #c0392b;
+}
+
+.emptyText {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ====== FOOTER Y BOTONES “VOLVER / LOGOUT” ====== */
+
+.panelFooter {
+  margin-top: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.footerButtons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* Botón “Volver al panel” */
+.actionButton {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: #7df163;
+  color: #12202f;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 10px rgba(125, 241, 99, 0.4);
+}
+
+/* Botón “Cerrar sesión” */
+.logoutButton {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logoutButton:hover {
+  background-color: #c0392b;
+  transform: translateY(-1px);
+}
+
+/* ====== RESPONSIVE SUAVE ====== */
+
+@media (max-width: 900px) {
+  .panelBox {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .usersTable {
+    min-width: 900px;
+  }
+
+  .panelFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

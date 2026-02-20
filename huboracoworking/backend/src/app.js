@@ -1,28 +1,23 @@
-// aca se configura express
-
 import express from "express";
 import cors from "cors";
 
-import authRoutes from "./routes/authRoutes.js"; //importa las rutas de auth
+import authRoutes from "./routes/authRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 
+const app = express();
 
-const app = express(); //crea la app
+app.use(cors());
+app.use(express.json());
 
-
-//middlewares
-app.use(cors()); //permite que react se conecte
-app.use(express.json()); //permite leer json del body
-app.use("/api", authRoutes); //usa las rutas de auth
-app.use("/api", profileRoutes); //usa las rutas de profile
+app.use("/api", authRoutes);
+app.use("/api", profileRoutes);
 app.use("/api/reservations", reservationRoutes);
+app.use("/api", adminRoutes);
 
-
-
-//ruta de prueba
 app.get("/api/test", (req, res) => {
-    res.json({ message: "backend is working!" });
+  res.json({ message: "backend is working!" });
 });
 
 export default app;

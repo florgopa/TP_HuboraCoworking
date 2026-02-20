@@ -1,5 +1,7 @@
+// src/controllers/reservationController.js
 import db from "../config/db.js";
 
+// POST /api/reservations
 export const createReservation = async (req, res) => {
   try {
     const {
@@ -12,71 +14,83 @@ export const createReservation = async (req, res) => {
       horaFin
     } = req.body;
 
-    // obtener usuario_id
-    const [users] = await db.query(
-      "SELECT id FROM usuario WHERE email = ?",
-      [usuarioEmail]
-    );
+    // si querés, acá podrías usar req.user.email en lugar de usuarioEmail del body
+    const email = usuarioEmail || req.user?.email;
 
-    if (users.length === 0) {
-      return res.status(404).json({ ok: false });
-    }
-
-    const usuarioId = users[0].id;
-
-    // insertar reserva
     await db.query(
       `INSERT INTO reserva
-      (id, usuario_id, fecha, espacio_id, espacio_nombre, hora_inicio, hora_fin)
-      VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [id, usuarioId, fecha, espacioId, espacioNombre, horaInicio, horaFin]
+         (id, usuario_email, fecha, espacio_id, espacio_nombre,
+          hora_inicio, hora_fin, estado)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'pendiente')`,
+      [id, email, fecha, espacioId, espacioNombre, horaInicio, horaFin]
     );
 
-    res.json({ ok: true });
-
+    return res.json({ ok: true, message: "Reserva creada" });
   } catch (error) {
-    console.error("ERROR CREATE RESERVATION:", error);
-    res.status(500).json({ ok: false });
+    console.error("ERROR createReservation:", error);
+    return res
+      .status(500)
+      .json({ ok: false, message: "Error al crear la reserva" });
   }
 };
 
-
+// GET /api/reservations/by-date/:date
 export const getReservationsByDate = async (req, res) => {
   try {
-    const { fecha } = req.params;
+    const { date } = req.params;
 
     const [rows] = await db.query(
-      `SELECT * FROM reserva
+      `SELECT
+         id,
+         usuario_email,
+         fecha,
+         espacio_id,
+         espacio_nombre,
+         hora_inicio,
+         hora_fin,
+         estado
+       FROM reserva
        WHERE fecha = ?
-       AND estado != 'cancelada'`,
-      [fecha]
+       ORDER BY espacio_id, hora_inicio`,
+      [date]
     );
 
-    res.json(rows);
+    // el front de NewReservation espera un array plano
+    return res.json(rows);
   } catch (error) {
-    console.error("ERROR GET BY DATE:", error);
-    res.status(500).json({ ok: false });
+    console.error("ERROR getReservationsByDate:", error);
+    return res
+      .status(500)
+      .json({ ok: false, message: "Error al obtener reservas por fecha" });
   }
 };
 
-export const getReservationsByEmail = async (req, res) => {
+// GET /api/reservations/user/:email
+export const getReservationsByUserEmail = async (req, res) => {
   try {
     const { email } = req.params;
 
     const [rows] = await db.query(
-      `SELECT r.*
-       FROM reserva r
-       JOIN usuario u ON r.usuario_id = u.id
-       WHERE u.email = ?
-       ORDER BY r.fecha DESC`,
+      `SELECT
+         id,
+         usuario_email,
+         fecha,
+         espacio_id,
+         espacio_nombre,
+         hora_inicio,
+         hora_fin,
+         estado
+       FROM reserva
+       WHERE usuario_email = ?
+       ORDER BY fecha DESC, hora_inicio`,
       [email]
     );
 
-    res.json(rows);
-
+    return res.json({ ok: true, reservations: rows });
   } catch (error) {
-    console.error("ERROR GET BY EMAIL:", error);
-    res.status(500).json({ ok: false });
+    console.error("ERROR getReservationsByUserEmail:", error);
+    return res
+      .status(500)
+      .json({ ok: false, message: "Error al obtener reservas del usuario" });
   }
 };
-

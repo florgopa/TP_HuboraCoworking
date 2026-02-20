@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../components/Profile.module.css";
 
@@ -12,96 +12,23 @@ const emptyForm = {
   tieneMascota: false,
   mascotaNombre: "",
   mascotaTipo: "otro",
-  lockerNumero: ""
+  lockerNumero: "",
+  planContratado: "" // ✅ viene del backend (no editable)
 };
+
+const API_BASE = "http://localhost:3000/api";
 
 function Profile() {
   const navigate = useNavigate();
   const [baseUser, setBaseUser] = useState(null);
+
   const [form, setForm] = useState(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [editing, setEditing] = useState(false);
 
-
-  useEffect(() => {
-    const stored = localStorage.getItem("user");
-    if (!stored) {
-      navigate("/login");
-      return;
-    }
-
-    const u = JSON.parse(stored);
-    setBaseUser(u);
-
-    // setForm({
-    //   ...emptyForm,
-    //   nombre: "",
-    //   apellido: ""
-    // });
-
-
-    // Cargar datos del perfil desde el backend
-  const fetchProfile = async () => {
-  try {
-    const res = await fetch(
-      `http://localhost:5000/api/profile/${u.email}`
-    );
-    const data = await res.json();
-
-    if (!data.ok) {
-      alert("No se pudo cargar el perfil" + (data.message || "Error desconocido"));
-      return;
-    }
-
-      try {
-    console.log("1. Fetching para email:", u.email);
-    
-    const res = await fetch(`http://localhost:5000/api/profile/${u.email}`);
-    
-    console.log("2. Status de respuesta:", res.status);
-    
-    const data = await res.json();
-    console.log("3. Datos completos recibidos:", data);
-    
-    if (!data.ok) {
-      alert("No se pudo cargar el perfil: " + (data.message || "Error desconocido"));
-      return;
-    }
-
-    console.log("4. Profile recibido:", data.profile);
-    
-    setForm({
-      ...emptyForm,
-      ...data.profile
-    });
-    
-    console.log("5. Form actualizado:", {
-      ...emptyForm,
-      ...data.profile
-    });
-    
-  } catch (err) {
-    console.error("Error completo:", err);
-    alert("Error al conectar con el servidor: " + err.message);
-  }
-
-    console.log("Datos recibidos:", data.profile); // Para debugear
-
-    setForm({
-      ...emptyForm,
-      ...data.profile
-    });
-  } catch (err) {
-    console.error(err);
-    alert("Error al cargar perfil");
-  }
-};
-
-fetchProfile();
-////////////////////////////////////
-
-
-  }, [navigate]);
+  const token = localStorage.getItem("token"); // ✅ JWT
 
   const setField = (name, value) => {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -116,49 +43,127 @@ fetchProfile();
     }));
   };
 
-const handleSave = async () => {
-  if (!form.nombre.trim() || !form.apellido.trim()) {
-    alert("Nombre y apellido son obligatorios.");
-    return;
-  }
+  const fetchProfile = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/profile`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-  setSaving(true);
-  try {
-    const res = await fetch(
-      `http://localhost:5000/api/profile/${baseUser.email}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok || !data?.ok) {
+        // token vencido o inválido => afuera
+        alert(data?.message || "No se pudo cargar el perfil");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/login");
+        return;
       }
-    );
 
-    const data = await res.json();
+      // data.profile trae todo
+      setForm({
+        ...emptyForm,
+        ...data.profile
+      });
 
-    if (!data.ok) {
-      alert("No se pudo guardar el perfil" + (data.message || "Error desconocido"));
+      // baseUser lo usamos solo para email/role, pero también viene del profile
+      setBaseUser({
+        email: data.profile.email,
+        role: data.profile.role
+      });
+    } catch (err) {
+      console.error(err);
+      alert("Error al conectar con el servidor");
+    } finally {
+      setLoading(false);
+    }
+  }, [navigate, token]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("user");
+    if (!stored || !token) {
+      navigate("/login");
+      return;
+    }
+    fetchProfile();
+  }, [navigate, token, fetchProfile]);
+
+  const handleSave = async () => {
+    if (!editing) return;
+
+    if (!form.nombre.trim() || !form.apellido.trim()) {
+      alert("Nombre y apellido son obligatorios.");
       return;
     }
 
-    alert("Perfil actualizado correctamente");
-    setEditing(false);
+    if (form.tieneMascota && !form.mascotaNombre.trim()) {
+      alert("Ingresá el nombre de tu mascota.");
+      return;
+    }
 
-    // Opcional: recargar los datos después de guardar
-    window.location.reload(); // o volver a llamar a fetchProfile
+    setSaving(true);
+    try {
+      const payload = {
+        nombre: form.nombre,
+        apellido: form.apellido,
+        direccion: form.direccion,
+        telefono: form.telefono,
+        contactoEmergenciaNombre: form.contactoEmergenciaNombre,
+        contactoEmergenciaTelefono: form.contactoEmergenciaTelefono,
+        tieneMascota: form.tieneMascota,
+        mascotaNombre: form.mascotaNombre,
+        mascotaTipo: form.mascotaTipo
+        // ✅ NO mandamos lockerNumero ni planContratado (no editables)
+      };
 
-  } catch (error) {
-    console.error(error);
-    alert("Error al guardar perfil");
-  } finally {
-    setSaving(false);
-  }
-};
+      const res = await fetch(`${API_BASE}/profile`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(payload)
+      });
 
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok || !data?.ok) {
+        alert(data?.message || "No se pudo guardar el perfil");
+        return;
+      }
+
+      alert("Perfil actualizado correctamente ✅");
+      setEditing(false);
+      fetchProfile(); // ✅ recarga sin reload
+    } catch (error) {
+      console.error(error);
+      alert("Error al guardar perfil");
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     navigate("/login");
   };
+
+  if (loading) {
+    return (
+      <div className={styles.profileContainer}>
+        <div className={styles.panelBox}>
+          <div className={styles.panelHeader}>
+            <h1 className={styles.panelTitle}>Mi Perfil</h1>
+            <p className={styles.welcomeMessage}>Cargando perfil...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (!baseUser) return null;
 
@@ -199,11 +204,7 @@ const handleSave = async () => {
 
               <div className={styles.formGroup}>
                 <label>Email (no editable)</label>
-                <input
-                  className={styles.textInput}
-                  value={baseUser.email}
-                  disabled
-                />
+                <input className={styles.textInput} value={baseUser.email} disabled />
               </div>
 
               <div className={styles.formGroup}>
@@ -237,9 +238,7 @@ const handleSave = async () => {
                 <input
                   className={styles.textInput}
                   value={form.contactoEmergenciaNombre}
-                  onChange={(e) =>
-                    setField("contactoEmergenciaNombre", e.target.value)
-                  }
+                  onChange={(e) => setField("contactoEmergenciaNombre", e.target.value)}
                   disabled={!editing}
                 />
               </div>
@@ -249,9 +248,7 @@ const handleSave = async () => {
                 <input
                   className={styles.textInput}
                   value={form.contactoEmergenciaTelefono}
-                  onChange={(e) =>
-                    setField("contactoEmergenciaTelefono", e.target.value)
-                  }
+                  onChange={(e) => setField("contactoEmergenciaTelefono", e.target.value)}
                   disabled={!editing}
                 />
               </div>
@@ -259,110 +256,93 @@ const handleSave = async () => {
           </div>
 
           {/* Preferencias */}
-            <div className={styles.contentItem}>
+          <div className={styles.contentItem}>
             <h3>Preferencias</h3>
 
             <div className={styles.formStack}>
-                <div className={styles.checkboxRow}>
+              <div className={styles.checkboxRow}>
                 <input
-                    id="tieneMascota"
-                    type="checkbox"
-                    checked={form.tieneMascota}
-                    onChange={(e) => handleToggleMascota(e.target.checked)}
-                    disabled={!editing}
+                  id="tieneMascota"
+                  type="checkbox"
+                  checked={!!form.tieneMascota}
+                  onChange={(e) => handleToggleMascota(e.target.checked)}
+                  disabled={!editing}
                 />
-                <label htmlFor="tieneMascota">
-                    Voy con mi mascota a trabajar
-                </label>
-                </div>
+                <label htmlFor="tieneMascota">Voy con mi mascota a trabajar</label>
+              </div>
 
-                {form.tieneMascota && (
+              {form.tieneMascota && (
                 <>
-                    <div className={styles.formGroup}>
+                  <div className={styles.formGroup}>
                     <label>Nombre de la mascota</label>
                     <input
-                        className={styles.textInput}
-                        value={form.mascotaNombre}
-                        onChange={(e) =>
-                        setField("mascotaNombre", e.target.value)
-                        }
-                        placeholder="Ej: Mishi"
-                        disabled={!editing}
+                      className={styles.textInput}
+                      value={form.mascotaNombre}
+                      onChange={(e) => setField("mascotaNombre", e.target.value)}
+                      disabled={!editing}
                     />
-                    </div>
+                  </div>
 
-                    <div className={styles.formGroup}>
+                  <div className={styles.formGroup}>
                     <label>Tipo de mascota</label>
                     <select
-                        className={styles.selectInput}
-                        value={form.mascotaTipo}
-                        onChange={(e) =>
-                        setField("mascotaTipo", e.target.value)
-                        }
-                        disabled={!editing}
+                      className={styles.selectInput}
+                      value={form.mascotaTipo}
+                      onChange={(e) => setField("mascotaTipo", e.target.value)}
+                      disabled={!editing}
                     >
-                        <option value="perro">Perro</option>
-                        <option value="gato">Gato</option>
-                        <option value="otro">Otro</option>
+                      <option value="perro">Perro</option>
+                      <option value="gato">Gato</option>
+                      <option value="otro">Otro</option>
                     </select>
-                    </div>
+                  </div>
                 </>
-                )}
+              )}
 
-                <div className={styles.formGroup}>
-                <label>Plan contratado</label>
+              <div className={styles.formGroup}>
+                <label>Plan contratado (no editable)</label>
                 <input
-                    className={styles.textInput}
-                    value={baseUser.plan || "Sin plan asignado"}
-                    disabled
+                  className={styles.textInput}
+                  value={form.planContratado || "Sin plan asignado"}
+                  disabled
                 />
-                </div>
+              </div>
 
-                <div className={styles.formGroup}>
-                <label>Locker asignado</label>
+              <div className={styles.formGroup}>
+                <label>Locker asignado (no editable)</label>
                 <input
-                    className={styles.textInput}
-                    value={form.lockerNumero || "No asignado"}
-                    disabled
+                  className={styles.textInput}
+                  value={form.lockerNumero || "No asignado"}
+                  disabled
                 />
-                </div>
+              </div>
 
-                <div className={styles.formGroup}>
-                <label>Rol</label>
-                <input
-                    className={styles.textInput}
-                    value={baseUser.role}
-                    disabled
-                />
-                </div>
+              <div className={styles.formGroup}>
+                <label>Rol (no editable)</label>
+                <input className={styles.textInput} value={baseUser.role} disabled />
+              </div>
             </div>
-            </div>
+          </div>
         </div>
 
         <div className={styles.profileActions}>
-          <button
-            className={styles.actionButton}
-            onClick={() => navigate("/usuario")}
-          >
+          <button className={styles.actionButton} onClick={() => navigate("/usuario")}>
             Volver al panel
           </button>
-                
-          {!editing && (
-              <button
-                className={styles.actionButton}
-                onClick={() => setEditing(true)}
-              >
-                Editar perfil
-              </button>
-          )}
 
-          <button
-            className={styles.actionButton}
-            onClick={handleSave}
-            disabled={saving}
-          >
-            {saving ? "Guardando..." : "Guardar cambios"}
-          </button>
+          {!editing ? (
+            <button className={styles.actionButton} onClick={() => setEditing(true)}>
+              Editar perfil
+            </button>
+          ) : (
+            <button
+              className={styles.actionButton}
+              onClick={handleSave}
+              disabled={saving}
+            >
+              {saving ? "Guardando..." : "Guardar cambios"}
+            </button>
+          )}
 
           <button className={styles.logoutButton} onClick={handleLogout}>
             Cerrar Sesión

@@ -1,17 +1,11 @@
-// se definen las urls
-import { Router } from "express";
-import { login, register } from "../controllers/authController.js";
-import { updateProfile } from "../controllers/profileController.js";
+import express from "express";
+import { login, register, me } from "../controllers/authController.js";
+import { authMiddleware } from "../middlewares/authMiddleware.js";
 
-const router = Router();
+const router = express.Router();
 
-//post /api/register
-router.post("/register", register);
-
-//post /api/login
 router.post("/login", login);
-
-router.put("/:email", updateProfile);
-
+router.post("/register", register);
+router.get("/me", authMiddleware, me);
 
 export default router;
