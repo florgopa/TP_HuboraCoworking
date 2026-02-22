@@ -83,44 +83,48 @@
 
 /* Sección de Copyright, Flecha y Redes Sociales */
 .footerBottom {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #ccc;
   font-size: 0.9rem;
   margin: 0 auto;
-  padding: 10px 15px;
+  padding: 14px 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
+/* Quitamos el margen roto */
 .footerBottomLeft {
   text-align: left;
-  margin-right: 575px;
+  margin-right: 0;
 }
 
+/* Redes sociales a la derecha */
 .footerBottomRight {
   display: flex;
   gap: 0.8rem;
-  justify-content: flex-end;
-  text-align: right;
-  margin-left: auto; 
+  align-items: center;
 }
 
+/* 🔥 Flecha perfectamente centrada */
 .scrollToTopButton {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0; 
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+  transition: transform 0.2s ease;
 }
 
 .scrollToTopButton:hover {
-  transform: translateY(-3px);
+  transform: translateX(-50%) translateY(-3px);
 }
 
 .arrowUpSvg {

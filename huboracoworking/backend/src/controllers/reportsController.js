@@ -86,11 +86,7 @@ export const getKpis = async (req, res) => {
   }
 };
 
-/**
- * GET /api/admin/reports/reservations-by-month?months=6
- * Reservas por mes (últimos N meses)
- * Devuelve { month: '2026-02', total: 12, confirmadas: 5, pendientes: 6, canceladas: 1 }
- */
+// GET /api/admin/reports/reservations-by-month?months=6
 export const getReservationsByMonth = async (req, res) => {
   try {
     const months = Math.max(1, Math.min(24, Number(req.query.months) || 6));
@@ -120,7 +116,7 @@ export const getReservationsByMonth = async (req, res) => {
 
 /**
  * GET /api/admin/reports/top-spaces?limit=5
- * Top espacios por cantidad de reservas (excluye canceladas si querés: acá las cuenta igual, lo hago configurable)
+ * Top espacios por cantidad de reservas (excluye canceladas)
  */
 export const getTopSpaces = async (req, res) => {
   try {

@@ -1,69 +1,92 @@
-import React from 'react';
-import styles from './Planes.module.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "./Planes.module.css";
 
 function Planes() {
+  const navigate = useNavigate();
+
   const planesList = [
     {
-      name: 'Plan Flex Individuos', 
-      price: '$2.000',
-      period: '/hora', 
+      name: "Plan Flex Individuos",
+      price: "$20.000",
+      period: "/hora",
+      benefits:
+        "Ideal para venir cuando lo necesitás. Pagás solo por el tiempo que usás, sin atarte a una membresía.",
       features: [
-        'Packs de horas', 
-        'Escritorio flexible',
-        'Café incluido',
-        'Descuentos',
-        'Wifi de alta velocidad'
+        "Acceso por hora (sin mínimo mensual)",
+        "Escritorio flexible según disponibilidad",
+        "Café incluido",
+        "Wifi de alta velocidad",
+        "Descuentos en salas y servicios",
       ],
       highlight: false,
-      buttonText: 'Comprar ahora' 
     },
     {
-      name: 'Plan Mensual', 
-      price: '$150.000',
-      period: '/mes', 
+      name: "Plan Básico",
+      price: "$40.000",
+      period: "/mes",
+      benefits:
+        "Tu base de trabajo todos los días. Acceso ilimitado y un lugar estable para mantener rutina y productividad.",
       features: [
-        'Acceso ilimitado', 
-        'Escritorio',
-        'Café incluido',
-        'Descuentos',
-        'Wifi de alta velocidad'
+        "Acceso ilimitado en horario del coworking",
+        "Escritorio dedicado",
+        "Café incluido",
+        "Wifi de alta velocidad",
+        "Descuentos en salas y eventos",
       ],
-      highlight: true, 
-      buttonText: 'Contratar ahora' 
+      highlight: true,
     },
     {
-      name: 'Plan Empresas', 
-      price: '$1.800',
-      period: '/hora', 
+      name: "Plan Premium",
+      price: "$60.000",
+      period: "/mes",
+      benefits:
+        "Para quienes usan el coworking a full. Incluye beneficios extra y horas bonificadas en espacios para reuniones.",
       features: [
-        'Pack de horas para toda la nómina', 
-        'Escritorio flexible',
-        'Café incluido',
-        'Descuentos',
-        'Wifi de alta velocidad'
+        "Horas bonificadas de uso de espacios/salas",
+        "Escritorio flexible o preferencial",
+        "Café incluido",
+        "Wifi de alta velocidad",
+        "Descuentos superiores + prioridad de reserva",
       ],
       highlight: false,
-      buttonText: 'Cotizar' 
     },
   ];
+
+  const handleHire = (planName) => {
+    // si querés guardar el plan para preseleccionarlo después:
+    // localStorage.setItem("selectedPlan", planName);
+
+    navigate("/login", { state: { from: "/#planes", plan: planName } });
+  };
 
   return (
     <section id="planes" className={styles.planesSection}>
       <div className={styles.mainTitleContainer}>
         <h2 className={styles.mainTitle}>Planes y Precios</h2>
       </div>
-      <p className={styles.sectionDescription}>Elige el plan que mejor se adapte a tus necesidades, desde acceso por horas hasta membresías mensuales.</p>
-      
+
+      <p className={styles.sectionDescription}>
+        Elegí el plan que mejor se adapte a tus necesidades, desde acceso por horas hasta membresías mensuales.
+      </p>
+
       <div className={styles.planesGrid}>
         {planesList.map((plan, index) => (
-          <div key={index} className={`${styles.planCard} ${plan.highlight ? styles.highlighted : ''}`}>
-            {plan.highlight && <div className={styles.highlightLabel}>MÁS POPULAR</div>} 
-            
+          <div
+            key={index}
+            className={`${styles.planCard} ${plan.highlight ? styles.highlighted : ""}`}
+          >
+            {plan.label && <span className={styles.highlightLabel}>{plan.label}</span>}
+
             <h3>{plan.name}</h3>
+
             <p className={styles.planPrice}>
               {plan.price} <span className={styles.planPeriod}>{plan.period}</span>
             </p>
-            
+
+            {/* Beneficios cortos */}
+            <p className={styles.planDescription}>{plan.benefits}</p>
+
             <ul className={styles.planFeatures}>
               {plan.features.map((feature, i) => (
                 <li key={i}>
@@ -72,7 +95,13 @@ function Planes() {
                 </li>
               ))}
             </ul>
-            <button className={styles.planButton}>{plan.buttonText}</button>
+
+            <button
+              className={styles.planButton}
+              onClick={() => handleHire(plan.name)}
+            >
+              Contratar
+            </button>
           </div>
         ))}
       </div>

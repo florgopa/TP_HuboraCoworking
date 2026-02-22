@@ -115,7 +115,7 @@ export const createReservation = async (req, res) => {
       ]
     );
 
-    // Devolvemos estado para que el front muestre mensaje correcto
+    // Devolvemos estado para que el front muestre todo ok
     return res.status(201).json({ ok: true, id, estado: estadoInicial, plan });
   } catch (error) {
     console.error("CREATE RESERVATION ERROR:", error);

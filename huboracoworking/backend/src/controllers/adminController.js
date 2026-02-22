@@ -51,7 +51,7 @@ export const updateUserAdmin = async (req, res) => {
       params.push(role);
     }
 
-    // ✅ tu enum de plan
+    // enum de plan
     if (plan_contratado !== undefined) {
       if (!["basico", "premium"].includes(plan_contratado)) {
         return res.status(400).json({ ok: false, message: "Plan inválido" });
@@ -66,7 +66,7 @@ export const updateUserAdmin = async (req, res) => {
       params.push(lockerNumero === "" ? null : lockerNumero);
     }
 
-    // opcional: editar datos personales desde admin
+    // editar datos personales desde admin
     if (nombre !== undefined) { updates.push("nombre = ?"); params.push(nombre); }
     if (apellido !== undefined) { updates.push("apellido = ?"); params.push(apellido); }
     if (direccion !== undefined) { updates.push("direccion = ?"); params.push(direccion); }

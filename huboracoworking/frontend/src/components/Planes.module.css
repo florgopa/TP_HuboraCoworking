@@ -66,7 +66,7 @@
 
 .planCard.highlighted {
   background-color: #0fff37c2; 
-  color: #FFFFFF; 
+  color: #4a4a4a; 
   border: 2px solid #080f70; 
 }
 
@@ -86,7 +86,7 @@
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   background-color: #F6F6F6; 
-  color: #FFFFFF;
+  color: #414141;
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 0.8rem;
@@ -105,7 +105,7 @@
 }
 
 .planCard.highlighted h3 {
-  color: #FFFFFF;
+  color: #282828;
 }
 
 .planPrice {
@@ -122,7 +122,7 @@
 
 .planPeriod {
   font-size: 1.2rem; 
-  color: #f6f6f6;
+  color: #4e4e4e;
   font-weight: normal;
 }
 
@@ -199,6 +199,55 @@
   color: #0F3460;
 }
 
+/* ===== Más aire en toda la sección ===== */
+.planesSection {
+  padding: 70px 20px;   /* antes 20px 20px */
+}
+
+/* Título + descripción con más presencia */
+.mainTitleContainer { margin-bottom: 28px; }
+.mainTitle {   font-size: clamp(1.9rem, 3vw, 2.5rem);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}     /* antes 2.8rem */
+.sectionDescription {
+  margin-bottom: 55px;  /* antes 40px */
+  font-size: 1.2rem;    /* antes 1.1rem */
+  max-width: 900px;
+}
+
+/* ===== Grid: más separación real entre cards ===== */
+.planesGrid {
+  gap: 34px;            /* <-- ESTO es lo principal (no lo tenías en desktop) */
+  margin-top: 28px;     /* antes 20px */
+  max-width: 1300px;    /* un toque más ancho si querés que respiren */
+}
+
+/* ===== Cards: más grandes y más “premium” ===== */
+.planCard {
+  padding: 38px;        /* antes 30px */
+  border-radius: 14px;  /* antes 10px */
+  min-height: 520px;    /* opcional: uniforma altura y se ven más grandes */
+}
+
+/* Tipografías dentro de la card */
+.planCard h3 { font-size: 2.2rem; }      /* antes 2rem */
+.planPrice { font-size: 3.1rem; }        /* antes 2.8rem */
+.planPeriod { font-size: 1.25rem; }      /* antes 1.2rem */
+.planDescription { font-size: 1.05rem; } /* antes 1rem */
+
+.planFeatures li {
+  font-size: 1.05rem;   /* antes 1rem */
+  margin-bottom: 12px;  /* antes 10px */
+}
+
+/* Botón un toque más grande */
+.planButton {
+  padding: 14px 28px;   /* antes 12px 25px */
+  font-size: 1.05rem;   /* antes 1rem */
+  max-width: 230px;     /* antes 200px */
+}
 
 /* Responsive*/
 @media (max-width: 768px) {

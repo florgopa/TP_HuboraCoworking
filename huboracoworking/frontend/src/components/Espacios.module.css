@@ -11,8 +11,8 @@
 }
 
 .mainTitle {
-  font-size: 2.8rem;
-  color: #0F3460; 
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  color: #0F3460;
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
@@ -96,6 +96,7 @@
   text-align: left;
   width: 100%;
 }
+
 
 
 /* Responsive*/

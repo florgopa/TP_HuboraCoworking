@@ -174,7 +174,7 @@ const [topSpaces, setTopSpaces] = useState([]);
 const [months, setMonths] = useState(6);
 const [reservasByMonth, setReservasByMonth] = useState([]);
 
-// yo lo muestro en ARS porque sino queda re raro
+// en ARS porque sino queda re raro
 const money = (n) =>
   (Number(n) || 0).toLocaleString("es-AR", {
     style: "currency",
@@ -276,7 +276,7 @@ const money = (n) =>
       }
 
       setReservas((prev) => prev.map((r) => (r.id === id ? { ...r, estado: "confirmada" } : r)));
-      alert("Pago confirmado ✅");
+      alert("Pago confirmado");
     } catch (e) {
       console.error(e);
       alert("Error al conectar con el servidor.");
@@ -307,7 +307,7 @@ const money = (n) =>
       }
 
       setReservas((prev) => prev.map((r) => (r.id === id ? { ...r, estado: "cancelada" } : r)));
-      alert("Reserva cancelada ✅");
+      alert("Reserva cancelada");
     } catch (e) {
       console.error(e);
       alert("Error al conectar con el servidor.");
@@ -620,7 +620,7 @@ const money = (n) =>
 
       setNewSpace(emptySpaceForm);
       await fetchSpaces();
-      alert("Espacio creado ✅");
+      alert("Espacio creado");
     } catch (e) {
       console.error(e);
       alert("Error al conectar con el servidor.");

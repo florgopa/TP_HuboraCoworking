@@ -117,7 +117,7 @@ if (anyProfileProvided) {
   // normalizaciones
   const tieneMascotaVal = tiene_mascota === undefined ? undefined : (tiene_mascota ? 1 : 0);
 
-  // si apaga mascota => limpiamos
+  // si apaga mascota limpiamos
   const mascotaNombreVal =
     tiene_mascota === false ? null :
     (mascota_nombre !== undefined ? (mascota_nombre || null) : undefined);

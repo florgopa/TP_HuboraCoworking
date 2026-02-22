@@ -53,7 +53,7 @@ export const login = async (req, res) => {
   }
 };
 
-// alias si tus rutas importan loginUser
+// r
 export const loginUser = login;
 
 /* =========================
@@ -83,7 +83,7 @@ export const registerUser = async (req, res) => {
 
     await conn.beginTransaction();
 
-    // ¿ya existe?
+    // ya existe?
     const [exists] = await conn.query("SELECT id FROM usuario WHERE email = ? LIMIT 1", [email]);
     if (exists.length > 0) {
       await conn.rollback();
@@ -101,7 +101,7 @@ export const registerUser = async (req, res) => {
 
     const userId = ins.insertId;
 
-    // crear perfil vacío asociado (evita duplicados si tuvieras unique en usuario_id)
+    // crear perfil vacío asociado
     await conn.query(
       `INSERT INTO perfil_usuario (usuario_id)
        VALUES (?)`,
@@ -117,6 +117,7 @@ export const registerUser = async (req, res) => {
     });
   } catch (error) {
     try { await conn.rollback(); } catch {}
+    
     // por si hay constraint unique en email/usuario_id
     if (error?.code === "ER_DUP_ENTRY") {
       return res.status(409).json({ ok: false, message: "Ese email ya está registrado" });

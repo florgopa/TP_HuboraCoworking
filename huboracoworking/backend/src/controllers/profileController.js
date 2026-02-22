@@ -57,7 +57,7 @@ export const upsertMyProfile = async (req, res) => {
       lockerNumero
     } = req.body;
 
-    // opcional, pero recomendable
+    // opcional
     if (!nombre?.trim() || !apellido?.trim()) {
       return res
         .status(400)
@@ -68,7 +68,7 @@ export const upsertMyProfile = async (req, res) => {
     const mascotaNombreSafe = tieneMascota ? (mascotaNombre ?? "") : "";
     const mascotaTipoSafe = tieneMascota ? (mascotaTipo ?? "otro") : "otro";
 
-    // ¿Existe registro?
+    // Existe registro?
     const [exists] = await pool.query(
       `SELECT id FROM perfil_usuario WHERE usuario_id = ? LIMIT 1`,
       [userId]

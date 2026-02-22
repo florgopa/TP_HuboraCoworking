@@ -304,6 +304,192 @@
   font-weight: bold;
 }
 
+.contactoSection {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+
+  /* antes: height: 1100px */
+  min-height: 100vh;
+  padding: clamp(48px, 6vw, 80px) 0;
+
+  color: #F6F6F6;
+  font-family: 'Inter', sans-serif;
+}
+
+.sectionOverlay {
+  /* antes absolute + height 100% */
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+}
+
+.contactoSection > .sectionOverlay > div {
+  max-width: 1100px;       /* antes 1300 */
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* títulos */
+.mainTitleContainer {
+  margin-bottom: 18px;     /* antes 40 */
+  text-align: center;
+}
+
+.mainTitle {
+  font-size: clamp(1.9rem, 3vw, 2.5rem); /* antes 2.8 */
+  color: #F6F6F6;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.mainTitle::after {
+  width: 160px;            /* antes 190 */
+  height: 4px;
+  background-color: #8EF14C;
+  border-radius: 2px;
+}
+
+.sectionDescription {
+  text-align: center;
+  margin: 0 auto 26px auto; /* antes 20 y 40 en otras secciones */
+  font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+  max-width: 760px;
+  color: rgba(246, 246, 246, 0.92);
+}
+
+/* layout */
+.contactContent {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* form un poco más ancho */
+  gap: 22px;                          /* antes 30 */
+  margin: 0 auto;
+  max-width: 1100px;
+  padding: 0;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .contactContent {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* tarjetas */
+.contactFormContainer,
+.contactInfoContainer {
+  background-color: rgba(33, 45, 78, 0.55);
+  border-radius: 14px;         /* más suave */
+  padding: 22px;               /* antes 30 */
+  box-sizing: border-box;
+  color: #F6F6F6;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* h3 */
+.contactFormContainer h3,
+.contactInfoContainer h3 {
+  font-size: 1.35rem;          /* antes 1.8 */
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.contactFormContainer h3::after,
+.contactInfoContainer h3::after {
+  width: 46%;
+  height: 3px;                 /* antes 4 */
+}
+
+/* filas */
+.contactForm .formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 768px) {
+  .contactForm .formRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* labels + controles más chicos */
+.contactForm label {
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-size: 0.95rem; /* antes 1.1rem */
+  color: rgba(246,246,246,0.95);
+}
+
+.contactForm input[type="text"],
+.contactForm input[type="email"],
+.contactForm input[type="tel"],
+.contactForm input[type="date"],
+.contactForm textarea,
+.contactForm select {
+  padding: 10px 11px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  background-color: rgba(81, 84, 94, 0.40);
+  color: #F6F6F6;
+}
+
+.contactForm textarea {
+  min-height: 110px; /* antes 100 */
+}
+
+/* tel */
+.contactForm .phoneInputGroup {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+/* botón */
+.submitButton {
+  padding: 11px 18px; /* un toque más chico */
+  font-size: 1rem;
+  border-radius: 10px;
+  margin-top: 14px;  /* antes 20 */
+}
+
+/* info */
+.contactInfoContainer p {
+  margin-bottom: 10px;
+  font-size: 0.95rem;  /* antes 1.1rem */
+  line-height: 1.5;
+  color: rgba(246,246,246,0.92);
+}
+
+/* mapa más razonable */
+.mapContainer {
+  margin-top: 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 260px;       /* antes 450 */
+}
+
+@media (min-width: 1100px) {
+  .mapContainer {
+    height: 300px;
+  }
+}
+
+/* feedback */
+.successMessage,
+.errorMessage {
+  font-size: 0.95rem;
+}
+
 /* Media Queries*/
 @media (max-width: 768px) {
   .contactoSection {
