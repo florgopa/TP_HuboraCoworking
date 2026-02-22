@@ -8,17 +8,16 @@ function Register() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    // ✅ Validación antes del fetch
     if (!email || !password) {
       alert("Completá email y contraseña");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch("http://localhost:5000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
 
       const text = await response.text();

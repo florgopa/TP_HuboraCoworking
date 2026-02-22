@@ -1,0 +1,241 @@
+.newResContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - var(--navbar-height, 70px) - var(--footer-height, 50px));
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.newResContainer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/bg_login.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  transform: scale(1.02);
+  z-index: -1;
+}
+
+.panelBox {
+  z-index: 1;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 40px;
+  width: 90%;
+  max-width: 1100px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-align: center;
+}
+
+.panelHeader {
+  margin-bottom: 30px;
+}
+
+.panelTitle {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.welcomeMessage {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.panelContentSingle {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.spaceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.spaceCard {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: left;
+}
+
+.spaceTitle {
+  font-weight: 800;
+  margin-bottom: 12px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.resDetail {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 10px;
+}
+
+.resLabel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 700;
+}
+
+.resValue {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.95);
+  text-align: right;
+}
+
+.resFooter {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: capitalize;
+  color: #0f3460;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.badgeOk {
+  background: #8ef14c;
+}
+
+.badgeWarn {
+  background: #ffc107;
+}
+
+.badgeBad {
+  background: #ff4d4d;
+  color: #111;
+}
+
+.cancelBtn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: #ff4d4d;
+  color: #111;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.cancelBtn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.cancelBtnDisabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.smallHint {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.emptyState {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.emptyState h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.4rem;
+}
+
+.emptyState p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.panelFooter {
+  margin-top: 18px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.loading {
+  color: white;
+  padding: 40px;
+}
+
+@media (max-width: 768px) {
+  .panelBox {
+    padding: 24px;
+  }
+
+  .panelTitle {
+    font-size: 2.2rem;
+  }
+
+  .resDetail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resValue {
+    text-align: left;
+  }
+}
+
+.filterBar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0 20px;
+}
+
+.filterChip {
+  background-color: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.filterChip:hover {
+  transform: translateY(-1px);
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+.filterChipActive {
+  background-color: #8ef14c;
+  border-color: #8ef14c;
+  color: #0f3460;
+}

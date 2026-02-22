@@ -1,98 +1,129 @@
-// se definen los métodos
-import pool from "../config/db.js";
+// src/controllers/authController.js
+import { pool } from "../config/db.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-// =====================
-// LOGIN
-// =====================
+/* =========================
+   LOGIN
+   ========================= */
 export const login = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
-    return res.status(400).json({
-      ok: false,
-      message: "Faltan datos requeridos"
-    });
+    return res.status(400).json({ ok: false, message: "Missing fields" });
   }
 
   try {
     const [rows] = await pool.query(
-      "SELECT id, email, password, role FROM usuario WHERE email = ?",
+      "SELECT id, email, password, role, activo, plan_contratado FROM usuario WHERE email = ?",
       [email]
     );
 
     if (rows.length === 0) {
-      return res.status(401).json({
-        ok: false,
-        message: "Credenciales incorrectas"
-      });
+      return res.status(400).json({ ok: false, message: "Invalid credentials" });
     }
 
-    const user = rows[0];
-
-    if (user.password !== password) {
-      return res.status(401).json({
-        ok: false,
-        message: "Credenciales incorrectas"
-      });
+    const usuario = rows[0];
+    if (!usuario.activo) {
+      return res.status(403).json({ ok: false, message: "User inactive" });
     }
+
+    const ok = await bcrypt.compare(password, usuario.password);
+    if (!ok) {
+      return res.status(400).json({ ok: false, message: "Invalid credentials" });
+    }
+
+    const token = jwt.sign(
+      { id: usuario.id, email: usuario.email, role: usuario.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
     return res.json({
       ok: true,
-      role: user.role
+      token,
+      user: {
+        id: usuario.id,
+        email: usuario.email,
+        role: usuario.role,
+        plan_contratado: usuario.plan_contratado,
+      },
     });
-
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      ok: false,
-      message: "Error del servidor"
-    });
+    return res.status(500).json({ ok: false, message: error.message });
   }
 };
 
-// =====================
-// REGISTER
-// =====================
-export const register = async (req, res) => {
-  const { email, password } = req.body;
+// alias si tus rutas importan loginUser
+export const loginUser = login;
 
-  if (!email || !password) {
-    return res.status(400).json({
-      ok: false,
-      message: "Faltan datos requeridos"
-    });
-  }
-
+/* =========================
+   REGISTER
+   ========================= */
+export const registerUser = async (req, res) => {
+  const conn = await pool.getConnection();
   try {
-    // Verificar si existe
-    const [rows] = await pool.query(
-      "SELECT id FROM usuario WHERE email = ?",
-      [email]
-    );
+    let { email, password } = req.body;
 
-    if (rows.length > 0) {
-      return res.json({
-        ok: false,
-        message: "El usuario ya existe"
-      });
+    email = String(email || "").trim().toLowerCase();
+    password = String(password || "");
+
+    if (!email || !password) {
+      return res.status(400).json({ ok: false, message: "Completá email y contraseña" });
     }
 
-    // Insertar usuario (role por defecto)
-    await pool.query(
-      "INSERT INTO usuario (email, password, role) VALUES (?, ?, ?)",
-      [email, password, "user"]
+    // validación simple
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) {
+      return res.status(400).json({ ok: false, message: "Email inválido" });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({ ok: false, message: "La contraseña debe tener al menos 6 caracteres" });
+    }
+
+    await conn.beginTransaction();
+
+    // ¿ya existe?
+    const [exists] = await conn.query("SELECT id FROM usuario WHERE email = ? LIMIT 1", [email]);
+    if (exists.length > 0) {
+      await conn.rollback();
+      return res.status(409).json({ ok: false, message: "Ese email ya está registrado" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+
+    // crear usuario (role default cliente, activo 1, plan_contratado basico)
+    const [ins] = await conn.query(
+      `INSERT INTO usuario (email, password, role, activo, plan_contratado)
+       VALUES (?, ?, 'cliente', 1, 'basico')`,
+      [email, hashed]
     );
 
-    return res.json({
-      ok: true,
-      message: "Usuario registrado exitosamente"
-    });
+    const userId = ins.insertId;
 
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      ok: false,
-      message: "Error del servidor"
+    // crear perfil vacío asociado (evita duplicados si tuvieras unique en usuario_id)
+    await conn.query(
+      `INSERT INTO perfil_usuario (usuario_id)
+       VALUES (?)`,
+      [userId]
+    );
+
+    await conn.commit();
+
+    return res.status(201).json({
+      ok: true,
+      message: "Usuario registrado correctamente",
+      userId,
     });
+  } catch (error) {
+    try { await conn.rollback(); } catch {}
+    // por si hay constraint unique en email/usuario_id
+    if (error?.code === "ER_DUP_ENTRY") {
+      return res.status(409).json({ ok: false, message: "Ese email ya está registrado" });
+    }
+    console.error("REGISTER ERROR:", error);
+    return res.status(500).json({ ok: false, message: error.message });
+  } finally {
+    conn.release();
   }
 };

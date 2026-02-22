@@ -1,28 +1,39 @@
-// aca se configura express
-
 import express from "express";
 import cors from "cors";
-
-import authRoutes from "./routes/authRoutes.js"; //importa las rutas de auth
+import { pool } from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import spaceAdminRoutes from "./routes/spaceAdminRoutes.js";
+import spaceRoutes from "./routes/spaceRoutes.js";
+import reportsRoutes from "./routes/reportsRoutes.js";
+import "dotenv/config";
 
+const app = express();
 
-const app = express(); //crea la app
+app.use(cors());
+app.use(express.json());
 
+app.use("/api", authRoutes);
+app.use("/api", profileRoutes);
+app.use("/api", reservationRoutes);
+app.use("/api", adminRoutes);
+app.use("/api", spaceAdminRoutes);
+app.use("/api", spaceRoutes);
+app.use("/api", reportsRoutes);
 
-//middlewares
-app.use(cors()); //permite que react se conecte
-app.use(express.json()); //permite leer json del body
-app.use("/api", authRoutes); //usa las rutas de auth
-app.use("/api", profileRoutes); //usa las rutas de profile
-app.use("/api/reservations", reservationRoutes);
-
-
-
-//ruta de prueba
 app.get("/api/test", (req, res) => {
-    res.json({ message: "backend is working!" });
+  res.json({ ok: true, message: "API running" });
+});
+
+app.get("/api/test-db", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT 1 as test");
+    res.json({ ok: true, db: rows[0] });
+  } catch (error) {
+    res.status(500).json({ ok: false, error: error.message });
+  }
 });
 
 export default app;

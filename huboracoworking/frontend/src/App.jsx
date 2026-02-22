@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useMemo } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -21,8 +21,43 @@ import NotFound from "./pages/404";
 import MyReservations from "./pages/MyReservations";
 import NewReservation from "./pages/NewReservation";
 
+function getStoredUser() {
+  const raw = localStorage.getItem("user");
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+// 🔒 Ruta protegida (requiere login)
+function ProtectedRoute({ children }) {
+  const user = getStoredUser();
+  if (!user?.token) return <Navigate to="/login" replace />;
+  return children;
+}
+
+// 👑 Solo admin
+function AdminRoute({ children }) {
+  const user = getStoredUser();
+  if (!user?.token) return <Navigate to="/login" replace />;
+  if (user.role !== "admin") return <Navigate to="/usuario" replace />;
+  return children;
+}
+
+// 👤 Solo cliente (o cualquier no-admin)
+function UserRoute({ children }) {
+  const user = getStoredUser();
+  if (!user?.token) return <Navigate to="/login" replace />;
+  if (user.role === "admin") return <Navigate to="/admin" replace />;
+  return children;
+}
+
 function App() {
-  const userIsAdmin = true;
+  // 👇 esto hace que al render inicial ya tomes el user actual
+  // (y si cambia, se actualiza cuando navegás/recargás)
+  const user = useMemo(() => getStoredUser(), []);
 
   return (
     <Router>
@@ -47,19 +82,67 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
+            {/* ✅ Ruta "inteligente" opcional: te manda al panel correcto */}
+            <Route
+              path="/panel"
+              element={
+                user?.token ? (
+                  user.role === "admin" ? (
+                    <Navigate to="/admin" replace />
+                  ) : (
+                    <Navigate to="/usuario" replace />
+                  )
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+
             {/* Usuario */}
-            <Route path="/usuario" element={<UserPanel />} />
-            <Route path="/usuario/perfil" element={<Profile />} />
-            <Route path="/usuario/reservar" element={<NewReservation />} />
-            <Route path="/usuario/reservas" element={<MyReservations />} />
+            <Route
+              path="/usuario"
+              element={
+                <UserRoute>
+                  <UserPanel />
+                </UserRoute>
+              }
+            />
+            <Route
+              path="/usuario/perfil"
+              element={
+                <UserRoute>
+                  <Profile />
+                </UserRoute>
+              }
+            />
+            <Route
+              path="/usuario/reservar"
+              element={
+                <UserRoute>
+                  <NewReservation />
+                </UserRoute>
+              }
+            />
+            <Route
+              path="/usuario/reservas"
+              element={
+                <UserRoute>
+                  <MyReservations />
+                </UserRoute>
+              }
+            />
 
             {/* Admin */}
-            {userIsAdmin ? (
-              <Route path="/admin" element={<AdminPanel />} />
-            ) : (
-              <Route path="/admin" element={<NotFound />} />
-            )}
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminPanel />
+                </AdminRoute>
+              }
+            />
 
+            {/* fallback */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

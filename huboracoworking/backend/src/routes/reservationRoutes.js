@@ -1,18 +1,28 @@
-import express from "express";
+import { Router } from "express";
+import { authRequired } from "../middlewares/auth.js";
+import { adminRequired } from "../middlewares/adminRequired.js";
+
 import {
   createReservation,
+  getMyReservations,
   getReservationsByDate,
-  getReservationsByEmail
+  cancelReservation,
+  getAllReservations,
+  confirmReservationPayment,
+  adminCancelReservation,
 } from "../controllers/reservationController.js";
 
-const router = express.Router();
+const router = Router();
 
-// Crear reserva
-router.post("/", createReservation);
-// Buscar reservas por fecha
-router.get("/by-date/:fecha", getReservationsByDate);
-// Buscar reservas por email 
-router.get("/user/:email", getReservationsByEmail);
+// Usuario
+router.get("/reservations/mine", authRequired, getMyReservations);
+router.post("/reservations", authRequired, createReservation);
+router.get("/reservations/by-date/:fecha", getReservationsByDate);
+router.patch("/reservations/:id/cancel", authRequired, cancelReservation);
 
+// Admin
+router.get("/admin/reservations", authRequired, adminRequired, getAllReservations);
+router.patch("/admin/reservations/:id/confirm", authRequired, adminRequired, confirmReservationPayment);
+router.patch("/admin/reservations/:id/cancel", authRequired, adminRequired, adminCancelReservation);
 
 export default router;

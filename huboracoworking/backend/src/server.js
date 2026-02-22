@@ -1,15 +1,10 @@
-//aca se configura el servidor
-import app from "./app.js";
 import dotenv from "dotenv";
+import app from "./app.js";
+import "dotenv/config";
+dotenv.config();
 
-dotenv.config(); //carga variables desde .env
-
-const PORT = process.env.PORT || 5000; //"usa el puerto del .env, si no existe usa 3000"
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Backend running on http://localhost:${PORT}`);
 });
-
-// enciende el backend
-// queda esperando requests
-// muestra un mensaje en consola

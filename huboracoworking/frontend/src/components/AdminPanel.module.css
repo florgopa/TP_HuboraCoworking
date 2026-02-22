@@ -1,75 +1,159 @@
+/* =========================
+   AdminPanel.module.css (limpio)
+   ========================= */
+
 .adminPanelContainer {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   min-height: 100vh;
-  width: 100vw; 
-  position: relative; 
-  overflow: hidden;
-  font-family: 'Inter', sans-serif;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Inter", sans-serif;
+  padding: 20px;
 }
 
 .adminPanelContainer::before {
-  content: '';
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../assets/bg_login.jpg');
+  inset: 0;
+  background-image: url("../assets/bg_login.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(5px); 
-  transform: scale(1.02); 
+  filter: blur(5px);
+  transform: scale(1.02);
   z-index: -1;
 }
+
+/* =========================
+   Panel
+   ========================= */
 
 .panelBox {
   z-index: 1;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.15); 
-  backdrop-filter: blur(10px); 
-  -webkit-backdrop-filter: blur(10px); 
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  padding: 40px;
-  width: 90%; 
-  max-width: 1000px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 45px;
+  width: min(1800px, 99vw);
+  max-width: none;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-  color: #fff; 
-  text-align: center; 
+  color: #fff;
+  text-align: left;
+
+  /* Tipografía base más chica (integrado) */
+  font-size: 14px;
 }
 
 .panelHeader {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   position: relative;
 }
 
 .panelTitle {
-  font-size: 3rem;
+  font-size: 2.6rem; /* antes 3rem */
   color: #fff;
   margin-bottom: 15px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .welcomeMessage {
-  font-size: 1.1rem;
+  font-size: 0.95rem; /* antes 1.1rem */
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
 }
 
+/* =========================
+   Layout 2 columnas
+   ========================= */
+
+.panelContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 34px;
+  margin-bottom: 30px;
+  align-items: start;
+}
+
+@media (max-width: 1024px) {
+  .panelContent {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   Módulos desplegables
+   ========================= */
+
+.contentItem {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contentItem:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.contentItem h3 {
+  font-size: 1.25rem; /* antes 1.5rem */
+  color: #fff;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.contentItem p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* =========================
+   Botones
+   ========================= */
+
+.actionButton {
+  background-color: #8ef14c;
+  color: #0f3460;
+  padding: 9px 14px; /* antes 10px 20px */
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actionButton:hover {
+  background-color: #6dc23b;
+  transform: translateY(-2px);
+}
 
 .logoutButton {
-  position: static; 
-  margin: 10px auto 0 auto; 
+  position: static;
+  margin: 10px auto 0 auto;
   display: block;
   background-color: #e74c3c;
   color: white;
-  padding: 8px 15px;
+  padding: 8px 12px; /* antes 8px 15px */
   border: none;
   border-radius: 5px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   cursor: pointer;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -81,97 +165,32 @@
   transform: translateY(-1px);
 }
 
-.panelContent {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.contentItem { 
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 25px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 180px;
-  border: 1px solid rgba(255, 255, 255, 0.1); 
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.contentItem:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-5px);
-}
-
-.contentItem h3 {
-  font-size: 1.6rem;
-  color: #fff;
-  margin-bottom: 10px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.contentItem p {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.5;
-  margin-bottom: 20px;
-}
-
-.actionButton {
-  background-color: #8EF14C; 
-  color: #0F3460; 
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.actionButton:hover {
-  background-color: #6DC23B; 
-  transform: translateY(-2px);
-}
+/* =========================
+   Footer
+   ========================= */
 
 .panelFooter {
-  margin-top: 30px;
+  margin-top: 22px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.9rem;
-  gap: 10px; 
+  gap: 10px;
 }
 
-/* Responsive para AdminPanel */
+/* =========================
+   Responsive general
+   ========================= */
+
 @media (max-width: 992px) {
   .panelBox {
-    width: 95%;
-    padding: 30px;
+    padding: 28px;
+    width: 98vw;
   }
   .panelTitle {
-    font-size: 2.5rem;
-  }
-  .panelContent {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
-  }
-  .contentItem {
-    min-height: 160px;
-    padding: 20px;
-  }
-  .contentItem h3 {
-    font-size: 1.4rem;
-  }
-  .logoutButton {
-    padding: 7px 12px;
-    font-size: 0.85rem;
+    font-size: 2.4rem;
   }
 }
 
@@ -180,20 +199,381 @@
     padding: 20px 10px;
   }
   .panelBox {
-    padding: 25px;
+    padding: 22px;
+    width: 98vw;
   }
   .panelTitle {
     font-size: 2rem;
   }
-  .panelContent {
-    grid-template-columns: 1fr; 
-    gap: 20px;
-  }
-  .contentItem {
-    min-height: auto;
-  }
-  .logoutButton { 
+  .logoutButton {
     width: 100%;
     margin-top: 0;
   }
+}
+
+/* =========================
+   Admin tools (filtros / search)
+   ========================= */
+
+.sectionToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.sectionToggle h3 {
+  margin: 0;
+}
+
+.adminToolsRow {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.filterBar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filterChip {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 7px 10px; /* antes 8px 12px */
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.filterChip:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.filterChipActive {
+  background: linear-gradient(to left, #8ef14c, #3ddad7);
+  color: #0f3460;
+  border: none;
+}
+
+.searchWrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.textInput {
+  width: 260px;
+  max-width: 100%;
+  padding: 9px 11px; /* antes 10px 12px */
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.textInput::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.textInput:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .textInput {
+    width: 100%;
+  }
+  .adminToolsRow {
+    align-items: stretch;
+  }
+  .searchWrap {
+    width: 100%;
+  }
+}
+
+/* =========================
+   Estados / tablas
+   ========================= */
+
+.loading {
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.emptyState {
+  margin-top: 18px;
+  padding: 18px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+
+.tableWrap {
+  width: 100%;
+  margin-top: 16px;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.table th,
+.table td {
+  padding: 10px 10px; /* antes 12px */
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.88rem;
+}
+
+.table th {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 700;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Acciones (compacto) */
+.actionsCell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  row-gap: 6px;
+  column-gap: 6px;
+}
+
+/* SOLO botones dentro de acciones */
+.actionsCell .actionButton,
+.actionsCell .logoutButton {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  border-radius: 7px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px; /* antes 6px 10px */
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.badgeOk {
+  background-color: rgba(142, 241, 76, 0.25);
+  color: #eaffdb;
+}
+
+.badgeWarn {
+  background-color: rgba(61, 218, 215, 0.22);
+  color: #ddfffe;
+}
+
+.badgeBad {
+  background-color: rgba(231, 76, 60, 0.22);
+  color: #ffe1dd;
+}
+
+.smallHint {
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================
+   Paginación
+   ========================= */
+
+.paginationWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.paginationDots {
+  opacity: 0.75;
+  padding: 6px 8px;
+}
+
+/* =========================
+   Modal
+   ========================= */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  z-index: 9999;
+}
+
+.modalBox {
+  width: min(980px, 95vw);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 18px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.35);
+  padding: 18px;
+  color: #fff;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.modalClose {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.modalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .modalGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modalGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .modalGrid2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modalSection {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.modalSectionTitle {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.modalLabel {
+  display: block;
+  font-size: 0.85rem;
+  margin: 10px 0 6px 0;
+  opacity: 0.9;
+}
+
+.modalRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* =========================
+   Reportes
+   ========================= */
+
+.reportGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+@media (max-width: 1100px) {
+  .reportGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.reportCard {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.reportTitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.reportBig {
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.reportSub {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  opacity: 0.75;
 }

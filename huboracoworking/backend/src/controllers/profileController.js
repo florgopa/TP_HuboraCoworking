@@ -1,164 +1,135 @@
-// src/controllers/profileController.js
-import db from "../config/db.js";
+import { pool } from "../config/db.js";
 
+const mapDbToForm = (row) => ({
+  nombre: row?.nombre ?? "",
+  apellido: row?.apellido ?? "",
+  direccion: row?.direccion ?? "",
+  telefono: row?.telefono ?? "",
+  contactoEmergenciaNombre: row?.contacto_emergencia_nombre ?? "",
+  contactoEmergenciaTelefono: row?.contacto_emergencia_telefono ?? "",
+  tieneMascota: !!row?.tiene_mascota,
+  mascotaNombre: row?.mascota_nombre ?? "",
+  mascotaTipo: row?.mascota_tipo ?? "otro",
+  lockerNumero: row?.locker_numero ?? ""
+});
 
-export const getProfile = async (req, res) => {
+// GET /api/profile/me
+export const getMyProfile = async (req, res) => {
   try {
-    const { email } = req.params;
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-// Hacer JOIN entre usuario y perfil_usuario
-    const [rows] = await db.query(
-      `SELECT 
-         u.email,
-         u.role,
-         p.nombre,
-         p.apellido,
-         p.direccion,
-         p.telefono,
-         p.contacto_emergencia_nombre,
-         p.contacto_emergencia_telefono,
-         p.tiene_mascota,
-         p.mascota_nombre,
-         p.mascota_tipo,
-         p.locker_numero
-       FROM usuario u
-       LEFT JOIN perfil_usuario p ON u.id = p.usuario_id
-       WHERE u.email = ?`,
-      [email]
+    const [rows] = await pool.query(
+      `SELECT *
+       FROM perfil_usuario
+       WHERE usuario_id = ?
+       LIMIT 1`,
+      [userId]
     );
 
     if (rows.length === 0) {
-      return res.status(404).json({
-        ok: false,
-        message: "Usuario no encontrado"
-      });
+      return res.json({ ok: true, profile: mapDbToForm(null) });
     }
 
-    // Mapear los campos de la base de datos al formato del frontend
-    const profile = {
-      nombre: rows[0].nombre,
-      apellido: rows[0].apellido,
-      direccion: rows[0].direccion || "",
-      telefono: rows[0].telefono || "",
-      contactoEmergenciaNombre: rows[0].contacto_emergencia_nombre || "",
-      contactoEmergenciaTelefono: rows[0].contacto_emergencia_telefono || "",
-      tieneMascota: rows[0].tiene_mascota === 1 || rows[0].tiene_mascota === true,
-      mascotaNombre: rows[0].mascota_nombre || "",
-      mascotaTipo: rows[0].mascota_tipo || "otro",
-      lockerNumero: rows[0].locker_numero || ""
-    };
-
-    res.json({
-      ok: true,
-      profile
-    });
+    return res.json({ ok: true, profile: mapDbToForm(rows[0]) });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ ok: false });
+    console.error("GET MY PROFILE ERROR:", error);
+    return res.status(500).json({ message: error.message });
   }
 };
 
-// export const updateProfile = async (req, res) => {
-//   try {
-//     const { email } = req.params;
-//     const data = req.body;
-
-//     // Primero obtener el id del usuario
-//     const [userRows] = await db.query(
-//       "SELECT id FROM usuario WHERE email = ?",
-//       [email]
-//     );
-
-//     if (userRows.length === 0) {
-//       return res.status(404).json({ ok: false, message: "Usuario no encontrado" });
-//     }
-
-//     const userId = userRows[0].id;
-
-//     await db.query(
-//       `UPDATE perfil_usuario SET
-//         nombre = ?,
-//         apellido = ?,
-//         direccion = ?,
-//         telefono = ?,
-//         contacto_emergencia_nombre = ?,
-//         contacto_emergencia_telefono = ?,
-//         tiene_mascota = ?,
-//         mascota_Nombre = ?,
-//         mascota_Tipo = ?
-//       WHERE email = ?`,
-//       [
-//         data.nombre,
-//         data.apellido,
-//         data.direccion,
-//         data.telefono,
-//         data.contactoEmergenciaNombre,
-//         data.contactoEmergenciaTelefono,
-//         data.tieneMascota ? 1 : 0,
-//         data.mascotaNombre,
-//         data.mascotaTipo,
-//         email
-//       ]
-//     );
-
-//     res.json({ ok: true });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ ok: false });
-//   }
-// };
-
-export const updateProfile = async (req, res) => {
+// PUT /api/profile/me
+export const upsertMyProfile = async (req, res) => {
   try {
-    const { email } = req.params;
-    const data = req.body;
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
-    // Obtener ID del usuario
-    const [userRows] = await db.query(
-      "SELECT id FROM usuario WHERE email = ?",
-      [email]
-    );
+    const {
+      nombre,
+      apellido,
+      direccion,
+      telefono,
+      contactoEmergenciaNombre,
+      contactoEmergenciaTelefono,
+      tieneMascota,
+      mascotaNombre,
+      mascotaTipo,
+      lockerNumero
+    } = req.body;
 
-    if (userRows.length === 0) {
-      return res.status(404).json({
-        ok: false,
-        message: "Usuario no encontrado"
-      });
+    // opcional, pero recomendable
+    if (!nombre?.trim() || !apellido?.trim()) {
+      return res
+        .status(400)
+        .json({ ok: false, message: "Nombre y apellido son obligatorios." });
     }
 
-    const userId = userRows[0].id;
+    const tieneMascotaInt = tieneMascota ? 1 : 0;
+    const mascotaNombreSafe = tieneMascota ? (mascotaNombre ?? "") : "";
+    const mascotaTipoSafe = tieneMascota ? (mascotaTipo ?? "otro") : "otro";
 
-    // Actualizar perfil_usuario usando usuario_id
-    await db.query(
-      `UPDATE perfil_usuario SET
-        nombre = ?,
-        apellido = ?,
-        direccion = ?,
-        telefono = ?,
-        contacto_emergencia_nombre = ?,
-        contacto_emergencia_telefono = ?,
-        tiene_mascota = ?,
-        mascota_nombre = ?,
-        mascota_tipo = ?
-      WHERE usuario_id = ?`,
-      [
-        data.nombre,
-        data.apellido,
-        data.direccion,
-        data.telefono,
-        data.contactoEmergenciaNombre,
-        data.contactoEmergenciaTelefono,
-        data.tieneMascota ? 1 : 0,
-        data.mascotaNombre,
-        data.mascotaTipo,
-        userId
-      ]
+    // ¿Existe registro?
+    const [exists] = await pool.query(
+      `SELECT id FROM perfil_usuario WHERE usuario_id = ? LIMIT 1`,
+      [userId]
     );
 
-    res.json({ ok: true });
+    if (exists.length === 0) {
+      // INSERT
+      await pool.query(
+        `INSERT INTO perfil_usuario
+          (usuario_id, nombre, apellido, direccion, telefono,
+           contacto_emergencia_nombre, contacto_emergencia_telefono,
+           tiene_mascota, mascota_nombre, mascota_tipo, locker_numero)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          userId,
+          nombre.trim(),
+          apellido.trim(),
+          direccion ?? null,
+          telefono ?? null,
+          contactoEmergenciaNombre ?? null,
+          contactoEmergenciaTelefono ?? null,
+          tieneMascotaInt,
+          mascotaNombreSafe || null,
+          mascotaTipoSafe || null,
+          lockerNumero === "" ? null : lockerNumero
+        ]
+      );
+    } else {
+      // UPDATE
+      await pool.query(
+        `UPDATE perfil_usuario SET
+          nombre = ?,
+          apellido = ?,
+          direccion = ?,
+          telefono = ?,
+          contacto_emergencia_nombre = ?,
+          contacto_emergencia_telefono = ?,
+          tiene_mascota = ?,
+          mascota_nombre = ?,
+          mascota_tipo = ?,
+          locker_numero = ?
+         WHERE usuario_id = ?`,
+        [
+          nombre.trim(),
+          apellido.trim(),
+          direccion ?? null,
+          telefono ?? null,
+          contactoEmergenciaNombre ?? null,
+          contactoEmergenciaTelefono ?? null,
+          tieneMascotaInt,
+          mascotaNombreSafe || null,
+          mascotaTipoSafe || null,
+          lockerNumero === "" ? null : lockerNumero,
+          userId
+        ]
+      );
+    }
 
+    return res.json({ ok: true });
   } catch (error) {
-    console.error("ERROR UPDATE PROFILE:", error);
-    res.status(500).json({ ok: false, message: error.message });
+    console.error("UPSERT MY PROFILE ERROR:", error);
+    return res.status(500).json({ ok: false, message: error.message });
   }
 };

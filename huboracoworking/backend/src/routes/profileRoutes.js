@@ -1,14 +1,10 @@
-console.log("PROFILE ROUTES CARGADO");
-
 import { Router } from "express";
-import { getProfile, updateProfile } from "../controllers/profileController.js";
-
+import { authRequired } from "../middlewares/auth.js";
+import { getMyProfile, upsertMyProfile } from "../controllers/profileController.js";
 
 const router = Router();
 
-router.get("/profile/:email", getProfile);
-router.put("/profile/:email", updateProfile);
-router.put("/:email", updateProfile);
-
+router.get("/profile/me", authRequired, getMyProfile);
+router.put("/profile/me", authRequired, upsertMyProfile);
 
 export default router;
