@@ -535,7 +535,65 @@
   gap: 10px;
   margin-top: 14px;
 }
+/* =========================
+   Overrides SOLO para Gestión de Espacios (sin tocar search global)
+   ========================= */
 
+/* 1) En la fila de "Crear espacio": inputs más angostos y ordenados */
+.contentItem .adminToolsRow .textInput {
+  width: 220px;          /* base compacta */
+  max-width: 100%;
+}
+
+/* Si querés que el search siga más ancho, lo mantenemos */
+.contentItem .searchWrap .textInput {
+  width: 260px;          /* tu valor actual */
+}
+
+/* 2) En la tabla: inputs/selects compactos dentro de celdas */
+.table td .textInput,
+.table td select.textInput {
+  width: 100%;
+  max-width: 220px;      /* compacta dentro de la celda */
+  padding: 7px 10px;
+  font-size: 0.88rem;
+  border-radius: 8px;
+}
+
+/* Input de precio en tabla aún más angosto (el inline width:140px sigue ganando,
+   pero esto ayuda si lo sacás después) */
+.table td .textInput[style*="width: 140px"] {
+  max-width: 140px;
+}
+
+/* 3) Para que no se vea "gigante": un poco menos de alto visual */
+.textInput {
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+
+/* 4) Responsive: en mobile, todo full width y limpio */
+@media (max-width: 768px) {
+  .contentItem .adminToolsRow {
+    align-items: stretch;
+  }
+
+  .contentItem .adminToolsRow .textInput,
+  .contentItem .searchWrap .textInput {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table td .textInput,
+  .table td select.textInput {
+    max-width: 100%;
+  }
+
+  /* tabla scrolleable ya la tenés, pero esto ayuda a que no explote */
+  .table {
+    min-width: 680px;
+  }
+}
 /* =========================
    Reportes
    ========================= */

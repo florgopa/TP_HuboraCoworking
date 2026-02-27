@@ -12,7 +12,12 @@ const emptyForm = {
   tieneMascota: false,
   mascotaNombre: "",
   mascotaTipo: "otro",
-  lockerNumero: ""
+  lockerNumero: "",
+
+  // vienen del JOIN usuario + perfil
+  planContratado: "basico",
+  role: "cliente",
+  email: ""
 };
 
 function Profile() {
@@ -207,7 +212,7 @@ function Profile() {
                     <label>Email (no editable)</label>
                     <input
                       className={styles.textInput}
-                      value={baseUser.email}
+                      value={form.email || baseUser.email}
                       disabled
                     />
                   </div>
@@ -319,7 +324,7 @@ function Profile() {
                     <label>Plan contratado</label>
                     <input
                       className={styles.textInput}
-                      value={baseUser.plan || "Sin plan asignado"}
+                      value={form.planContratado || "basico"}
                       disabled
                     />
                   </div>
@@ -337,7 +342,7 @@ function Profile() {
                     <label>Rol</label>
                     <input
                       className={styles.textInput}
-                      value={baseUser.role}
+                      value={form.role || baseUser.role}
                       disabled
                     />
                   </div>

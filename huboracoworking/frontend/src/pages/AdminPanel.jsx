@@ -349,9 +349,9 @@ const money = (n) =>
     return filteredReservas.slice(start, start + RES_PER_PAGE);
   }, [filteredReservas, resPage]);
 
-  // =========================
+
   // USUARIOS: fetch + patch
-  // =========================
+
   const fetchUsers = async () => {
     if (!token) {
       navigate("/login");
@@ -442,9 +442,8 @@ const money = (n) =>
     return filteredUsers.slice(start, start + USERS_PER_PAGE);
   }, [filteredUsers, usersPage]);
 
-  // =========================
+
   // MODAL EDICIÓN COMPLETA (Usuarios)
-  // =========================
   const openEditModal = (u) => {
     setEditUserId(u.id);
     setEditForm({
@@ -761,13 +760,13 @@ const money = (n) =>
           <h1 className={styles.panelTitle}>Panel de Administrador</h1>
           <p className={styles.welcomeMessage}>Centro de control de Hubora Coworking.</p>
         </div>
-        {/* ===== MODULO HEADER: END ===== */}
+        {/* MODULO HEADER END */}
 
-        {/* ===== MODULO GRID 2 COLUMNAS: START ===== */}
+        {/* MODULO GRID 2 COLUMNAS*/}
         <div className={styles.panelContent}>
-          {/* ===== COLUMNA IZQUIERDA (Reservas + Usuarios): START ===== */}
+          {/*COLUMNA IZQUIERDA (Reservas + Usuarios)*/}
           <div style={{ display: "flex", flexDirection: "column", gap: 34 }}>
-            {/* ===== MODULO RESERVAS: START ===== */}
+            {/*  MODULO RESERVAS*/}
             <div className={styles.contentItem}>
               <button
                 type="button"
@@ -908,9 +907,9 @@ const money = (n) =>
                 </>
               )}
             </div>
-            {/* ===== MODULO RESERVAS: END ===== */}
+            {/* MODULO RESERVAS END*/}
 
-            {/* ===== MODULO USUARIOS: START ===== */}
+            {/* MODULO USUARIOS */}
             <div className={styles.contentItem}>
               <button
                 type="button"
@@ -1090,13 +1089,14 @@ const money = (n) =>
                 </>
               )}
             </div>
-            {/* ===== MODULO USUARIOS: END ===== */}
+            {/*MODULO USUARIOS END*/}
           </div>
-          {/* ===== COLUMNA IZQUIERDA: END ===== */}
+          {/*COLUMNA IZQUIERDA END*/}
 
-          {/* ===== COLUMNA DERECHA (Espacios + Reportes): START ===== */}
+          {/* COLUMNA DERECHA (Espacios + Reportes) */}
           <div style={{ display: "flex", flexDirection: "column", gap: 34 }}>
-            {/* ===== MODULO ESPACIOS: START ===== */}
+
+            {/*MODULO ESPACIOS*/}
             <div className={styles.contentItem}>
               <button
                 type="button"
@@ -1159,7 +1159,7 @@ const money = (n) =>
 
                     <select
                       className={styles.textInput}
-                      style={{ width: 140 }}
+                      style={{ width: 100 }}
                       value={newSpace.activo ? 1 : 0}
                       onChange={(e) => setNewSpace((p) => ({ ...p, activo: Number(e.target.value) }))}
                       disabled={savingSpaceId === "new"}
