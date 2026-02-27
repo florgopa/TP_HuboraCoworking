@@ -31,14 +31,14 @@ function getStoredUser() {
   }
 }
 
-// 🔒 Ruta protegida (requiere login)
+//  Ruta protegida (requiere login)
 function ProtectedRoute({ children }) {
   const user = getStoredUser();
   if (!user?.token) return <Navigate to="/login" replace />;
   return children;
 }
 
-// 👑 Solo admin
+//  Solo admin
 function AdminRoute({ children }) {
   const user = getStoredUser();
   if (!user?.token) return <Navigate to="/login" replace />;
@@ -46,7 +46,7 @@ function AdminRoute({ children }) {
   return children;
 }
 
-// 👤 Solo cliente (o cualquier no-admin)
+//  Solo cliente (o cualquier no-admin)
 function UserRoute({ children }) {
   const user = getStoredUser();
   if (!user?.token) return <Navigate to="/login" replace />;
@@ -55,8 +55,8 @@ function UserRoute({ children }) {
 }
 
 function App() {
-  // 👇 esto hace que al render inicial ya tomes el user actual
-  // (y si cambia, se actualiza cuando navegás/recargás)
+  // esto hace que al render inicial ya tomes el user actual
+  // (y si cambia, se actualiza cuando navegss/recargss)
   const user = useMemo(() => getStoredUser(), []);
 
   return (
@@ -82,7 +82,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            {/* ✅ Ruta "inteligente" opcional: te manda al panel correcto */}
+            {/* Ruta  opcional: te manda al panel correcto */}
             <Route
               path="/panel"
               element={
