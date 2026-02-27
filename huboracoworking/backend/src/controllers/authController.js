@@ -61,69 +61,157 @@ export const loginUser = login;
    ========================= */
 export const registerUser = async (req, res) => {
   const conn = await pool.getConnection();
+  
   try {
-    let { email, password } = req.body;
+    let {
+      // Datos para tabla usuario
+      email,
+      password,
+      plan_contratado = 'basico',
+      
+      // Datos para tabla perfil_usuario
+      nombre,
+      apellido,
+      direccion,
+      celular,
+      contacto_emergencia_nombre,
+      contacto_emergencia_telefono,
+      tiene_mascota,
+      mascota_nombre,
+      mascota_tipo,
+      locker_numero
+    } = req.body;
 
+    // Procesar TODOS los campos al inicio
     email = String(email || "").trim().toLowerCase();
     password = String(password || "");
+    nombre = String(nombre || "").trim();
+    apellido = String(apellido || "").trim();
+    direccion = String(direccion || "").trim() || null;
+    celular = String(celular || "").trim();
+    contacto_emergencia_nombre = String(contacto_emergencia_nombre || "").trim() || null;
+    contacto_emergencia_telefono = String(contacto_emergencia_telefono || "").trim() || null;
+    tiene_mascota = tiene_mascota ? 1 : 0;
+    mascota_nombre = String(mascota_nombre || "").trim() || null;
+    mascota_tipo = String(mascota_tipo || "").trim() || null;
+    locker_numero = String(locker_numero || "").trim() || null;
 
-    if (!email || !password) {
-      return res.status(400).json({ ok: false, message: "Completá email y contraseña" });
+    // Validar campos obligatorios
+    if (!email || !password || !nombre || !apellido || !celular) {
+      return res.status(400).json({ 
+        ok: false, 
+        message: "Completá todos los campos obligatorios: nombre, apellido, email, celular y contraseña" 
+      });
     }
 
-    // validación simple
+    // Validar email
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!emailOk) {
       return res.status(400).json({ ok: false, message: "Email inválido" });
     }
 
+    // Validar contraseña
     if (password.length < 6) {
-      return res.status(400).json({ ok: false, message: "La contraseña debe tener al menos 6 caracteres" });
+      return res.status(400).json({ 
+        ok: false, 
+        message: "La contraseña debe tener al menos 6 caracteres" 
+      });
+    }
+
+    // Validar teléfono de emergencia si se proporciona
+    if (contacto_emergencia_telefono && contacto_emergencia_telefono.length < 6) {
+      return res.status(400).json({ 
+        ok: false, 
+        message: "El teléfono de emergencia debe tener al menos 6 caracteres" 
+      });
     }
 
     await conn.beginTransaction();
 
-    // ya existe?
-    const [exists] = await conn.query("SELECT id FROM usuario WHERE email = ? LIMIT 1", [email]);
+    // Verificar si el email ya existe
+    const [exists] = await conn.query(
+      "SELECT id FROM usuario WHERE email = ? LIMIT 1", 
+      [email]
+    );
+    
     if (exists.length > 0) {
       await conn.rollback();
       return res.status(409).json({ ok: false, message: "Ese email ya está registrado" });
     }
 
+    // Hash de la contraseña
     const hashed = await bcrypt.hash(password, 10);
 
-    // crear usuario (role default cliente, activo 1, plan_contratado basico)
+    // Insertar en tabla usuario
     const [ins] = await conn.query(
-      `INSERT INTO usuario (email, password, role, activo, plan_contratado)
-       VALUES (?, ?, 'cliente', 1, 'basico')`,
-      [email, hashed]
+      `INSERT INTO usuario (
+        email, 
+        password, 
+        role, 
+        activo, 
+        plan_contratado
+      ) VALUES (?, ?, 'cliente', 1, ?)`,
+      [email, hashed, plan_contratado]
     );
 
     const userId = ins.insertId;
 
-    // crear perfil vacío asociado
+    // Insertar en tabla perfil_usuario (ahora todas las variables ya están procesadas)
     await conn.query(
-      `INSERT INTO perfil_usuario (usuario_id)
-       VALUES (?)`,
-      [userId]
+      `INSERT INTO perfil_usuario (
+        usuario_id,
+        nombre,
+        apellido,
+        direccion,
+        telefono,
+        contacto_emergencia_nombre,
+        contacto_emergencia_telefono,
+        tiene_mascota,
+        mascota_nombre,
+        mascota_tipo,
+        locker_numero
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        userId,
+        nombre,
+        apellido,
+        direccion,
+        celular,
+        contacto_emergencia_nombre,
+        contacto_emergencia_telefono,
+        tiene_mascota,
+        mascota_nombre,
+        mascota_tipo,
+        locker_numero
+      ]
     );
 
     await conn.commit();
 
-    return res.status(201).json({
-      ok: true,
+    return res.status(201).json({ 
+      ok: true, 
       message: "Usuario registrado correctamente",
-      userId,
+      userId 
     });
+
   } catch (error) {
-    try { await conn.rollback(); } catch {}
+    try {
+      await conn.rollback();
+    } catch {}
     
-    // por si hay constraint unique en email/usuario_id
+    // Manejar error de duplicado
     if (error?.code === "ER_DUP_ENTRY") {
-      return res.status(409).json({ ok: false, message: "Ese email ya está registrado" });
+      return res.status(409).json({ 
+        ok: false, 
+        message: "Ese email ya está registrado" 
+      });
     }
+    
     console.error("REGISTER ERROR:", error);
-    return res.status(500).json({ ok: false, message: error.message });
+    return res.status(500).json({ 
+      ok: false, 
+      message: error.message 
+    });
   } finally {
     conn.release();
   }
