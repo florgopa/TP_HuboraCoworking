@@ -214,18 +214,6 @@ function Register() {
             </>
           )}
 
-          {/* Locker (se asigna automáticamente) */}
-          {/* <div className={styles.formGroup}>
-            <input
-              type="text"
-              name="locker_numero"
-              placeholder="Número de locker (opcional)"
-              value={formData.locker_numero}
-              onChange={handleChange}
-            />
-            <small>Si no se proporciona, se asignará automáticamente</small>
-          </div> */}
-
           {/* Plan y Contraseña */}
           <h3>Plan y Seguridad</h3>
           <div className={styles.formGroup}>

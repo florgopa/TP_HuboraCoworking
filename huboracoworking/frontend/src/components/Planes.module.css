@@ -224,15 +224,15 @@
   max-width: 1300px;    /* un toque más ancho si querés que respiren */
 }
 
-/* ===== Cards: más grandes y más “premium” ===== */
+/* ===== Cards ===== */
 .planCard {
-  padding: 38px;        /* antes 30px */
-  border-radius: 14px;  /* antes 10px */
-  min-height: 520px;    /* opcional: uniforma altura y se ven más grandes */
+  padding: 38px;        
+  border-radius: 14px;  
+  min-height: 520px;    
 }
 
 /* Tipografías dentro de la card */
-.planCard h3 { font-size: 2.2rem; }      /* antes 2rem */
+.planCard h3 { font-size: 2.2rem; }      
 .planPrice { font-size: 3.1rem; }        /* antes 2.8rem */
 .planPeriod { font-size: 1.25rem; }      /* antes 1.2rem */
 .planDescription { font-size: 1.05rem; } /* antes 1rem */
