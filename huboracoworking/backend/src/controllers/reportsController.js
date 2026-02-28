@@ -1,8 +1,5 @@
 import { pool } from "../config/db.js";
 
-/**
- * Precios “hardcodeados” por ahora (después si querés los movemos a .env)
- */
 const PRECIO_BASICO = 40000;
 const PRECIO_PREMIUM = 60000;
 

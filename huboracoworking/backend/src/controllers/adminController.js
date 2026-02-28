@@ -23,7 +23,7 @@ export const updateUserAdmin = async (req, res) => {
       activo,
       role,
       plan_contratado,
-      lockerNumero, // lo mandás desde el front
+      lockerNumero, 
       nombre,
       apellido,
       direccion,

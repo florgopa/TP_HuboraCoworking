@@ -81,7 +81,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
-            {/* Ruta  opcional: te manda al panel correcto */}
             <Route
               path="/panel"
               element={

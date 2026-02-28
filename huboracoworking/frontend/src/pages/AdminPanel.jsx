@@ -174,7 +174,6 @@ const [topSpaces, setTopSpaces] = useState([]);
 const [months, setMonths] = useState(6);
 const [reservasByMonth, setReservasByMonth] = useState([]);
 
-// en ARS porque sino queda re raro
 const money = (n) =>
   (Number(n) || 0).toLocaleString("es-AR", {
     style: "currency",
@@ -1332,7 +1331,7 @@ const money = (n) =>
                     </div>
                   ) : (
                     <>
-                      {/* mini cards (si querés más adelante lo hago con gráficas) */}
+
                       <div className={styles.reportGrid}>
                         <div className={styles.reportCard}>
                           <div className={styles.reportTitle}>Usuarios</div>
