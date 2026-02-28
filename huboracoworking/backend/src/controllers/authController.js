@@ -216,3 +216,49 @@ export const registerUser = async (req, res) => {
     conn.release();
   }
 };
+
+export const updateUserPlan = async (req, res) => {
+  const { plan } = req.body;
+  const userId = req.user.id; // Viene del middleware authRequired
+
+  if (!plan) {
+    return res.status(400).json({ 
+      ok: false, 
+      message: "El plan es requerido" 
+    });
+  }
+
+  const validPlans = ["basico", "premium"];
+  if (!validPlans.includes(plan)) {
+    return res.status(400).json({ 
+      ok: false, 
+      message: "Plan no válido" 
+    });
+  }
+
+  try {
+    const [result] = await pool.query(
+      "UPDATE usuario SET plan_contratado = ? WHERE id = ?",
+      [plan, userId]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ 
+        ok: false, 
+        message: "Usuario no encontrado" 
+      });
+    }
+
+    return res.json({ 
+      ok: true, 
+      message: "Plan actualizado correctamente" 
+    });
+
+  } catch (error) {
+    console.error("Error al actualizar plan:", error);
+    return res.status(500).json({ 
+      ok: false, 
+      message: error.message 
+    });
+  }
+};
