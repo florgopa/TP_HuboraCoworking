@@ -55,8 +55,7 @@ function UserRoute({ children }) {
 }
 
 function App() {
-  // esto hace que al render inicial ya tomes el user actual
-  // (y si cambia, se actualiza cuando navegss/recargss)
+
   const user = useMemo(() => getStoredUser(), []);
 
   return (

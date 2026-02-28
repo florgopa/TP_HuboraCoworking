@@ -1,7 +1,7 @@
 // src/pages/404.jsx
 import React from 'react';
 import { Link } from 'react-router-dom'; // Para el botón "Volver al Inicio"
-import styles from '../components/404.module.css'; // Importa los estilos del módulo
+import styles from '../components/404.module.css'; 
 
 function NotFound() {
   return (
