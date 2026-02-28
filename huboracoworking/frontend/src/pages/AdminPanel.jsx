@@ -694,7 +694,7 @@ const money = (n) =>
 
     setLoadingReports(true);
     try {
-      // lo hago con Promise.all así tarda menos (son 4 endpoints)
+
       const [rKpis, rPlans, rTop, rByMonth] = await Promise.all([
         fetch("http://localhost:5000/api/admin/reports/kpis", { headers: { Authorization: `Bearer ${token}` } }),
         fetch("http://localhost:5000/api/admin/reports/plans-estimate", { headers: { Authorization: `Bearer ${token}` } }),
@@ -729,9 +729,9 @@ const money = (n) =>
   };
 
   useEffect(() => {
-    // si está abierto reportes y cambio el rango, refresco solo esa parte
+
     if (open.reportes) fetchReports();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+ 
   }, [months]);
 
   // =========================
@@ -741,7 +741,7 @@ const money = (n) =>
     setOpen((p) => {
       const next = { ...p, [key]: !p[key] };
 
-      // cuando abro una sección que depende de backend, aprovecho y traigo data
+     
       if (key === "usuarios" && !p.usuarios) fetchUsers();
       if (key === "espacios" && !p.espacios) fetchSpaces();
       if (key === "reportes" && !p.reportes) fetchReports();

@@ -96,20 +96,17 @@
   box-sizing: border-box;
 }
 
-/* Quitamos el margen roto */
 .footerBottomLeft {
   text-align: left;
   margin-right: 0;
 }
 
-/* Redes sociales a la derecha */
 .footerBottomRight {
   display: flex;
   gap: 0.8rem;
   align-items: center;
 }
 
-/* 🔥 Flecha perfectamente centrada */
 .scrollToTopButton {
   position: absolute;
   left: 50%;

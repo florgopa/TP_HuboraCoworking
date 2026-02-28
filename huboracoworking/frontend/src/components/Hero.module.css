@@ -28,7 +28,6 @@
   z-index: 1;
 }
 
-/* contenido dentro del Hero */
 .heroContent {
   position: relative;
   z-index: 2; 

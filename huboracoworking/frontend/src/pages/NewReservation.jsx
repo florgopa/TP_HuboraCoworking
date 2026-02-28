@@ -12,9 +12,6 @@ const BLOCKS = [
   { key: "jornada", label: "Jornada completa", start: "07:00", end: "20:00" },
 ];
 
-// ✅ (ANTES) Espacios hardcodeados
-// const SPACES = [ ... ];
-
 function groupByTipo(spaces) {
   return spaces.reduce((acc, s) => {
     acc[s.tipo] = acc[s.tipo] || [];
@@ -47,12 +44,10 @@ function isWeekend(dateStr) {
   return day === 0 || day === 6;
 }
 
-// ✅ Mejoro robustez: comparo ids como string (por si en DB es número y en reservas viene distinto)
 function isSlotTaken({ fecha, espacioId, start, end }, reservas) {
   const espacioKey = String(espacioId);
 
   return reservas.some((r) => {
-    // ⚠️ si tu backend devuelve fecha como Date/ISO, esto lo hace robusto:
     const rFecha = String(r.fecha).slice(0, 10);
     if (rFecha !== fecha) return false;
 
@@ -77,13 +72,11 @@ export default function NewReservation() {
   const [showConfirm, setShowConfirm] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  // ✅ info para adaptar el modal (premium vs básico)
   const [confirmInfo, setConfirmInfo] = useState({ plan: null, estado: null });
 
-  // ✅ Leemos usuario desde localStorage (incluye token)
   const user = useMemo(() => getStoredUser(), []);
   const token = user?.token || null;
-  const userPlan = (user?.plan_contratado || user?.plan || "").toLowerCase(); // por si lo guardás así
+  const userPlan = (user?.plan_contratado || user?.plan || "").toLowerCase();
 
   // =========================
   // ESPACIOS (DB)
@@ -91,7 +84,6 @@ export default function NewReservation() {
   const [spaces, setSpaces] = useState([]);
   const [loadingSpaces, setLoadingSpaces] = useState(false);
 
-  // ✅ Traer espacios desde DB (solo activos). Endpoint sugerido: GET /api/spaces
   const fetchSpaces = async () => {
     setLoadingSpaces(true);
     try {
@@ -104,7 +96,6 @@ export default function NewReservation() {
         return;
       }
 
-      // normalizo por si vienen campos extra
       const normalized = (data.spaces || []).map((s) => ({
         id: s.id,
         tipo: s.tipo,
@@ -121,7 +112,6 @@ export default function NewReservation() {
     }
   };
 
-  // ✅ cargo espacios al montar
   useEffect(() => {
     fetchSpaces();
   }, []);
@@ -139,7 +129,7 @@ export default function NewReservation() {
     setSelected(null);
   }, [selectedDate]);
 
-  // ✅ Traer reservas por fecha (público, no requiere token)
+
   useEffect(() => {
     if (!selectedDate || weekendSelected) {
       setReservas([]);
@@ -179,7 +169,7 @@ export default function NewReservation() {
     }
 
     if (weekendSelected) {
-      // ✅ si intentan confirmar finde, recién ahí avisamos (no al navegar el calendario)
+
       alert("No se pueden crear reservas los sábados ni domingos.");
       return;
     }
@@ -189,7 +179,6 @@ export default function NewReservation() {
       return;
     }
 
-    // ✅ Token correcto (user.token)
     const u = getStoredUser();
     const tk = u?.token;
 
@@ -218,7 +207,6 @@ export default function NewReservation() {
         }),
       });
 
-      // ✅ si realmente expiró / no autorizado, recién ahí cerrar sesión
       if (response.status === 401) {
         localStorage.removeItem("user");
         alert("Tu sesión expiró. Volvé a iniciar sesión.");
@@ -232,15 +220,11 @@ export default function NewReservation() {
         throw new Error(data.message || "Error al guardar en la base de datos");
       }
 
-      // ✅ Guardamos info para el modal:
-      // - si backend devuelve plan/estado, lo usamos
-      // - si no, inferimos por el user del localStorage
       setConfirmInfo({
         plan: (data.plan || userPlan || "basico").toLowerCase(),
         estado: (data.estado || "pendiente_pago").toLowerCase(),
       });
 
-      // ✅ refrescar disponibilidad (mejor que inventar ID en front)
       try {
         const r2 = await fetch(`http://localhost:5000/api/reservations/by-date/${selectedDate}`);
         const d2 = await r2.json().catch(() => []);
@@ -345,7 +329,6 @@ export default function NewReservation() {
                 min={today}
                 value={selectedDate}
                 onChange={(e) => {
-                  // ✅ NO alert acá (así no molesta al navegar meses)
                   setSelectedDate(e.target.value);
                 }}
               />

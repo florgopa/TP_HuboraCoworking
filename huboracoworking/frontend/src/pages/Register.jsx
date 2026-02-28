@@ -22,7 +22,7 @@ function Register() {
     tiene_mascota: false,
     mascota_nombre: "",
     mascota_tipo: "",
-    locker_numero: "" // Se asignara automaticamente en el backend
+    locker_numero: "" 
   });
 
   const handleChange = (e) => {

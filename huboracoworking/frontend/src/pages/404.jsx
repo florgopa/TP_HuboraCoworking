@@ -11,7 +11,7 @@ function NotFound() {
       <p className={styles.description}>
         Lo sentimos, no tienes permiso para acceder a esta página o la página que buscas no existe.
       </p>
-      {/* Puedes ajustar la ruta a donde quieres que el usuario regrese */}
+
       <Link to="/" className={styles.homeButton}>
         Volver al Inicio
       </Link>

@@ -199,29 +199,28 @@
   color: #0F3460;
 }
 
-/* ===== Más aire en toda la sección ===== */
+
 .planesSection {
-  padding: 70px 20px;   /* antes 20px 20px */
+  padding: 70px 20px; 
 }
 
-/* Título + descripción con más presencia */
 .mainTitleContainer { margin-bottom: 28px; }
 .mainTitle {   font-size: clamp(1.9rem, 3vw, 2.5rem);
   position: relative;
   display: inline-block;
   padding-bottom: 10px;
-}     /* antes 2.8rem */
+}   
+
 .sectionDescription {
-  margin-bottom: 55px;  /* antes 40px */
-  font-size: 1.2rem;    /* antes 1.1rem */
+  margin-bottom: 55px; 
+  font-size: 1.2rem; 
   max-width: 900px;
 }
 
-/* ===== Grid: más separación real entre cards ===== */
 .planesGrid {
-  gap: 34px;            /* <-- ESTO es lo principal (no lo tenías en desktop) */
-  margin-top: 28px;     /* antes 20px */
-  max-width: 1300px;    /* un toque más ancho si querés que respiren */
+  gap: 34px;            
+  margin-top: 28px;     
+  max-width: 1300px;    
 }
 
 /* ===== Cards ===== */
@@ -231,22 +230,20 @@
   min-height: 520px;    
 }
 
-/* Tipografías dentro de la card */
 .planCard h3 { font-size: 2.2rem; }      
-.planPrice { font-size: 3.1rem; }        /* antes 2.8rem */
-.planPeriod { font-size: 1.25rem; }      /* antes 1.2rem */
-.planDescription { font-size: 1.05rem; } /* antes 1rem */
+.planPrice { font-size: 3.1rem; }   
+.planPeriod { font-size: 1.25rem; }
+.planDescription { font-size: 1.05rem; } 
 
 .planFeatures li {
-  font-size: 1.05rem;   /* antes 1rem */
-  margin-bottom: 12px;  /* antes 10px */
+  font-size: 1.05rem; 
+  margin-bottom: 12px; 
 }
 
-/* Botón un toque más grande */
 .planButton {
-  padding: 14px 28px;   /* antes 12px 25px */
-  font-size: 1.05rem;   /* antes 1rem */
-  max-width: 230px;     /* antes 200px */
+  padding: 14px 28px;  
+  font-size: 1.05rem;   
+  max-width: 230px;     
 }
 
 /* Responsive*/

@@ -30,7 +30,6 @@
   border-radius: 2px;
 }
 
-/* contenedor para que no quede todo “mega ancho” */
 .content {
   max-width: 980px;
   margin: 0 auto;
@@ -70,7 +69,6 @@
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.32);
 }
 
-/* accesibilidad: al tabear se ve */
 .ctaButton:focus-visible {
   outline: 3px solid rgba(142, 241, 76, 0.55);
   outline-offset: 4px;

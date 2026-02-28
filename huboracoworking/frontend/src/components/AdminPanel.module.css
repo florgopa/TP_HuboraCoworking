@@ -45,8 +45,6 @@
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
   color: #fff;
   text-align: left;
-
-  /* Tipografía base más chica (integrado) */
   font-size: 14px;
 }
 
@@ -57,14 +55,14 @@
 }
 
 .panelTitle {
-  font-size: 2.6rem; /* antes 3rem */
+  font-size: 2.6rem;
   color: #fff;
   margin-bottom: 15px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .welcomeMessage {
-  font-size: 0.95rem; /* antes 1.1rem */
+  font-size: 0.95rem; 
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.6;
 }
@@ -110,7 +108,7 @@
 }
 
 .contentItem h3 {
-  font-size: 1.25rem; /* antes 1.5rem */
+  font-size: 1.25rem;
   color: #fff;
   margin: 0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
@@ -130,7 +128,7 @@
 .actionButton {
   background-color: #8ef14c;
   color: #0f3460;
-  padding: 9px 14px; /* antes 10px 20px */
+  padding: 9px 14px;
   border: none;
   border-radius: 8px;
   font-size: 0.9rem;
@@ -150,7 +148,7 @@
   display: block;
   background-color: #e74c3c;
   color: white;
-  padding: 8px 12px; /* antes 8px 15px */
+  padding: 8px 12px;
   border: none;
   border-radius: 5px;
   font-size: 0.85rem;
@@ -253,7 +251,7 @@
   background-color: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
-  padding: 7px 10px; /* antes 8px 12px */
+  padding: 7px 10px; 
   border-radius: 999px;
   cursor: pointer;
   font-size: 0.85rem;
@@ -281,7 +279,7 @@
 .textInput {
   width: 260px;
   max-width: 100%;
-  padding: 9px 11px; /* antes 10px 12px */
+  padding: 9px 11px;
   border: none;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 8px;
@@ -345,7 +343,7 @@
 
 .table th,
 .table td {
-  padding: 10px 10px; /* antes 12px */
+  padding: 10px 10px;
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.9);
@@ -380,7 +378,7 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 5px 9px; /* antes 6px 10px */
+  padding: 5px 9px;
   border-radius: 999px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -535,44 +533,36 @@
   gap: 10px;
   margin-top: 14px;
 }
-/* =========================
-   Overrides SOLO para Gestión de Espacios (sin tocar search global)
-   ========================= */
 
-/* 1) En la fila de "Crear espacio": inputs más angostos y ordenados */
 .contentItem .adminToolsRow .textInput {
-  width: 220px;          /* base compacta */
+  width: 220px;   
   max-width: 100%;
 }
 
-/* Si querés que el search siga más ancho, lo mantenemos */
+
 .contentItem .searchWrap .textInput {
-  width: 260px;          /* tu valor actual */
+  width: 260px;     
 }
 
-/* 2) En la tabla: inputs/selects compactos dentro de celdas */
+
 .table td .textInput,
 .table td select.textInput {
   width: 100%;
-  max-width: 220px;      /* compacta dentro de la celda */
+  max-width: 220px;  
   padding: 7px 10px;
   font-size: 0.88rem;
   border-radius: 8px;
 }
 
-/* Input de precio en tabla aún más angosto (el inline width:140px sigue ganando,
-   pero esto ayuda si lo sacás después) */
 .table td .textInput[style*="width: 140px"] {
   max-width: 140px;
 }
 
-/* 3) Para que no se vea "gigante": un poco menos de alto visual */
 .textInput {
   padding: 8px 10px;
   font-size: 0.9rem;
 }
 
-/* 4) Responsive: en mobile, todo full width y limpio */
 @media (max-width: 768px) {
   .contentItem .adminToolsRow {
     align-items: stretch;
@@ -589,7 +579,6 @@
     max-width: 100%;
   }
 
-  /* tabla scrolleable ya la tenés, pero esto ayuda a que no explote */
   .table {
     min-width: 680px;
   }

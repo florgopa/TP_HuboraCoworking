@@ -32,7 +32,6 @@ function Login() {
         return;
       }
 
-      // ✅ Guardar token + user juntos (esto arregla el Invalid token en /me)
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -96,7 +95,7 @@ function Login() {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/recuperar"); // si no existe, cambialo a tu ruta real
+              navigate("/recuperar");
             }}
           >
             Recuperar
@@ -106,7 +105,7 @@ function Login() {
         <button
           className={styles.registerButton}
           type="button"
-          onClick={() => navigate("/register")} // ajustá si tu ruta es otra
+          onClick={() => navigate("/register")} 
           disabled={loading}
         >
           Registrarse

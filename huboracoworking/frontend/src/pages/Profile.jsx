@@ -38,7 +38,7 @@ function Profile() {
     }
   };
 
-  // En tu caso real: el token va dentro de localStorage.user.token
+
   const getToken = (u) => u?.token || null;
 
   const setField = (name, value) => {

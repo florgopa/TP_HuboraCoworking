@@ -13,7 +13,7 @@ function Navbar() {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     setUser(storedUser);
-  }, [location]); // se ejecuta al cambiar de página
+  }, [location]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,22 +22,19 @@ function Navbar() {
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
     
-    // Si estamos en la página principal
     if (location.pathname === '/') {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
     } else {
-      // Si estamos en otra página, navegamos a la principal con el hash
+
       navigate('/', { state: { scrollTo: sectionId } });
     }
     
-    // Cerrar el menú después de hacer clic (para móvil)
     setIsMenuOpen(false);
   };
 
-  // Efecto para manejar el scroll cuando llegamos a la página principal con un estado
   useEffect(() => {
     if (location.pathname === '/' && location.state?.scrollTo) {
       const sectionId = location.state.scrollTo;
@@ -46,7 +43,7 @@ function Navbar() {
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100); // Pequeño delay para asegurar que la página cargó
+      }, 100); 
     }
   }, [location]);
 

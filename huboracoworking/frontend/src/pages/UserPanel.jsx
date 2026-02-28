@@ -5,7 +5,6 @@ import styles from "../components/UserPanel.module.css";
 function UserPanel() {
   const navigate = useNavigate();
 
-  // Protección básica
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) navigate("/login");
